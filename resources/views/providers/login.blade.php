@@ -28,6 +28,10 @@
                     <input type="password" id="inputPassword" class="form-control form-control-lg"
                         placeholder="Password" name="password" required="">
                 </div>
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible show">       {{ session('error') }} 
+                </div>
+                    @endif
                 <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Stay logged in </label>

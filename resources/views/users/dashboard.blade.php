@@ -1,5 +1,5 @@
-@extends('layouts.master');
-@section('title','Dashboard');
+@extends('users.layouts.master');
+@section('title','User Dashboard');
 @section('content');
 <main role="main" class="main-content">
     <div class="container-fluid">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="row align-items-center mb-2">
                     <div class="col">
-                        <h2 class="h5 page-title">Welcome User Name !</h2>
+                        <h2 class="h5 page-title">Welcome {{session('name')}} !</h2>
                     </div>
                     <div class="col-auto">
                         <form class="form-inline">

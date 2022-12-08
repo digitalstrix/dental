@@ -28,11 +28,17 @@
                     <input type="password" id="inputPassword" class="form-control form-control-lg"
                         placeholder="Password" name="password" required="">
                 </div>
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible show">       {{ session('error') }} 
+                </div>
+                    @endif
                 <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Stay logged in </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                <br>
+                <p class="mt-5 mb-3 text-muted"><a href="{{route('user_register')}}">Register</a></p>
                 <br>
                 <p class="mt-5 mb-3 text-muted">Strix Digital © 2020</p>
             </form>

@@ -45,7 +45,6 @@ class AuthController extends Controller
                 "mobile" => "required",
                 "password" => "required|min:8|confirmed",
                 "image" => "required",
-              
             ]
         );
 

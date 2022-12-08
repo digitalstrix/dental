@@ -82,6 +82,8 @@
                         <input type="checkbox" value="remember-me"> Stay logged in </label>
                 </div> --}}
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                <p class="mt-5 mb-3 text-muted"><a href="{{route('user_login')}}">Login</a></p>
+                <br>
                 <br>
                 <p class="mt-5 mb-3 text-muted">Strix Digital © 2020</p>
             </form>

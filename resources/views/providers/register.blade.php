@@ -6,7 +6,7 @@
         <div class="row align-items-center h-100">
             <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('dentist_register')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+                <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="#">
                     <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
                         xml:space="preserve">
@@ -19,8 +19,22 @@
                 </a>
                 <h1 class="h6 mb-3">Sign Up</h1>
                 <div class="form-group">
+                    <label for="inputEmail" class="sr-only"> </label>
+                    <select required name="user_type"type="text" class="form-control form-control-lg" value="{{old('user_type')}}"
+                    placeholder="Please select your type" >
+                    <option selected="selected" disabled value="">Provider Type</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="hygentist">Hygentist</option>
+                </select>
+                        <span class="text-danger">
+                            @error('user_type')
+                                {{$message}}
+                            @enderror
+                        </span>
+                </div>
+                <div class="form-group">
                     <label for="inputEmail" class="sr-only">Name</label>
-                    <input name="name" type="text" id="inputEmail" class="form-control form-control-lg" value="{{old('name')}}" placeholder="Your Name" required="" autofocus="">
+                    <input required name="name" type="text" id="inputEmail" class="form-control form-control-lg" value="{{old('name')}}" placeholder="Your Name" required="" autofocus="">
                         <span class="text-danger">
                             @error('name')
                                 {{$message}}
@@ -29,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input name="email" type="email" id="inputEmail" class="form-control form-control-lg" value="{{old('email')}}"
+                    <input required name="email" type="email" id="inputEmail" class="form-control form-control-lg" value="{{old('email')}}"
                         placeholder="Email address" required="" autofocus="">
                         <span class="text-danger">
                             @error('email')
@@ -39,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Phone no.</label>
-                    <input name="mobile" type="text" id="inputEmail" class="form-control form-control-lg" value="{{old('mobile')}}" placeholder="Your Phone no" required="" autofocus="">
+                    <input required name="mobile" type="text" id="inputEmail" class="form-control form-control-lg" value="{{old('mobile')}}" placeholder="Your Phone no" required="" autofocus="">
                         <span class="text-danger">
                             @error('mobile')
                                 {{$message}}
@@ -48,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Profile Photo </label>
-                    <input name="image" type="file" id="inputEmail" class="form-control form-control-lg" value="{{old('image')}}"
+                    <input required name="image" type="file" id="inputEmail" class="form-control form-control-lg" value="{{old('image')}}"
                         placeholder="Profile Photo"  autofocus="">
                         <span class="text-danger">
                             @error('image')
@@ -77,21 +91,10 @@
                             @enderror
                         </span>
                 </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="sr-only"> </label>
-                    <select name="user_type"type="text" class="form-control form-control-lg" value="{{old('user_type')}}"
-                    placeholder="Please select your type" >
-                    <option selected="selected" disabled value="">select</option>
-                    <option value="dentist">Dentist</option>
-                    <option value="hygentist">Hygentist</option>
-                </select>
-                        <span class="text-danger">
-                            @error('user_type')
-                                {{$message}}
-                            @enderror
-                        </span>
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible show">       {{ session('error') }} 
                 </div>
-
+                @endif
                 {{-- <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Stay logged in </label>

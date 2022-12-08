@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use  App\Models\User;
+use Dirape\Token\Token;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+Use RealRashid\SweetAlert\Facades\Alert;
 
 
 class AuthController extends Controller
@@ -24,12 +26,25 @@ class AuthController extends Controller
             "password" => "required",
          ]
       );
-      if (Auth::attempt($user)) {
-         return redirect()->intended('/user/register')->with('success', ' login successfully!');
-      }
-      return back()->withErrors([
-         'email' => 'invalid login details'
+      if(!User::where('email',$request->email)->where('user_type','user')->first()){
+         return redirect(route('user_login_page'))->with('error', 'User is Not Registered');
+     }
+     $user = User::where('email',$request->email)->first();
+     if(!Hash::check($request->password, $user->password)){
+      return redirect(route('user_login_page'))->with('error', 'Incorrect Password');
+     }
+     if($user){
+      $request->session()->put([
+         'user_token' => $user->user_token,
+         'useremail' => $user->email,
+         'user_type' => $user->user_type,
+         'name' => $user->name,
+         'userid' => $user->id
       ]);
+         if(session()->has('user_token')){
+            return redirect(route('user_dashboard'))->with('success', 'User Logged In Sucessfully!');
+         }
+     }
    }
    
 
@@ -44,9 +59,9 @@ class AuthController extends Controller
          [
             "name" => "required",
             "email" => "required|email|unique:users",
-            "mobile" => "required",
+            "mobile" => "required|unique:users",
             "profile" => "required",
-            "password" => "required|min:8|confirmed",
+            "password" => "required|min:6|confirmed",
          ]
       );
 
@@ -55,17 +70,22 @@ class AuthController extends Controller
       $user->email = $request->email;
       $user->mobile = $request->mobile;
       $user->password=Hash::make($request->password);
-      $profile = $request->file('profile');
-
-      //Move Uploaded File
-      $destinationPath = 'users_profile';
-      if ($profile) {
-         $profile->move($destinationPath, date('YmdHi') . 'profile' . $profile->getClientOriginalName());
-      }
-      if ($profile) {
-         $user->profile = $destinationPath . '/' . $profile->getClientOriginalName();
-      }
-      $result = $user->save();
-      return view('users.login')->with('User Registered Sucessfully');
+      if($request->hasFile('profile')) {
+         $file = $request->file('profile')->store('public/img/user_profile');
+         $user->profile  = $file;
+     }
+     $user->user_token = (new Token())->Unique('users', 'user_token', 60);
+     $result = $user->save();
+      $request->session()->put([
+         'user_token' => $user->user_token,
+         'useremail' => $user->email,
+         'user_type' => $user->user_type,
+         'name' => $user->name,
+         'userid' => $user->id
+   ]);
+   if(session()->has('user_token')){
+      return redirect(route('user_dashboard'))->with('success', 'User Registered Sucessfully!');
+   }
+      
    }
 }

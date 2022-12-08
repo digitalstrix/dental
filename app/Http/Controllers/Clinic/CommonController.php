@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class CommonController extends Controller
 {
-    //
+    public function dashboard()
+    {
+        return view('clinic.login');
+    }
 }

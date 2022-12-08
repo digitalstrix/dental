@@ -27,12 +27,12 @@
             <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="avatar avatar-sm mt-2">
-                    <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
+                    <img src="#" alt="..." class="avatar-img rounded-circle">
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                {{-- <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
-                <a class="dropdown-item" href="{{route('logout')}}">Logout</a> --}}
+                <a class="dropdown-item" href="{{route('user_dashboard')}}">Dashboard</a>
+                <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
             </div>
         </li>
     </ul>
