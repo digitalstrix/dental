@@ -4,20 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Provider extends Authenticatable
+class Clinic extends Model
 {
-    protected $guard="provider";
+    protected $guard="clinic";
     protected $fillable = [
         'name',
         'email',
-        'profile',
+        'image',
         'mobile',
-        'user_type',
-        'password',
+        'password'
     ];
 
     use HasFactory;
-    protected $table="providers";
+    protected $table="clinics";
 }
