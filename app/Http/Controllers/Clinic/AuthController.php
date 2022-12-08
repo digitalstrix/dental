@@ -11,12 +11,11 @@ class AuthController extends Controller
 {
   public function login()
     {
-        return view('Clinic.login');
+        return view('clinic.login');
     }
 
     public function login_submit(Request $request)
     {
-       
         $user = $request->validate(
             [
                 "email" => "required|email",
@@ -24,7 +23,7 @@ class AuthController extends Controller
             ]
         );
       
-        if (Auth::guard('provider')->attempt($user))  {
+        if (Auth::guard('clinic')->attempt($user))  {
             return redirect()->intended('/user/register')->with('success', ' login successfully!');
         }
         return back()->withErrors([
@@ -59,7 +58,7 @@ class AuthController extends Controller
         $profile = $request->file('image');
 
         //Move Uploaded File
-        $destinationPath = 'Providers_profile';
+        $destinationPath = 'clinic_profile';
         if ($profile) {
             $profile->move($destinationPath, date('YmdHi') . 'profile' . $profile->getClientOriginalName());
         }

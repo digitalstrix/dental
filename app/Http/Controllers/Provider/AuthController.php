@@ -60,7 +60,7 @@ class AuthController extends Controller
         $profile = $request->file('image');
 
         //Move Uploaded File
-        $destinationPath = 'Providers_profile';
+        $destinationPath = 'providers_profile';
         if ($profile) {
             $profile->move($destinationPath, date('YmdHi') . 'profile' . $profile->getClientOriginalName());
         }

@@ -46,7 +46,7 @@ Route::controller('App\Http\Controllers\Provider\AuthController'::class)->prefix
 
 Route::controller('App\Http\Controllers\Clinic\AuthController'::class)->prefix('clinic')->group(function () {
     Route::get('/login', 'login');
-    Route::post('/login', 'login_submit');
+    Route::post('/login', 'login_submit')->name('clinic_login');
     Route::get('/register', 'register');
-    Route::post('/register', 'register_submit');
+    Route::post('/register', 'register_submit')->name('clinic_register');
 });
