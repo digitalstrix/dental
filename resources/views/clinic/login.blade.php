@@ -1,5 +1,5 @@
 @extends('AuthPage.master');
-@section('title','Login');
+@section('title','Login | clinic');
 @section('content')
 <body class="light ">
     <div class="wrapper vh-100">

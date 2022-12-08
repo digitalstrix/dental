@@ -44,9 +44,9 @@ Route::controller('App\Http\Controllers\Provider\AuthController'::class)->prefix
 });
 
 
-// Route::controller('User\AuthController'::class)->prefix('user')->group(function () {
-//     Route::get('/login', 'login');
-//     Route::post('/login', 'login_submit');
-//     Route::get('/register', 'register');
-//     Route::post('/register', 'register_submit');
-// });
+Route::controller('App\Http\Controllers\Clinic\AuthController'::class)->prefix('clinic')->group(function () {
+    Route::get('/login', 'login');
+    Route::post('/login', 'login_submit');
+    Route::get('/register', 'register');
+    Route::post('/register', 'register_submit');
+});
