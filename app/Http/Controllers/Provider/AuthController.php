@@ -7,7 +7,7 @@ use  App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function login()
@@ -20,7 +20,7 @@ class AuthController extends Controller
        
         $user = $request->validate(
             [
-                "email" => "required|email",
+                "email" => "required|email|unique:providers",
                 "password" => "required",
             ]
         );
@@ -46,6 +46,7 @@ class AuthController extends Controller
                 "email" => "required|email|unique:users",
                 "mobile" => "required",
                 "image" => "required",
+                "password" => "required|min:8|confirmed",
                 "user_type"=>"required",
             ]
         );
@@ -55,6 +56,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->mobile = $request->mobile;
         $user->user_type = $request->user_type;
+        $user->password=Hash::make($request->password);
         $profile = $request->file('image');
 
         //Move Uploaded File

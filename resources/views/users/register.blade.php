@@ -47,6 +47,26 @@
                         </span>
                 </div>
                 <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control form-control-lg"
+                        placeholder="Password" name="password" required="">
+                        <span class="text-danger">
+                            @error('password')
+                                {{$message}}
+                            @enderror
+                        </span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Confirm Password</label>
+                    <input type="password" id="inputPassword" class="form-control form-control-lg"
+                        placeholder="Re-Enter Password" name="password_confirmation" required="">
+                        <span class="text-danger">
+                            @error('password_confirmation')
+                                {{$message}}
+                            @enderror
+                        </span>
+                </div>
+                <div class="form-group">
                     <label for="inputEmail" class="sr-only"> </label>
                     <input name="profile" type="file" id="inputEmail" class="form-control form-control-lg" value="{{old('profile')}}"
                         placeholder="Profile Photo"  autofocus="">

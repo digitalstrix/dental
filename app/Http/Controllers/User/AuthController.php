@@ -46,6 +46,7 @@ class AuthController extends Controller
             "email" => "required|email|unique:users",
             "mobile" => "required",
             "profile" => "required",
+            "password" => "required|min:8|confirmed",
          ]
       );
 
@@ -53,6 +54,7 @@ class AuthController extends Controller
       $user->name = $request->name;
       $user->email = $request->email;
       $user->mobile = $request->mobile;
+      $user->password=Hash::make($request->password);
       $profile = $request->file('profile');
 
       //Move Uploaded File
@@ -64,6 +66,6 @@ class AuthController extends Controller
          $user->profile = $destinationPath . '/' . $profile->getClientOriginalName();
       }
       $result = $user->save();
-      return view('users.register')->with('User Registered Sucessfully');
+      return view('users.login')->with('User Registered Sucessfully');
    }
 }

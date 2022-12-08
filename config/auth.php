@@ -46,7 +46,7 @@ return [
         ],
         'clinic' => [
             'driver' => 'session',
-            'provider' => 'Providers',
+            'provider' => 'clinics',
         ],
     ],
 
@@ -76,9 +76,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Provider::class,
         ],
-        'Providers' => [
+        'clinics' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Provider::class,
+            'model' => App\Models\Clinic::class,
         ],
     ],
 
@@ -106,6 +106,12 @@ return [
         ],
         'providers' => [
             'provider' => 'providers',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'clinic' => [
+            'provider' => 'clinics',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

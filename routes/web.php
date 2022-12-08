@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::prefix('admin')->middleware('Admin')->group(function () {
 Route::get('/', [AuthController::class,'login'])->name('login');
 Route::get('/register', [AuthController::class,'registerview'])->name('register');
 Route::post('/register', [AuthController::class,'register'])->name('register');
@@ -27,15 +26,14 @@ Route::get('/logout', [AuthController::class,'logout'])->name('logout');
 Route::get('/dashboard', [AdminPanel::class,'dashboard'])->name('dashboard');
 Route::get('/profile/{id?}', [AdminPanel::class,'profile'])->name('profile');
 Route::get('/users', [AdminPanel::class,'users'])->name('users');
-// });
+
 
 
 Route::controller('App\Http\Controllers\User\AuthController'::class)->prefix('user')->group(function () {
     Route::get('/login', 'login');
     Route::post('/login', 'login_submit')->name("user_login");
     Route::get('/register', 'register');
-    Route::post('/register', 'register_submit')->name("user_register");
-    
+    Route::post('/register', 'register_submit')->name("user_register");   
 });
 
 Route::controller('App\Http\Controllers\Provider\AuthController'::class)->prefix('providers')->group(function () {
@@ -46,9 +44,9 @@ Route::controller('App\Http\Controllers\Provider\AuthController'::class)->prefix
 });
 
 
-// Route::controller('User\AuthController'::class)->prefix('user')->group(function () {
-//     Route::get('/login', 'login');
-//     Route::post('/login', 'login_submit');
-//     Route::get('/register', 'register');
-//     Route::post('/register', 'register_submit');
-// });
+Route::controller('App\Http\Controllers\Clinic\AuthController'::class)->prefix('clinic')->group(function () {
+    Route::get('/login', 'login');
+    Route::post('/login', 'login_submit');
+    Route::get('/register', 'register');
+    Route::post('/register', 'register_submit');
+});
