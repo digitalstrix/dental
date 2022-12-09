@@ -14,6 +14,7 @@
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{{asset('css/feather.css')}}">
     <link rel="stylesheet" href="{{asset('css/select2.css')}}">
+    <link rel="stylesheet" href="{{asset('css/fullcalendar.css')}}">
     <link rel="stylesheet" href="{{asset('css/dropzone.css')}}">
     <link rel="stylesheet" href="{{asset('css/uppy.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/jquery.steps.css')}}">
@@ -37,6 +38,7 @@
     @include('users.layouts.partials._footer');
     
   </body>
+  @yield('scripts');
   @include('sweetalert::alert')
   @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 </html>

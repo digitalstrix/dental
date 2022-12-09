@@ -1,4 +1,4 @@
-@extends('users.layouts.master');
+@extends('providers.layouts.master');
 @section('title','Profile');
 @section('content');
 <body class="vertical  light  ">
@@ -12,11 +12,10 @@
                     <div class="card-header">
                         <strong class="card-title">Edit {{session('name')}}</strong>
                     </div>
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form role="form" action="{{route('user_edit')}}" method="POST"
+                                <form role="form" action="{{route('provider_edit')}}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group mb-3">
@@ -42,6 +41,11 @@
                                             value="" name="profile">
                                     </div>
                                     <div class="form-group mb-3">
+                                        <label for="simpleinput">Banner Image</label>
+                                        <input  type="file" id="simpleinput" class="form-control"
+                                            value="" name="banner">
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label for="simpleinput">Password</label>
                                         <input  type="password" id="simpleinput" class="form-control"
                                             value="" name="password">
@@ -57,6 +61,16 @@
                                     <div id="address-map-container" style="width:100%;height:400px; ">
                                         <div style="width: 100%; height: 100%" id="address-map"></div>
                                     </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">About</label>
+                                    <input  type="text" id="simpleinput" class="form-control"
+                                        value="<?php echo $user['about'] ?>" name="about">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput">Website</label>
+                                    <input  type="text" id="simpleinput" class="form-control"
+                                        value="<?php echo $user['url'] ?>" name="url">
                                 </div>
                                     <div class="form-group mb-3">
 

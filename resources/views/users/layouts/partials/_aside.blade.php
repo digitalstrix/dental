@@ -34,9 +34,17 @@
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>
             </a>
-            <a href="adduser.php" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('user_calendar')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
-                <span class="ml-3 item-text">Add User</span>
+                <span class="ml-3 item-text">Calendar</span>
+            </a>
+            <a href="{{route('user_providersfiles')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Providers File</span>
+            </a>
+            <a href="{{route('user_clinicfiles')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Clinic File</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>

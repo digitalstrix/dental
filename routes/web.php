@@ -42,6 +42,13 @@ Route::controller('App\Http\Controllers\User\AuthController'::class)->prefix('us
         Route::get('/dashboard','App\Http\Controllers\User\CommonController@dashboard')->name('user_dashboard');
         Route::get('/edit','App\Http\Controllers\User\CommonController@userProfile')->name('user_edit');
         Route::post('/edit','App\Http\Controllers\User\CommonController@userProfileHandler')->name('user_edit');
+        Route::get('/calendar','App\Http\Controllers\User\CommonController@userCalendar')->name('user_calendar');
+        Route::get('/providerfiles','App\Http\Controllers\User\CommonController@providersFile')->name('user_providersfiles');
+        Route::post('/providerfiles','App\Http\Controllers\User\CommonController@providersFileStore')->name('user_providersFileStore');
+        Route::get('/providersFileDelete/{id}','App\Http\Controllers\User\CommonController@providersFileDelete')->name('user_providersFileDelete');
+        Route::get('/clinicfiles','App\Http\Controllers\User\CommonController@clinicFile')->name('user_clinicfiles');
+        Route::post('/clinicfiles','App\Http\Controllers\User\CommonController@clinicFileStore')->name('user_clinicFileStore');
+        Route::get('/clinicFileDelete/{id}','App\Http\Controllers\User\CommonController@clinicFileDelete')->name('user_clinicFileDelete');
     }); 
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Providers Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -56,6 +63,16 @@ Route::controller('App\Http\Controllers\Provider\AuthController'::class)->prefix
 
 Route::middleware('ProviderGuard')->prefix('providers')->controller('App\Http\Controllers\Provider\CommonController'::class)->group(function () {
     Route::get('/dashboard', 'dashboard')->name('providers_dashboard');
+    Route::get('/edit','App\Http\Controllers\Provider\CommonController@userProfile')->name('provider_edit');
+    Route::post('/edit','App\Http\Controllers\Provider\CommonController@userProfileHandler')->name('provider_edit');
+    Route::get('/calendar','App\Http\Controllers\Provider\CommonController@userCalendar')->name('provider_calendar');
+    Route::get('/userfiles','App\Http\Controllers\Provider\CommonController@providersFile')->name('provider_usersfile');
+    Route::get('/providerslots','App\Http\Controllers\Provider\CommonController@providersSlot')->name('provider_slots');
+    Route::post('/providerslots','App\Http\Controllers\Provider\CommonController@providersSlotSave')->name('provider_slots_save');
+    Route::get('/providerslotsdelete/{id}','App\Http\Controllers\Provider\CommonController@providersSlotDelete')->name('provider_slots_delete');
+    Route::get('/providersMap','App\Http\Controllers\Provider\CommonController@providersMap')->name('providersMap');
+    Route::post('/providersMapSave','App\Http\Controllers\Provider\CommonController@providersMapSave')->name('providersMapSave');
+    Route::get('/providersMapDelete/{id}','App\Http\Controllers\Provider\CommonController@providersMapDelete')->name('provider_visit_delete');
 });
 
 

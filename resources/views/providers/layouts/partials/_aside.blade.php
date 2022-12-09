@@ -5,7 +5,7 @@
     <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{route('user_dashboard')}}">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{route('providers_dashboard')}}">
                 <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
                     xml:space="preserve">
@@ -19,7 +19,7 @@
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item dropdown">
-                <a href="{{route('user_dashboard')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <a href="{{route('providers_dashboard')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Dashboard</span><span class="sr-only"></span>
                 </a>
@@ -30,13 +30,25 @@
             <span>User Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
-            <a href="{{route('user_edit')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_edit')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>
             </a>
-            <a href="adduser.php" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_calendar')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
-                <span class="ml-3 item-text">Add User</span>
+                <span class="ml-3 item-text">Calendar</span>
+            </a>
+            <a href="{{route('provider_usersfile')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">User Files</span>
+            </a>
+            <a href="{{route('provider_slots')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Add Slots</span>
+            </a>
+            <a href="{{route('providersMap')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Add Visit</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
