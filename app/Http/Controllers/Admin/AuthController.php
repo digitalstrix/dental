@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Clinic;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\Clinic;
+use  App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Dirape\Token\Token;
+
+
 
 class AuthController extends Controller
 {
     public function login()
     {
-        return view('clinic.login');
+        return view('admin.login');
     }
 
     public function login_submit(Request $request)
@@ -24,12 +26,12 @@ class AuthController extends Controller
                 "password" => "required",
             ]
         );
-        if (!Clinic::where('email', $request->email)->first()) {
-            return redirect(route('clinic_login'))->with('error', 'User is Not Registered');
+        if (!User::where('email', $request->email)->first()) {
+            return redirect(route('admin_login'))->with('error', 'Admin is Not Registered');
         }
-        $user = Clinic::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
         if (!Hash::check($request->password, $user->password)) {
-            return redirect(route('clinic_login'))->with('error', 'Incorrect Password');
+            return redirect(route('admin_login'))->with('error', 'Incorrect Password');
         }
         if ($user) {
             $request->session()->put([
@@ -40,14 +42,14 @@ class AuthController extends Controller
                 'userid' => $user->id
             ]);
             if (session()->has('user_token')) {
-                return redirect(route('clinic_dashboard'))->with('success', 'User Logged In Sucessfully!');
+                return redirect(route('admin_dashboard'))->with('success', 'Admin Logged In Sucessfully!');
             }
         }
     }
 
     public function register()
     {
-        return view('clinic.register');
+        return view('admin.register');
     }
 
     public function register_submit(Request $request)
@@ -55,32 +57,34 @@ class AuthController extends Controller
         $request->validate(
             [
                 "name" => "required",
-                "email" => "required|email|unique:clinics",
-                "mobile" => "required|unique:clinics",
-                "image" => "required",
+                "email" => "required|email|unique:users",
+                "mobile" => "required|unique:users",
+                "profile" => "required",
                 "password" => "required|min:6|confirmed",
                 
             ]
         );
-        $user = new Clinic();
+        $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->mobile = $request->mobile;
+        $user->user_type = "admin";
         $user->password=Hash::make($request->password);
-        if($request->hasFile('image')) {
-            $file = $request->file('image')->store('public/img/clinic/profile');
-            $user->image  = $file;
+        if($request->hasFile('profile')) {
+            $file = $request->file('profile')->store('public/img/admin/profile');
+            $user->profile = $file;
         }
-        $user->user_token = (new Token())->Unique('clinics', 'user_token', 60);
+        $user->user_token = (new Token())->Unique('users', 'user_token', 60);
         $result = $user->save();
          $request->session()->put([
             'user_token' => $user->user_token,
             'useremail' => $user->email,
             'name' => $user->name,
+            'user_type' => $user->user_type,
             'userid' => $user->id,
       ]);
       if(session()->has('user_token')){
-         return redirect(route('clinic_dashboard'))->with('success', 'User Registered Sucessfully!');
+         return redirect(route('admin_dashboard'))->with('success', 'Admin Registered Sucessfully!');
       }
     }
 }

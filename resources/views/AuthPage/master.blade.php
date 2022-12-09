@@ -22,5 +22,5 @@
     <link rel="stylesheet" href="{{asset('css/app-light.css')}}" id="lightTheme">
     <link rel="stylesheet" href="{{asset('css/app-dark.css')}}" id="darkTheme" disabled>
 </head>
-@yield('content');
-@include('AuthPage.partials.footer');
+@yield('content')
+@include('AuthPage.partials.footer')

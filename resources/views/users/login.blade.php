@@ -4,7 +4,7 @@
 <body class="light ">
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
-            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('user_login')}}" method="POST">
+            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('user_login_submit')}}" method="POST">
                 @csrf
                 <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
                     <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +28,7 @@
                     <input type="password" id="inputPassword" class="form-control form-control-lg"
                         placeholder="Password" name="password" required="">
                 </div>
+                <input type="hidden" name="user_type"  value="user">
                 @if (session('error'))
                 <div class="alert alert-danger alert-dismissible show">       {{ session('error') }} 
                 </div>

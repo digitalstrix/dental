@@ -4,7 +4,7 @@
 <body class="light ">
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
-            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('dentist_register')}}" method="POST" enctype="multipart/form-data">
+            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('provider_register_submit')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="#">
                     <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg"
@@ -59,18 +59,7 @@
                                 {{$message}}
                             @enderror
                         </span>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="sr-only">Profile Photo </label>
-                    <input required name="image" type="file" id="inputEmail" class="form-control form-control-lg" value="{{old('image')}}"
-                        placeholder="Profile Photo"  autofocus="">
-                        <span class="text-danger">
-                            @error('image')
-                                {{$message}}
-                            @enderror
-                        </span>
-                </div>
-               
+                </div>              
                 <div class="form-group">
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" class="form-control form-control-lg"
@@ -95,11 +84,23 @@
                 <div class="alert alert-danger alert-dismissible show">       {{ session('error') }} 
                 </div>
                 @endif
+                <div class="form-group">
+                    <label for="inputEmail" class="sr-only">Profile Photo </label>
+                    <input required name="image" type="file" id="inputEmail" class="form-control form-control-lg" value="{{old('image')}}"
+                        placeholder="Profile Photo"  autofocus="">
+                        <span class="text-danger">
+                            @error('image')
+                                {{$message}}
+                            @enderror
+                        </span>
+                </div>
                 {{-- <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Stay logged in </label>
                 </div> --}}
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                <br>
+                    <a href="{{url('/providers')}}"><p class="mt-5 mb-3 text-muted">Login</p></a>
                 <br>
                 <p class="mt-5 mb-3 text-muted">Strix Digital © 2020</p>
             </form>

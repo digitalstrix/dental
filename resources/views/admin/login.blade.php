@@ -1,10 +1,12 @@
 @extends('AuthPage.master');
-@section('title','Login');
+@section('title','Admin Login');
 @section('content')
 <body class="light ">
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
-            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="index.php" method="POST">
+            {{-- {{route('admin_login_submit')}} --}}
+            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center"enctype="multipart/form-data" action="" method="POST">
+                @csrf
                 <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
                     <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
@@ -27,6 +29,7 @@
                     <input type="password" id="inputPassword" class="form-control form-control-lg"
                         placeholder="Password" name="password" required="">
                 </div>
+                <input type="hidden" name="user_type"  value="admin">
                 <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Stay logged in </label>

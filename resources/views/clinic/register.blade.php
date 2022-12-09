@@ -5,7 +5,7 @@
     <body class="light ">
         <div class="wrapper vh-100">
             <div class="row align-items-center h-100">
-                <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{ route('clinic_register') }}"
+                <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{ route('clinic_register_submit') }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
@@ -50,6 +50,10 @@
                             @enderror
                         </span>
                     </div>
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible show"> {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="form-group">
                         <label for="inputPassword" class="sr-only">Password</label>
                         <input type="password" id="inputPassword" class="form-control form-control-lg"
@@ -86,6 +90,9 @@
                 </div> --}}
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
                     <br>
+                    <a href="{{ route('clinic_login') }}">
+                        <p class="mt-5 mb-3 text-muted">Login</p>
+                    </a><br>
                     <p class="mt-5 mb-3 text-muted">Strix Digital © 2020</p>
                 </form>
             </div>

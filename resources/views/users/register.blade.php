@@ -1,10 +1,10 @@
-@extends('AuthPage.master');
-@section('title','Register | User');
+@extends('AuthPage.master')
+@section('title','Register | User')
 @section('content')
 <body class="light ">
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
-            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('user_register')}}" method="POST" enctype="multipart/form-data">
+            <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="{{route('user_register_submit')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
                     <svg version="1.1" id="logo" class="navbar-brand-img brand-md" xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@
                             @enderror
                         </span>
                 </div>
-
+                <input type="hidden" name="user_type"  value="user">
                 {{-- <div class="checkbox mb-3">
                     <label>
                         <input type="checkbox" value="remember-me"> Stay logged in </label>

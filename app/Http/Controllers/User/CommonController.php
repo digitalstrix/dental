@@ -11,14 +11,16 @@ class CommonController extends Controller
 {
     public function dashboard()
     {
+       
         $userid = session('userid');
         $data = User::find($userid);
-        return view('users.dashboard',compact($data,'data'));
+        return view('users.dashboard');
     }
     public function userProfile(){
             $userid = session('userid');
             $user = User::find($userid);
-        return view('users.profile',compact($user,'user'));
+          
+        return view('users.profile',compact('user'));
     }
     public function userProfileHandler(Request $request){
         $user = User::find(session('userid'));
@@ -37,6 +39,6 @@ class CommonController extends Controller
        }
        $result = $user->save();
        toast('User Updated Successfully','success')->autoClose(3000);
-       return view('users.profile',compact($user,'user'))->with('success','User Updated Sucessfully');
+       return view('users.profile',compact('user'))->with('success','User Updated Sucessfully');
     }
 }
