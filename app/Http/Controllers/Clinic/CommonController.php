@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Clinic;
 
 use App\Models\User;
 use App\Models\Clinic;
+use App\Models\Service;
 use App\Models\ClinicFile;
 use App\Models\ClinicSlot;
 use App\Models\ClinicVisit;
@@ -164,5 +165,17 @@ class CommonController extends Controller
         $visit = ClinicVisit::where('id', $request->id)->delete();
         toast('Sucess Delete.', 'success')->autoClose(3000);
         return redirect(route('clinicMap'));
+    } 
+    public function addServiceSave(Request $request){
+        $service = new Service();
+        $service->clinic_id = $request->userid;
+        $service->service = $request->service;
+        $service->save();
+        toast('Sucess Saved.', 'success')->autoClose(3000);
+        return redirect(route('addService'));
+    }
+    public function addService(){
+        $details = Service::where('clinic_id',session('userid'))->get();
+        return view('clinic.addservice',compact('details'));
     }
 }
