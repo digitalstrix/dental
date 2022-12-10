@@ -1,4 +1,4 @@
-@extends('users.layouts.master');
+@extends('admin.layouts.master');
 @section('title','Admin Profile');
 @section('content');
 <body class="vertical  light  ">

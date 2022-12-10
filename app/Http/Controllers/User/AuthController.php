@@ -42,6 +42,7 @@ class AuthController extends Controller
          'user_type' => $user->user_type,
          'name' => $user->name,
          'userid' => $user->id,
+         'userimage' => $user->profile
       ]);
          if(session()->has('user_token')){
             return redirect(route('user_dashboard'))->with('success', 'User Logged In Sucessfully!');
@@ -83,7 +84,8 @@ class AuthController extends Controller
             'useremail' => $user->email,
             'user_type' => $user->user_type,
             'name' => $user->name,
-            'userid' => $user->id
+            'userid' => $user->id,
+            'userimage' => $user->profile
       ]);
       if(session()->has('user_token')){
          return redirect(route('user_dashboard'))->with('success', 'User Registered Sucessfully!');

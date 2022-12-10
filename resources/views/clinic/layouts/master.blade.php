@@ -37,6 +37,7 @@
     @include('clinic.layouts.partials._footer')
     
   </body>
+  @yield('scripts');
   @include('sweetalert::alert')
   @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 </html>
