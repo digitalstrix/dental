@@ -46,9 +46,9 @@
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add Slots</span>
             </a>
-            <a href="{{route('clinicMap')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('addService')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
-                <span class="ml-3 item-text">Add Visit</span>
+                <span class="ml-3 item-text">Add Services</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>

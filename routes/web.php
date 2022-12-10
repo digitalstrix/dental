@@ -91,7 +91,8 @@ Route::middleware('ClinicGuard')->prefix('clinic')->controller('App\Http\Control
     Route::get('/clincMap','App\Http\Controllers\Clinic\CommonController@clinicMap')->name('clinicMap');
     Route::post('/clincMapSave','App\Http\Controllers\Clinic\CommonController@clinicMapSave')->name('clinicMapSave');
     Route::get('/clincMapDelete/{id}','App\Http\Controllers\Clinic\CommonController@clinicMapDelete')->name('clinic_visit_delete');
-
+    Route::get('/addService','App\Http\Controllers\Clinic\CommonController@addService')->name('addService');
+    Route::post('/addServiceSave','App\Http\Controllers\Clinic\CommonController@addServiceSave')->name('addServiceSave');
 });
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Admin Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
