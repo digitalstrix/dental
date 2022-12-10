@@ -39,6 +39,7 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="simpleinput">Profile Image</label>
+                                            <a href="{{asset($user->image)}}">{{asset($user->image)}}</a><br>
                                             <input type="file" id="simpleinput" class="form-control" value=""
                                                 name="image">
                                         </div>

@@ -38,8 +38,10 @@
                                                 value="{{ $user->mobile }}" name="mobile">
                                         </div>
                                         <div class="form-group mb-3">
-                                            <span><a href="{{asset($user->profile)}}">{{asset($user->profile)}}</a></span><br>
-                                            <label for="simpleinput">Profile Image</label>
+                                           
+                                            <label for="simpleinput">Profile Image</label><br>
+                
+                                            <a href="{{asset($user->profile)}}">{{asset($user->profile)}}</a>
                                             <input type="file" id="simpleinput" class="form-control" value=""
                                                 name="profile">
                                         </div>
