@@ -1,4 +1,4 @@
-@extends('providers.layouts.master');
+@extends('clinic.layouts.master');
 @section('title','Profile');
 @section('content');
 <body class="vertical  light  ">
@@ -6,16 +6,17 @@
         <main role="main" class="main-content">
             <div class="container-fluid">
                 <div class="card shadow mb-4">
-                    <a href="{{route('user_dashboard')}}">
+                    <a href="{{route('clinic_dashboard')}}">
                         <button type="button" class="btn btn-primary">View Dashboard</button>
                     </a>
                     <div class="card-header">
                         <strong class="card-title">Edit {{session('name')}}</strong>
                     </div>
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form role="form" action="{{route('provider_edit')}}" method="POST"
+                                <form role="form" action="{{route('clinic_edit_submit')}}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group mb-3">
@@ -23,7 +24,7 @@
                                         <input hidden required type="text" id="simpleinput" class="form-control"
                                             value="<?php echo $user['id'] ?>" name="id">
                                         <input disabled required type="text" id="simpleinput" class="form-control"
-                                            value="<?php echo $user['email'] ?>" name="email">
+                                            value="{{$user['email']}}" name="email">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Name</label>
@@ -37,13 +38,9 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Profile Image</label>
+                                        <a href="{{asset($user->profile)}}">{{asset($user->profile)}}</a><br>
                                         <input  type="file" id="simpleinput" class="form-control"
                                             value="" name="profile">
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label for="simpleinput">Banner Image</label>
-                                        <input  type="file" id="simpleinput" class="form-control"
-                                            value="" name="banner">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Password</label>
@@ -62,31 +59,19 @@
                                         <div style="width: 100%; height: 100%" id="address-map"></div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">About</label>
-                                    <input  type="text" id="simpleinput" class="form-control"
-                                        value="<?php echo $user['about'] ?>" name="about">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="simpleinput">Website</label>
-                                    <input  type="text" id="simpleinput" class="form-control"
-                                        value="<?php echo $user['url'] ?>" name="url">
-                                </div>
                                     <div class="form-group mb-3">
 
-                                            <input type="submit" id="example-palaceholder" class="btn btn-primary"
-                                                value="Update">
-                                        </div>
-                                </div> <!-- /.col -->
-                                </form>
-                            </div>
+                                        <input type="submit" id="example-palaceholder" class="btn btn-primary"
+                                            value="Update">
+                                    </div>
+                            </div> 
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- .container-fluid -->
-
-                <script
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPOdyees3JKBv9EL4o7Za1jyrZofFr8Mg&libraries=places&callback=initialize"
-                    async defer></script>
-                <script src="/js/mapInput.js"></script>
-            @endsection
+            </div> 
+            <!-- .container-fluid -->
+            
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPOdyees3JKBv9EL4o7Za1jyrZofFr8Mg&libraries=places&callback=initialize" async defer></script>
+    <script src="/js/mapInput.js"></script>
+@endsection

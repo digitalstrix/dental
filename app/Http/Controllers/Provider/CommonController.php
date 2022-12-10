@@ -13,31 +13,37 @@ use Clinic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Provider;
+use  App\Models\Provider;
+
 
 class CommonController extends Controller
 {
     public function dashboard()
     {
         $userid = session('userid');
-        $data = ModelsProvider::find($userid);
-        return view('providers.dashboard',compact($data,'data'));
+        $data = Provider::find($userid);
+        return view('providers.dashboard');
     }
     public function userProfile(){
             $userid = session('userid');
+            $user = Provider::find($userid);
+        return view('providers.profile',compact('user'));
             $user = ModelsProvider::find($userid);
         return view('providers.profile',compact($user,'user'));
     }
     public function userProfileHandler(Request $request){
-        $user = ModelsProvider::find(session('userid'));
+        $user = Provider::find(session('userid'));
         if(isset($request->name))
         $user->name = $request->name;
         if(isset($request->mobile))
         $user->mobile = $request->mobile;
         if(isset($request->password))
         $user->password=Hash::make($request->password);
+        if(isset($request->address))
         $user->address = $request->address;
+        if(isset($request->longitude))
         $user->longitude = $request->longitude;
+        if(isset($request->latitude))
         $user->latitude = $request->latitude;
         $user->about = $request->about;
         $user->url = $request->url;
@@ -125,8 +131,8 @@ class CommonController extends Controller
                 * cos(radians(clinics.longitude) - radians(" . $lon . ")) 
                 + sin(radians(" . $lat . ")) 
                 * sin(radians(clinics.latitude))) AS distance")
-                )->whereNotNull('latitude')->whereNotNull('longitude')->where('id',$visit->clinic_id)
-                    ->get();
+                )->whereNotNull('latitude')->whereNotNull('longitude')->where('id',$visit->clinic_id)->orderBy('distance')
+                    ->get();    
             // dd($temp[0]['id']);
             $details[] = array(
                 'id' => $temp[0]['id'],

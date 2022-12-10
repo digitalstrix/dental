@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use  App\Models\User;
+
 use Dirape\Token\Token;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,7 @@ class AuthController extends Controller
    {
       return view('users.login');
    }
+
    public function login_submit(Request $request)
    {
 
@@ -27,11 +29,11 @@ class AuthController extends Controller
          ]
       );
       if(!User::where('email',$request->email)->where('user_type','user')->first()){
-         return redirect(route('user_login_page'))->with('error', 'User is Not Registered');
+         return redirect(route('user_login'))->with('error', 'User is Not Registered');
      }
      $user = User::where('email',$request->email)->first();
      if(!Hash::check($request->password, $user->password)){
-      return redirect(route('user_login_page'))->with('error', 'Incorrect Password');
+      return redirect(route('user_login'))->with('error', 'Incorrect Password');
      }
      if($user){
       $request->session()->put([
@@ -39,7 +41,7 @@ class AuthController extends Controller
          'useremail' => $user->email,
          'user_type' => $user->user_type,
          'name' => $user->name,
-         'userid' => $user->id
+         'userid' => $user->id,
       ]);
          if(session()->has('user_token')){
             return redirect(route('user_dashboard'))->with('success', 'User Logged In Sucessfully!');
@@ -73,19 +75,19 @@ class AuthController extends Controller
       if($request->hasFile('profile')) {
          $file = $request->file('profile')->store('public/img/user_profile');
          $user->profile  = $file;
-     }
-     $user->user_token = (new Token())->Unique('users', 'user_token', 60);
-     $result = $user->save();
-      $request->session()->put([
-         'user_token' => $user->user_token,
-         'useremail' => $user->email,
-         'user_type' => $user->user_type,
-         'name' => $user->name,
-         'userid' => $user->id
-   ]);
-   if(session()->has('user_token')){
-      return redirect(route('user_dashboard'))->with('success', 'User Registered Sucessfully!');
-   }
+      }
+      $user->user_token = (new Token())->Unique('users', 'user_token', 60);
+         $result = $user->save();
+         $request->session()->put([
+            'user_token' => $user->user_token,
+            'useremail' => $user->email,
+            'user_type' => $user->user_type,
+            'name' => $user->name,
+            'userid' => $user->id
+      ]);
+      if(session()->has('user_token')){
+         return redirect(route('user_dashboard'))->with('success', 'User Registered Sucessfully!');
+      }
       
    }
 }

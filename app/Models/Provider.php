@@ -12,7 +12,7 @@ class Provider extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'profile',
+        'image',
         'mobile',
         'user_type',
         'password',

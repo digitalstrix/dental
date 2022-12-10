@@ -6,9 +6,11 @@ use  App\Models\User;
 use  App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Dirape\Token\Token;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Dirape\Token\Token;
+
+
 class AuthController extends Controller
 {
     public function login()
@@ -26,7 +28,7 @@ class AuthController extends Controller
             ]
         );
         if(!Provider::where('email',$request->email)->first()){
-            return redirect(route('user_login_page'))->with('error', 'User is Not Registered');
+            return redirect(route('provider_login'))->with('error', 'User is Not Registered');
         }
         $user = Provider::where('email',$request->email)->first();
         if(!Hash::check($request->password, $user->password)){
@@ -56,8 +58,8 @@ class AuthController extends Controller
         $request->validate(
             [
                 "name" => "required",
-                "email" => "required|email|unique:users",
-                "mobile" => "required|unique:users",
+                "email" => "required|email|unique:providers",
+                "mobile" => "required|unique:providers",
                 "image" => "required",
                 "password" => "required|min:6|confirmed",
                 "user_type"=>"required|in:dentist,hygentist",
@@ -78,9 +80,10 @@ class AuthController extends Controller
          $request->session()->put([
             'user_token' => $user->user_token,
             'useremail' => $user->email,
-            'user_type' => $user->user_type,
+            'usertype' => $user->user_type,
             'name' => $user->name,
-            'userid' => $user->id
+            'userid' => $user->id,
+            'image' => $user->image,
       ]);
       if(session()->has('user_token')){
          return redirect(route('providers_dashboard'))->with('success', 'User Registered Sucessfully!');

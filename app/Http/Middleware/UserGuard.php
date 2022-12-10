@@ -19,7 +19,7 @@ class UserGuard
         if(session()->has('user_token')&&session('user_type')=='user'){
             return $next($request);
         }else{
-            return redirect(route('user_login_page'))->with('error', 'Session is Expired');
+            return redirect(route('user_login'))->with('error', 'Session is Expired');
         }
         
     }

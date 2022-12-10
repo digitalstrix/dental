@@ -1,5 +1,5 @@
 @extends('users.layouts.master');
-@section('title', 'User Profile');
+@section('title', 'Profile');
 @section('content');
 
     <body class="vertical  light  ">
@@ -13,35 +13,32 @@
                         <div class="card-header">
                             <strong class="card-title">Edit {{ session('name') }}</strong>
                         </div>
-                        {{-- {{dd($user);}} --}}
+
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form role="form" action="{{ route('user_edit_submit') }}" method="POST"
+                                    <form role="form" action="{{ route('user_edit') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group mb-3">
                                             <label for="simpleinput">Email</label>
                                             <input hidden required type="text" id="simpleinput" class="form-control"
-                                                value="{{ $user->id }}" name="id">
+                                                value="<?php echo $user['id']; ?>" name="id">
                                             <input disabled required type="text" id="simpleinput" class="form-control"
-                                                value="{{ $user->email }}" name="email">
+                                                value="<?php echo $user['email']; ?>" name="email">
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="simpleinput">Name</label>
                                             <input type="text" id="simpleinput" class="form-control"
-                                                value="{{ $user->name }}" name="name">
+                                                value="<?php echo $user['name']; ?>" name="name">
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="simpleinput">Mobile</label>
                                             <input type="text" id="simpleinput" class="form-control"
-                                                value="{{ $user->mobile }}" name="mobile">
+                                                value="<?php echo $user['mobile']; ?>" name="mobile">
                                         </div>
-                                        <div class="form-group mb-3">
-                                           
-                                            <label for="simpleinput">Profile Image</label><br>
-                
-                                            <a href="{{asset($user->profile)}}">{{asset($user->profile)}}</a>
+                                        <div class="form-group mb-3"> <label for="simpleinput">Profile Image</label><br>
+                                            <a href="{{ asset($user->profile) }}">{{ asset($user->profile) }}</a>
                                             <input type="file" id="simpleinput" class="form-control" value=""
                                                 name="profile">
                                         </div>

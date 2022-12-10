@@ -1,5 +1,5 @@
-@extends('AuthPage.master');
-@section('title','Register | Strix');
+@extends('AuthPage.master')
+@section('title','Register | Strix')
 @section('content')
 <body class="light ">
     <div class="wrapper vh-100">
