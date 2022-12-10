@@ -1,5 +1,5 @@
-@extends('providers.layouts.master');
-@section('title','Events Dashboard');
+@extends('clinic.layouts.master');
+@section('title','Clinic Dashboard');
 @section('content');
 <main role="main" class="main-content">
     <div class="container-fluid">
