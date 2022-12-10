@@ -83,6 +83,15 @@ Route::middleware('ClinicGuard')->prefix('clinic')->controller('App\Http\Control
     Route::get('/dashboard', 'dashboard')->name('clinic_dashboard');
     Route::get('/edit', 'userProfile')->name('clinic_edit');
     Route::post('/edit', 'userProfileHandler')->name('clinic_edit_submit');
+    Route::get('/calendar','App\Http\Controllers\Clinic\CommonController@clinicCalendar')->name('clinic_calendar');
+    Route::get('/userfiles','App\Http\Controllers\Clinic\CommonController@clinicFile')->name('clinic_usersfile');
+    Route::get('/clinclots','App\Http\Controllers\Clinic\CommonController@clinicSlot')->name('clinic_slots');
+    Route::post('/clinclots','App\Http\Controllers\Clinic\CommonController@clinicSlotSave')->name('clinic_slots_save');
+    Route::get('/clinclotsdelete/{id}','App\Http\Controllers\Clinic\CommonController@clinicSlotDelete')->name('clinic_slots_delete');
+    Route::get('/clincMap','App\Http\Controllers\Clinic\CommonController@clinicMap')->name('clinicMap');
+    Route::post('/clincMapSave','App\Http\Controllers\Clinic\CommonController@clinicMapSave')->name('clinicMapSave');
+    Route::get('/clincMapDelete/{id}','App\Http\Controllers\Clinic\CommonController@clinicMapDelete')->name('clinic_visit_delete');
+
 });
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Admin Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
