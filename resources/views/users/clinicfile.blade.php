@@ -78,7 +78,10 @@
                                     <tr>
                                         <td>{{$value['provider_name']}}</td>
                                         <th scope="col">{{$value['file_name']}}</th>
-                                        <td><a target="_blank" href="{{$value['file_url']}}">View</a></td>
+                                        @php
+                    $link = 'storage/'.trim($value['file_url'],"public");
+                @endphp
+                                                <td><a target="_blank" href="{{url($link)}}">View</a></td>
                                         <td>
                                             <a href="{{route('user_clinicFileDelete',$value['file_id'])}}">Delete</a>
                                         </td>

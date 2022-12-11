@@ -56,8 +56,22 @@
                                                 echo "<td style='color:red'>Awaiting</td>";
                                             }
                                         @endphp
+                            
                                         <td>
-                                            <a href="http://www.google.com/maps/place/{{$value['clinic_latitude']}},{{$value['clinic_longitude']}}">Navigate</a>
+                                            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted sr-only">Action</span>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="http://www.google.com/maps/place/{{$value['clinic_latitude']}},{{$value['clinic_longitude']}}">Navigate</a>
+                                                <?php
+                                                    if($value['meeting_link']!=null){
+                                                ?>
+                                                <a class="dropdown-item" href="{{$value['meeting_link']}}">Join Meet</a>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

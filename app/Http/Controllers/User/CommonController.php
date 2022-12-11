@@ -197,6 +197,7 @@ public function fetchProviderSlots(Request $request)
         $providervisits = ProviderVisit::where('providers_id', $request->provider)->get();
         $data['clinics'] = array();
         foreach($providervisits as $value){
+            // dd($value->clinic_id);
             $temp = ModelsClinic::where('id', $value->clinic_id)->first();
             $distance = ModelsClinic::select(
                 "*",
@@ -238,6 +239,12 @@ public function scheduleMeetSave(Request $request){
         $meet->clinic_slot_id = $request->clinic_slot;
         $meet->reason = $request->reason;
         $meet->save();
+        $pslot = ProvidersSlot::where('id',$request->providers_slot)->first();
+        $pslot->is_reserved = 1;
+        $pslot->save();
+        $pslot = ClinicSlot::where('id',$request->clinic_slot)->first();
+        $pslot->is_reserved = 1;
+        $pslot->save();
         toast('Meeting Saved Awaiting Confirmation','success')->autoClose(3000);
         return redirect(route('schedulemeet'));
 }
@@ -280,7 +287,8 @@ public function calendarMeeting(Request $request)
                 "clinic_latitude" => $clinic->latitude,
                 "clinic_longitude" => $clinic->longitude,
                 "reason" => $meet->reason,
-                "meet_id" => $meet->id
+                "meet_id" => $meet->id,
+                "meeting_link" => $meet->meeting_link
             );
         }
         return view('users.schedulemeeting',compact('details'));
