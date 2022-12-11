@@ -30,6 +30,14 @@
             <span>User Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
+            <a href="{{route('schedulemeet')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Schedule Meet</span>
+            </a>
+            <a href="{{route('schedulemeetings')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Scheduled Meets</span>
+            </a>
             <a href="{{route('user_edit')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>
@@ -45,6 +53,10 @@
             <a href="{{route('user_clinicfiles')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Clinic File</span>
+            </a>
+            <a href="{{route('completedMeetings')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Completed Meets</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\User\CommonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,15 @@ Route::controller('App\Http\Controllers\User\AuthController'::class)->prefix('us
         Route::get('/clinicfiles','App\Http\Controllers\User\CommonController@clinicFile')->name('user_clinicfiles');
         Route::post('/clinicfiles','App\Http\Controllers\User\CommonController@clinicFileStore')->name('user_clinicFileStore');
         Route::get('/clinicFileDelete/{id}','App\Http\Controllers\User\CommonController@clinicFileDelete')->name('user_clinicFileDelete');
+        Route::get('/schedulemeet','App\Http\Controllers\User\CommonController@scheduleMeet')->name('schedulemeet');
+        Route::post('/schedulemeet','App\Http\Controllers\User\CommonController@scheduleMeetSave')->name('schedulemeet_save');
+        Route::get('api/calendarMeeting', [CommonController::class, 'calendarMeeting']);
+        Route::get('schedulemeetings', [CommonController::class, 'Meetings'])->name('schedulemeetings');
+        Route::get('completedMeetings', [CommonController::class, 'completedMeetings'])->name('completedMeetings');
+        Route::get('providerReview/{id}/{meetingid}', [CommonController::class, 'providerReview'])->name('providerReview');
+        Route::post('providerReviewSave', [CommonController::class, 'providerReviewSave'])->name('providerReviewSave');
+        Route::get('clinicReview/{id}/{meetingid}', [CommonController::class, 'clinicReview'])->name('clinicReview');
+        Route::post('clinicReviewSave', [CommonController::class, 'clinicReviewSave'])->name('clinicReviewSave');
     }); 
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Providers Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -111,6 +121,10 @@ Route::middleware('AdminGuard')->prefix('admin')->group(function () {
 });
 
 // [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[----Logout---]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+Route::post('api/fetch-pslots', [CommonController::class, 'fetchProviderSlots']);
+Route::post('api/fetch-cslots', [CommonController::class, 'fetchClinicSlots']);
+
+
 
 Route::get('/logout', function () {
     session()->flush();

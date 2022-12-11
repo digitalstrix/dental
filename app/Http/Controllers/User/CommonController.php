@@ -5,14 +5,20 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Clinic as ModelsClinic;
 use App\Models\ClinicFile;
+use App\Models\ClinicReview;
+use App\Models\ClinicSlot;
 use App\Models\Meeting;
 use App\Models\Provider as ModelsProvider;
+use App\Models\ProviderReview;
 use App\Models\ProvidersFile;
 use App\Models\Providersfile as ModelsProvidersfile;
+use App\Models\ProvidersSlot;
+use App\Models\ProviderVisit;
 use App\Models\User;
 use Clinic;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use NunoMaduro\Collision\Provider;
@@ -21,10 +27,15 @@ class CommonController extends Controller
 {
     public function dashboard()
     {
-       
+        $umeetings = Meeting::where('user_id', session('userid'))->where('is_completed', '0')->get()->count();
+        $cmeetings = Meeting::where('user_id', session('userid'))->where('is_completed', '1')->get()->count();
+        $dreviews = ProviderReview::where('user_id', session('userid'))->get()->count();
+        $creviews = ClinicReview::where('user_id', session('userid'))->get()->count();
+        $psent = ProvidersFile::where('user_id', session('userid'))->get()->count();
+        $csent = ClinicFile::where('user_id', session('userid'))->get()->count();
         $userid = session('userid');
         $data = User::find($userid);
-        return view('users.dashboard');
+        return view('users.dashboard',compact('umeetings','cmeetings','dreviews','creviews','psent','csent'));
     }
     public function userProfile(){
             $userid = session('userid');
@@ -43,8 +54,8 @@ class CommonController extends Controller
         $user->address = $request->address;
         $user->longitude = $request->longitude;
         $user->latitude = $request->latitude;
-        if($request->hasFile('image')) {
-           $file = $request->file('image')->store('public/img/user_profile');
+        if($request->hasFile('profile')) {
+           $file = $request->file('profile')->store('public/img/user_profile');
            $user->profile  = $file;
        }
        $result = $user->save();
@@ -156,4 +167,198 @@ public function clinicFileDelete(Request $request){
         return redirect(route('user_clinicfiles'));
         }
 }
+public function scheduleMeet(){
+        $user = User::find(session('userid'));
+        $providers_with_slot = ProvidersSlot::distinct()->get('providers_id');
+        $details = array();
+        foreach($providers_with_slot as $temp){
+            $provider = ModelsProvider::where('id',$temp['providers_id'])->first();
+            $distance = ModelsProvider::select(
+                "*",
+                DB::raw("6371 * acos(cos(radians(" . $user->latitude . ")) 
+            * cos(radians(providers.latitude)) 
+            * cos(radians(providers.longitude) - radians(" . $user->longitude . ")) 
+            + sin(radians(" . $user->latitude . ")) 
+            * sin(radians(providers.latitude))) AS distance")
+            )->whereNotNull('latitude')->whereNotNull('longitude')
+                ->first();
+            $details[] = array(
+                    "provider_name" => $provider->name,
+                    "provider_id" => $provider->id,
+                    "distance" => $distance->distance,
+            );
+         }
+        return view('users.meeting',compact('details'));
+}
+public function fetchProviderSlots(Request $request)
+    {
+        $user = User::find(session('userid'));
+        $data['pslots'] = ProvidersSlot::where("providers_id",$request->provider)->where("is_reserved",'0')->get(["id", "start", "end"]);
+        $providervisits = ProviderVisit::where('providers_id', $request->provider)->get();
+        $data['clinics'] = array();
+        foreach($providervisits as $value){
+            $temp = ModelsClinic::where('id', $value->clinic_id)->first();
+            $distance = ModelsClinic::select(
+                "*",
+                DB::raw("6371 * acos(cos(radians(" . $user->latitude . ")) 
+            * cos(radians(clinics.latitude)) 
+            * cos(radians(clinics.longitude) - radians(" . $user->longitude . ")) 
+            + sin(radians(" . $user->latitude . ")) 
+            * sin(radians(clinics.latitude))) AS distance")
+            )->whereNotNull('latitude')->whereNotNull('longitude')
+                ->first();
+            $data['clinics'][] = array(
+                    "name" => $temp->name,
+                    "id" => $temp->id,
+                    "distance" => round($distance->distance,2),
+            );
+        }
+        return response()->json($data);
+    }
+    public function fetchClinicSlots(Request $request)
+    {
+        $data['cslots'] = ClinicSlot::where("clinic_id",$request->clinics)->get(["id", "start", "end"]);
+        return response()->json($data);
+    }
+public function scheduleMeetSave(Request $request){
+    $user = $request->validate(
+        [
+           "provider" => "required",
+           "providers_slot" => "required",
+           "clinic" => "required",
+           "clinic_slot" => "required",
+           "reason" => "required"
+        ]
+     );
+        $meet = new Meeting();
+        $meet->user_id = session('userid');
+        $meet->providers_id = $request->provider;
+        $meet->providers_slot_id = $request->providers_slot;
+        $meet->clinic_id = $request->clinic;
+        $meet->clinic_slot_id = $request->clinic_slot;
+        $meet->reason = $request->reason;
+        $meet->save();
+        toast('Meeting Saved Awaiting Confirmation','success')->autoClose(3000);
+        return redirect(route('schedulemeet'));
+}
+public function calendarMeeting(Request $request)
+    {
+        $user = User::find(session('userid'));
+        $meeting = Meeting::where('user_id', $user->id)->get();
+        $data = array();
+        foreach ($meeting as $meeting){
+            $doctor = ProvidersSlot::where('id', $meeting->providers_slot_id)->first();
+            if($meeting->meeting_link!=null){
+                $data[] = array(
+                    'title' => $user->name,
+                    'url' => $meeting->meeting_link,
+                    'start' => $doctor->start,
+                    'end' => $doctor->end
+                );
+            }else{
+                $data[] = array(
+                    'title' => $user->name,
+                    'start' => $doctor->start,
+                    'end' => $doctor->end
+                );
+            }
+        }
+        return response()->json($data);
+    }
+    public function Meetings(){
+        $user = User::find(session('userid'));
+        $meeting = Meeting::where('user_id', $user->id)->where('is_completed', '0')->get();
+        $details = array();
+        foreach ($meeting as $meet){
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id',$meet->clinic_id)->first();
+            $details[] = array(
+                "provider" => $provider->name,
+                "clinic" => $clinic->name,
+                "_provider" => $meet->doctor_confirm,
+                "_clinic" => $meet->clinic_confirm,
+                "clinic_latitude" => $clinic->latitude,
+                "clinic_longitude" => $clinic->longitude,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id
+            );
+        }
+        return view('users.schedulemeeting',compact('details'));
+    }
+    public function completedMeetings(){
+        $user = User::find(session('userid'));
+        $meeting = Meeting::where('user_id', $user->id)->where('is_completed', '1')->get();
+        $details = array();
+        foreach ($meeting as $meet){
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id',$meet->clinic_id)->first();
+            $details[] = array(
+                "provider" => $provider->name,
+                "clinic" => $clinic->name,
+                "provider_id" => $provider->id,
+                "clinic_id" => $clinic->id,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id
+            );
+        }
+        return view('users.completedmeeting',compact('details'));
+    }
+    public function providerReview(Request $request){
+        if(ProviderReview::where('user_id',session('userid'))->where('meeting_id',$request->meetingid)->where('providers_id',$request->id)->first()){
+            toast('You Have Already Reviewed this Meeting','info')->autoClose(3000);
+            return redirect(route('completedMeetings'));
+        }
+        $details = $request->id;
+        $details1 = $request->meetingid;
+        return view('users.providerreview',compact('details','details1'));
+    }
+    public function providerReviewSave(Request $request){
+        $user = $request->validate(
+            [
+               "rating" => "required",
+               "review" => "required",
+               "meetingid" => "required",
+               "providerid" => "required",
+               "userid" => "required"
+            ]
+         );
+        $review = new ProviderReview();
+        $review->rating = $request->rating;
+        $review->user_id = $request->userid;
+        $review->providers_id = $request->providerid;
+        $review->meeting_id = $request->meetingid;
+        $review->review = $request->review;
+        $review->save();
+        toast('Review Saved Sucsessfully','success')->autoClose(3000);
+            return redirect(route('completedMeetings'));
+    }
+    public function clinicReview(Request $request){
+        if(ClinicReview::where('user_id',session('userid'))->where('meeting_id',$request->meetingid)->where('clinic_id',$request->id)->first()){
+            toast('You Have Already Reviewed this Meeting','info')->autoClose(3000);
+            return redirect(route('completedMeetings'));
+        }
+        $details = $request->id;
+        $details1 = $request->meetingid;
+        return view('users.clinicreview',compact('details','details1'));
+    }
+    public function clinicReviewSave(Request $request){
+        $user = $request->validate(
+            [
+               "rating" => "required",
+               "review" => "required",
+               "meetingid" => "required",
+               "clinicid" => "required",
+               "userid" => "required"
+            ]
+         );
+        $review = new ClinicReview();
+        $review->rating = $request->rating;
+        $review->user_id = $request->userid;
+        $review->clinic_id = $request->clinicid;
+        $review->meeting_id = $request->meetingid;
+        $review->review = $request->review;
+        $review->save();
+        toast('Review Saved Sucsessfully','success')->autoClose(3000);
+            return redirect(route('completedMeetings'));
+    }
 }

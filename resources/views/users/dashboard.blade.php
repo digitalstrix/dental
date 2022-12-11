@@ -33,54 +33,54 @@
                                 <div class="row align-items-center">
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Users
+                                            <p class="small text-uppercase text-muted mb-0">Upcoming Appointments
                                             </p>
-                                            <span class="h2 mb-0">909</span>
+                                            <span class="h2 mb-0">{{$umeetings}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Shops
+                                            <p class="small text-uppercase text-muted mb-0">Completed Meetings
                                             </p>
-                                            <span class="h2 mb-0">809</span>
+                                            <span class="h2 mb-0">{{$cmeetings}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Posted Work
+                                            <p class="small text-uppercase text-muted mb-0">Total Doctor Reviews
                                             </p>
-                                            <span class="h2 mb-0">807</span>
+                                            <span class="h2 mb-0">{{$dreviews}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Posted Jobs
+                                            <p class="small text-uppercase text-muted mb-0">Total Clinic Reviews
                                             </p>
-                                            <span class="h2 mb-0">605</span>
+                                            <span class="h2 mb-0">{{$creviews}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Applied Jobs
+                                            <p class="small text-uppercase text-muted mb-0">File Sent to  Providers
                                             </p>
-                                            <span class="h2 mb-0">405</span>
+                                            <span class="h2 mb-0">{{$psent}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Active Offers
+                                            <p class="small text-uppercase text-muted mb-0">File Sent to Clinic
                                             </p>
-                                            <span class="h2 mb-0">606</span>
+                                            <span class="h2 mb-0">{{$csent}}</span>
                                             <p class="small mb-0">
 
                                             </p>
