@@ -29,7 +29,7 @@ class AuthController extends Controller
         if (!User::where('email', $request->email)->first()) {
             return redirect(route('admin_login'))->with('error', 'Admin is Not Registered');
         }
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->where('user_type', 'admin')->first();
         if (!Hash::check($request->password, $user->password)) {
             return redirect(route('admin_login'))->with('error', 'Incorrect Password');
         }
@@ -37,7 +37,7 @@ class AuthController extends Controller
             $request->session()->put([
                 'user_token' => $user->user_token,
                 'useremail' => $user->email,
-                'usertype' => $user->user_type,
+                'user_type' => $user->user_type,
                 'name' => $user->name,
                 'userid' => $user->id
             ]);

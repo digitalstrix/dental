@@ -16,7 +16,7 @@ class AdminGuard
      */
     public function handle(Request $request, Closure $next)
     {
-        if (session()->has('user_token') &&(session('user_type')=='admin' )) {
+        if (session()->has('user_token') && (session('user_type') =='admin' )) {
             return $next($request);
         } else {
             return redirect(route('admin_login'))->with('error', 'Session is Expired');

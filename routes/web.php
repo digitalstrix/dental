@@ -118,6 +118,13 @@ Route::middleware('AdminGuard')->prefix('admin')->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Admin\CommonController@dashboard')->name('admin_dashboard');
     Route::get('/edit', 'App\Http\Controllers\Admin\CommonController@userProfile')->name('admin_edit');
     Route::post('/edit', 'App\Http\Controllers\Admin\CommonController@userProfileHandler')->name('admin_edit_submit');
+    Route::get('/users', 'App\Http\Controllers\Admin\CommonController@usersDetails')->name('users_details');
+    Route::get('/providers', 'App\Http\Controllers\Admin\CommonController@providersDetails')->name('providers_details');
+    Route::get('/clinics', 'App\Http\Controllers\Admin\CommonController@clinicsDetails')->name('clinics_details');
+    Route::get('/user/delete/{id}', 'App\Http\Controllers\Admin\CommonController@deleteUser')->name('delete_user');
+    Route::get('/provider/delete/{id}', 'App\Http\Controllers\Admin\CommonController@deleteProvider')->name('delete_provider');
+    Route::get('/clinic/delete/{id}', 'App\Http\Controllers\Admin\CommonController@deleteClinic')->name('delete_clinic');
+
 });
 
 // [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[----Logout---]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
