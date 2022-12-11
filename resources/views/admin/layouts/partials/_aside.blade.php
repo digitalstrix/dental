@@ -38,6 +38,18 @@
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add User</span>
             </a>
+            <a href="{{route('users_details')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Users Detail</span>
+            </a>
+            <a href="{{route('providers_details')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Providers Detail</span>
+            </a>
+            <a href="{{route('clinics_details')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Clinic Detail</span>
+            </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Logout</span>
