@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Models\Clinic as ModelsClinic;
+use App\Models\ClinicSlot;
+use App\Models\Meeting;
 use App\Models\Provider as ModelsProvider;
 use App\Models\Providersfile;
 use App\Models\ProvidersSlot;
@@ -13,15 +15,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use  App\Models\Provider;
-
+use App\Models\ProviderReview;
 
 class CommonController extends Controller
 {
     public function dashboard()
     {
+        $umeetings = Meeting::where('providers_id', session('userid'))->where('is_completed', '0')->get()->count();
+        $cmeetings = Meeting::where('providers_id', session('userid'))->where('is_completed', '1')->get()->count();
+        $previews = ProviderReview::where('providers_id', session('userid'))->get()->count();
+        $areviews = ProviderReview::where('providers_id', session('userid'))->pluck('rating')->avg();
+        $psent = ProvidersFile::where('provider_id', session('userid'))->get()->count();
         $userid = session('userid');
-        $data = Provider::find($userid);
-        return view('providers.dashboard');
+        $data = User::find($userid);
+        return view('providers.dashboard',compact('umeetings','cmeetings','previews','areviews','psent'));
     }
     public function userProfile(){
             $userid = session('userid');
@@ -162,4 +169,91 @@ class CommonController extends Controller
         toast('Sucess Delete.','success')->autoClose(3000);
         return redirect(route('providersMap'));
     }
+    public function myMeetings(){
+        $user = ModelsProvider::find(session('userid'));
+        $meeting = Meeting::where('providers_id', $user->id)->get();
+        $details = array();
+        foreach ($meeting as $meet){
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id',$meet->clinic_id)->first();
+            $clinictime = ClinicSlot::where('id',$meet->clinic_slot_id)->first();
+            $details[] = array(
+                "username" => $provider->name,
+                "user_id" => $provider->name,
+                "clinic" => $clinic->name,
+                "_provider" => $meet->doctor_confirm,
+                "_clinic" => $meet->clinic_confirm,
+                "clinic_latitude" => $clinic->latitude,
+                "clinic_longitude" => $clinic->longitude,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id,
+                "meeting_link" => $meet->meeting_link,
+                "slot_id" => $meet->providers_slot_id,
+                "clinic_time" => $clinictime->start,
+                "is_completed" => $meet->is_completed
+            );
+        }
+        return view('providers.mymeetings',compact('details'));
+    }
+    public function myMeetingConfirmation(Request $request){
+        $meet = Meeting::where('id',$request->id)->first();
+        $meet->doctor_confirm = '1';
+        $meet->save();
+        toast('Meeting Confirmed From Your Side','success')->autoClose(3000);
+        return redirect(route('myMeetings'));
+    }
+    public function myMeetingLink(Request $request){
+        $meet = Meeting::where('id',$request->id)->first();
+        $meet->meeting_link = "https://meet.jit.si/".rand(100000000,999999999);
+        $meet->save();
+        toast('Meeting Link Created','success')->autoClose(3000);
+        return redirect(route('myMeetings'));
+    }
+    public function myMeetingCompleted(Request $request){
+        $meet = Meeting::where('id',$request->id)->first();
+        $meet->is_completed = '1';
+        $meet->save();
+        toast('Your Meeting Marked Completed','success')->autoClose(3000);
+        return redirect(route('myMeetings'));
+    }
+    public function calendarMeeting(Request $request)
+    {
+        $user = ModelsProvider::find(session('userid'));
+        $meeting = Meeting::where('providers_id', $user->id)->get();
+        $data = array();
+        foreach ($meeting as $meeting){
+            $doctor = ProvidersSlot::where('id', $meeting->providers_slot_id)->first();
+            if($meeting->meeting_link!=null){
+                $data[] = array(
+                    'title' => $user->name,
+                    'url' => $meeting->meeting_link,
+                    'start' => $doctor->start,
+                    'end' => $doctor->end
+                );
+            }else{
+                $data[] = array(
+                    'title' => $user->name,
+                    'start' => $doctor->start,
+                    'end' => $doctor->end
+                );
+            }
+        }
+        return response()->json($data);
+    }
+public function myReview(){
+        $review = ProviderReview::where('providers_id', session('userid'))->get();
+        $details = array();
+        foreach($review as $review){
+            $user = User::where('id', $review->user_id)->first();
+            $meet = Meeting::where('id',$review->meeting_id)->first();
+            $details[] = array(
+                "username" => $user->name,
+                "reason" => $meet->reason,
+                "review" =>$review->review,
+                "rating" => $review->rating,
+            );
+        }
+        return view('providers.reviews', compact('details'));
+}
+
 }

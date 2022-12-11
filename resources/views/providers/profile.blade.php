@@ -38,12 +38,11 @@
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Profile Image</label>
                                         <input  type="file" id="simpleinput" class="form-control"
-                                            value="" name="profile">
+                                            value="" name="image">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Banner Image</label>
-                                        <input  type="file" id="simpleinput" class="form-control"
-                                            value="" name="banner">
+                                        <input  type="file" id="simpleinput" class="form-control" value="" name="banner">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Password</label>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Provider\CommonController as ProviderCommonController;
 use App\Http\Controllers\User\CommonController;
 
 /*
@@ -77,6 +78,12 @@ Route::middleware('ProviderGuard')->prefix('providers')->controller('App\Http\Co
     Route::get('/providersMap','App\Http\Controllers\Provider\CommonController@providersMap')->name('providersMap');
     Route::post('/providersMapSave','App\Http\Controllers\Provider\CommonController@providersMapSave')->name('providersMapSave');
     Route::get('/providersMapDelete/{id}','App\Http\Controllers\Provider\CommonController@providersMapDelete')->name('provider_visit_delete');
+    Route::get('/myMeetings','App\Http\Controllers\Provider\CommonController@myMeetings')->name('myMeetings');
+    Route::get('/myMeetingConfirmation/{id}','App\Http\Controllers\Provider\CommonController@myMeetingConfirmation')->name('myMeetingConfirmation');
+    Route::get('/myMeetingCompleted/{id}','App\Http\Controllers\Provider\CommonController@myMeetingCompleted')->name('myMeetingCompleted');
+    Route::get('/myMeetingLink/{id}','App\Http\Controllers\Provider\CommonController@myMeetingLink')->name('myMeetingLink');
+    Route::get('api/calendarMeeting', [ProviderCommonController::class, 'calendarMeeting']);
+    Route::get('/myreviews', [ProviderCommonController::class, 'myReview'])->name('myReview');
 });
 
 

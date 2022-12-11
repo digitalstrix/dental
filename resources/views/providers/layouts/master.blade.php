@@ -31,14 +31,14 @@
     
     <body class="vertical  light  ">
         <div class="wrapper">
-    @include('providers.layouts.partials._nav');
-    @include('providers.layouts.partials._aside');
-    @yield('content');
-    @include('providers.layouts.shortcuts');
-    @include('providers.layouts.partials._footer');
+    @include('providers.layouts.partials._nav')
+    @include('providers.layouts.partials._aside')
+    @yield('content')
+    @include('providers.layouts.shortcuts')
+    @include('providers.layouts.partials._footer')
     
   </body>
-  @yield('scripts');
+  @yield('scripts')
   @include('sweetalert::alert')
   @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
   

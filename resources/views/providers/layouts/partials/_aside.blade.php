@@ -34,6 +34,10 @@
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>
             </a>
+            <a href="{{route('myMeetings')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">My Meetings</span>
+            </a>
             <a href="{{route('provider_calendar')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Calendar</span>
@@ -49,6 +53,10 @@
             <a href="{{route('providersMap')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add Visit</span>
+            </a>
+            <a href="{{route('myReview')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">My Reviews</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
