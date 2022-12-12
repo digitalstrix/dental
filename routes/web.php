@@ -110,6 +110,12 @@ Route::middleware('ClinicGuard')->prefix('clinic')->controller('App\Http\Control
     Route::get('/clincMapDelete/{id}','App\Http\Controllers\Clinic\CommonController@clinicMapDelete')->name('clinic_visit_delete');
     Route::get('/addService','App\Http\Controllers\Clinic\CommonController@addService')->name('addService');
     Route::post('/addServiceSave','App\Http\Controllers\Clinic\CommonController@addServiceSave')->name('addServiceSave');
+    Route::get('/myMeetings','App\Http\Controllers\Clinic\CommonController@myMeetings')->name('clinic_myMeetings');
+    Route::get('/myMeetingConfirmation/{id}','App\Http\Controllers\Clinic\CommonController@myMeetingConfirmation')->name('clinic_myMeetingConfirmation');
+    Route::get('/myreviews','App\Http\Controllers\Clinic\CommonController@myReview')->name('clinic_reviews');
+    Route::get('/haveAssistance/{id}','App\Http\Controllers\Clinic\CommonController@haveAssistance')->name('clinic_haveAssistance');
+    Route::get('/needAssistance/{id}','App\Http\Controllers\Clinic\CommonController@needAssistance')->name('clinic_needAssistance');
+
 });
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Admin Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]

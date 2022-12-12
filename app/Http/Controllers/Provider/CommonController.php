@@ -35,7 +35,7 @@ class CommonController extends Controller
             $user = Provider::find($userid);
         return view('providers.profile',compact('user'));
             $user = ModelsProvider::find($userid);
-        return view('providers.profile',compact($user,'user'));
+        return view('providers.profile',compact('user'));
     }
     public function userProfileHandler(Request $request){
         $user = Provider::find(session('userid'));
@@ -63,7 +63,7 @@ class CommonController extends Controller
        }
        $result = $user->save();
        toast('User Updated Successfully','success')->autoClose(3000);
-       return view('providers.profile',compact($user,'user'))->with('success','User Updated Sucessfully');
+       return view('providers.profile',compact('user'))->with('success','User Updated Sucessfully');
     }
     public function userCalendar(){
         return view('providers.calendar')->with('info', 'Users Meetings');
