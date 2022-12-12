@@ -209,7 +209,7 @@
                     <div class="offer-text text-center rounded p-5">
                         <h1 class="display-5 text-white">Work As Assistant In Clinics</h1>
                         <p class="text-white mb-4">.</p>
-                        <a href="appointment.html" class="btn btn-dark py-3 px-5 me-3">Apply Now</a>
+                        <a href="{{route('frontend_job')}}" class="btn btn-dark py-3 px-5 me-3">Apply Now</a>
                         <a href="" class="btn btn-light py-3 px-5">Read More</a>
                     </div>
                 </div>
@@ -217,8 +217,7 @@
         </div>
     </div>
     <!-- Offer End -->
-
-
+    
     <!-- Testimonial Start -->
     <div class="container-fluid bg-primary bg-testimonial py-5 my-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">

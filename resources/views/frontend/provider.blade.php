@@ -136,7 +136,7 @@
                 </div>
                 <h4 class="note-info">You need to brush your teeth everyday for healty teeth and simle</h4>
                 <div class="about-content-bottom-info">
-                  <a class="about-btn-link" href="{{$doctor['website']}}">Visit Noe</a>
+                  <a class="about-btn-link" href="{{$doctor['website']}}">Visit Now</a>
                   <div class="video-content-wrap">
                     <a class="ht-popup-video video-popup" href="#">
                       <img class="icon-img" src="{{asset('doc/assets/img/icons/play1.png')}}" alt="Image-HasTech">

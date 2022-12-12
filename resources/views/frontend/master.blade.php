@@ -93,6 +93,7 @@
                         <a href="{{route('admin_login')}}" class="dropdown-item">Admin Login</a>
                     </div>
                 </div>
+                <a href="{{route('frontend_job')}}" class="nav-item nav-link">Jobs</a>
                 <a href="{{route('contact_frontend')}}" class="nav-item nav-link">Contact</a>
             </div>
             <button type="button" class="btn text-dark" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></button>

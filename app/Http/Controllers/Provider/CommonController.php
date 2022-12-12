@@ -129,7 +129,9 @@ class CommonController extends Controller
         * sin(radians(clinics.latitude))) AS distance")
         )->whereNotNull('latitude')->whereNotNull('longitude')
             ->get();
+        // dd($clinic);
             $visit = ProviderVisit::where('providers_id', $userid)->get();
+            // dd($visit);
             foreach($visit as $visit){
                 $temp = ModelsClinic::select(
                     "*"
@@ -140,7 +142,7 @@ class CommonController extends Controller
                 * sin(radians(clinics.latitude))) AS distance")
                 )->whereNotNull('latitude')->whereNotNull('longitude')->where('id',$visit->clinic_id)->orderBy('distance')
                     ->get();    
-            // dd($temp[0]['id']);
+            // dd($temp);
             $details[] = array(
                 'id' => $temp[0]['id'],
                 'name' => $temp[0]['name'],
@@ -254,7 +256,7 @@ public function myReview(){
                 "rating" => $review->rating,
             );
         }
-        return view('frontend.clinics', compact('details'));
+        return view('providers.reviews', compact('details'));
 }
 
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applyjob;
 use App\Models\Clinic;
 use App\Models\ClinicReview;
+use App\Models\ClinicSlot;
+use App\Models\Job;
 use App\Models\Meeting;
 use App\Models\Provider;
 use App\Models\ProviderReview;
@@ -122,5 +125,36 @@ class AuthController extends Controller
         }
         $service = Service::where('clinic_id',$request->id)->get();
         return view('frontend.clinics',compact('doctor','tr','ar','tr','cm','review','service'));
+    }
+    public function jobs(){
+        $jobs = Job::where('is_ended','0')->get();
+        foreach($jobs as $job){
+            $clinic = Clinic::where('id',$job->clinic_id)->first();
+            $meeting = Meeting::where('id',$job->meeting_id)->first();
+            $timing = ClinicSlot::where('id',$job->clinic_slot_id)->first();
+            $details[] = array(
+                "meeting" => $meeting->reason,
+                "clinic_name" => $clinic->name,
+                "clinic_location" => $clinic->address,
+                "start" => $timing->start,
+                "end" => $timing->end,
+                "doctor" => $meeting->providers_id,
+                "job_id" => $job->id,
+            );
+        }
+        return view('frontend.jobs',compact('details'));
+    }
+    public function applyJob(Request $request){
+        $id = $request->id;
+        return view('frontend.applyjob',compact('id'));
+    }
+    public function applyJobSave(Request $request){
+        $job = new Applyjob();
+        $job->job_id = $request->job_id;
+        $job->name = $request->name;
+        $job->email = $request->email;
+        $job->mobile = $request->mobile;
+        $job->save();
+        return redirect(route('frontend_apply_job',[$request->job_id]))->with('error','Job was successfully applied');
     }
 }
