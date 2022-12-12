@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clinic;
 
 use App\Models\Job;
+use App\Models\Provider;
 use App\Models\User;
 use App\Models\Clinic;
 use App\Models\Meeting;
@@ -14,6 +15,7 @@ use App\Models\ClinicReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Applyjob;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Clinic as ModelsClinic;
 use App\Models\Provider as ModelsProvider;
@@ -263,5 +265,58 @@ class CommonController extends Controller
         $job->clinic_slot_id = $meet['clinic_slot_id'];
         $job->save();
         return redirect(route('clinic_myMeetings'));
+    }
+    public function appliedJobs(){
+        $clinic = session('userid');
+        $jobs = Job::where('clinic_id', $clinic)->get();
+        foreach ($jobs as $job){
+            // dd($job);
+            if(Applyjob::where('job_id',$job->id)->first()){
+                $applied = Applyjob::where('job_id',$job->id)->get();
+                foreach($applied as $data){
+                    // dd($data);
+                    $time = ClinicSlot::where('id',$job->clinic_slot_id)->first();
+                    $meeting = Meeting::where('id',$job->meeting_id)->first();
+                    $d_name = Provider::where('id',$meeting->providers_id)->first();
+                    $details[] = array(
+                        "name"=> $data->name,
+                        "email" => $data->email,
+                        "mobile" => $data->mobile,
+                        "job_id" => $data->job_id,
+                        "time" => $time->start,
+                        "d_name" => $d_name->name,
+                        "reason" => $meeting->reason,
+                        "is_ended" => $job->is_ended,
+                        "is_selected" => $data->is_selected,
+                        "applied_id" => $data->id,
+                    );
+                }
+            }else{
+                $details = array();
+            }
+        }
+        return view('clinic.myjobs', compact('details'));
+    }
+    public function endjob(Request $request){
+        $temp = Job::find($request->id);
+        if($temp->is_ended==1){
+            $temp->is_ended = 0;
+        }elseif($temp->is_ended==0){
+            $temp->is_ended = 1;
+        }
+        $temp->save();
+        toast('Status Saved.', 'success')->autoClose(3000);
+        return redirect(route('appliedJobs'));
+    }
+    public function hirecandidate(Request $request){
+        $temp = Applyjob::find($request->id);
+        if($temp->is_selected==1){
+            $temp->is_selected = 0;
+        }elseif($temp->is_selected==0){
+            $temp->is_selected = 1;
+        }
+        $temp->save();
+        toast('Status Saved.', 'success')->autoClose(3000);
+        return redirect(route('appliedJobs'));
     }
 }

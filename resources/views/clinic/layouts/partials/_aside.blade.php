@@ -50,6 +50,10 @@
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">My Meetings</span>
             </a>
+            <a href="{{route('appliedJobs')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Applied Jobs</span>
+            </a>
             <a href="{{route('clinic_reviews')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Clinic Review</span>
