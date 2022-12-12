@@ -1,0 +1,70 @@
+/*
+-----------------------------------------------------------------------
+  Section Title CSS
+-----------------------------------------------------------------------
+*/
+
+.section-title {
+  margin-bottom: 58px;
+  .sub-title {
+    color: $theme-color;
+    font-size: 22px;
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 22px;
+    text-transform: uppercase;
+    @media #{$lg-device} {
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+    @media #{$md-device} {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  }
+  .title {
+    font-size: 52px;
+    font-weight: $font-weight-extra-bold;
+    line-height: 1.34615;
+    margin-bottom: 31px;
+    @media #{$lg-device} {
+      font-size: 42px;
+      margin-bottom: 18px;
+    }
+    @media #{$md-device} {
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+    span {
+      color: $theme-color;
+    }
+  }
+  .desc {
+    p {}
+  }
+  br {
+    @media #{$sm-device} {
+      display: none;
+    }
+  }
+  &-light {
+    .sub-title {
+      color: $white;
+    }
+    .title {
+      color: $white;
+    }
+  }
+  &-shape {
+    background-color: $theme-color2;
+    height: 46px;
+    position: absolute;
+    width: 47px;
+    top: 20px;
+    right: -33px;
+    z-index: -1;
+    @media #{$lg-device} {
+      display: none;
+    }
+  }
+}

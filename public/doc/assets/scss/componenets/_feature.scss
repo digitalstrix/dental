@@ -1,0 +1,53 @@
+/*
+-----------------------------------------------------------------------
+    Feature CSS
+-----------------------------------------------------------------------
+*/
+
+.feature-box-wrap {
+  .feature-box {
+    .inner-content {
+      margin-bottom: 27px;
+      position: relative;
+      padding-left: 82px;
+      .icon {
+        left: 0;
+        position: absolute;
+        top: 6px;
+        .icon-img {}
+      }
+      .content {
+        .title {
+          font-size: 28px;
+          font-weight: $font-weight-bold;
+          margin-bottom: 11px;
+          @media #{$lg-device} {
+            font-size: 22px;
+          }
+          @media #{$xxs-device} {
+            font-size: 19px;
+          }
+        }
+        p {
+          font-size: 20px;
+          line-height: 1.6;
+          max-width: 290px;
+          @media #{$lg-device} {
+            font-size: 17px;
+          }
+          @media #{$md-device} {
+            max-width: none;
+          }
+          @media #{$xxs-device} {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    &:last-child {
+      .inner-content {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

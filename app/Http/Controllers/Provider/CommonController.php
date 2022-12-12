@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use  App\Models\Provider;
 use App\Models\ProviderReview;
+use App\Models\Service;
 
 class CommonController extends Controller
 {
@@ -55,7 +56,7 @@ class CommonController extends Controller
         $user->url = $request->url;
         if($request->hasFile('image')){
            $file = $request->file('image')->store('public/img/provider/profile');
-           $user->profile = $file;
+           $user->image = $file;
        }
         if($request->hasFile('banner')){
            $file = $request->file('banner')->store('public/img/provider/banner');
@@ -253,7 +254,7 @@ public function myReview(){
                 "rating" => $review->rating,
             );
         }
-        return view('providers.reviews', compact('details'));
+        return view('frontend.clinics', compact('details'));
 }
 
 }

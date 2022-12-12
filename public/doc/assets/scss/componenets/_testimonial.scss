@@ -1,0 +1,301 @@
+/*
+-----------------------------------------------------------------------
+  Testimonial CSS
+-----------------------------------------------------------------------
+*/
+
+.testimonial-area {
+  &.testimonial-default-area {
+    .container {
+      padding-top: 60px;
+    }
+  }
+  &.testimonial-about-area {
+    .container {
+      padding-top: 188px;
+      padding-bottom: 0;
+      @media #{$lg-device} {
+        padding-top: 90px;
+        padding-bottom: 0;
+      }
+    }
+  }
+  &.testimonial-service-area {
+    .container {
+      padding-top: 184px;
+      padding-bottom: 104px;
+      @media #{$lg-device} {
+        padding-top: 146px;
+        padding-bottom: 100px;
+      }
+      @media #{$md-device} {
+        padding-top: 90px;
+        padding-bottom: 60px;
+      }
+    }
+  }
+}
+
+.testimonial-item {
+  .testi-inner-content {
+    .testi-content {
+      margin-bottom: 17px;
+      p {
+        color: $black-333;
+        line-height: 1.7;
+        margin-bottom: 0;
+      }
+    }
+    .testi-author {
+      .testi-info {
+        span {
+          color: $black-333;
+          font-family: $font-current-theme2;
+        }
+        .name {
+          color: $theme-color;
+          font-weight: $font-weight-extra-bold;
+        }
+        .designation {
+          font-weight: $font-weight-semi-bold;
+        }
+      }
+    }
+  }
+  .testi-inner-thumb {
+    display: inline-block;
+    .testi-thumb {
+      border-radius: 50%;
+      position: relative;
+      z-index: 1;
+      .quote-icon {
+        background-color: #f9f9ff;
+        border-radius: 50%;
+        bottom: -16px;
+        height: 89px;
+        line-height: 89px;
+        left: -6px;
+        position: absolute;
+        text-align: center;
+        width: 89px;
+        @media #{$md-device} {
+          height: 79px;
+          line-height: 79px;
+          width: 79px;
+        }
+        &:before {
+          background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='100' ry='100' stroke='%233F4199FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+          border-radius: 100px;
+          content: "";
+          position: absolute;
+          width: calc(100% - 11px);
+          height: calc(100% - 11px);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        img {
+          border-radius: 0;
+          @media #{$lg-device} {
+            width: auto;
+          }
+          @media #{$md-device} {
+            width: 34px;
+          }
+        }
+      }
+      .shape {
+        z-index: -1;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 50%;
+        animation: spinAround 80s linear infinite;
+        &:before {
+          background-image: url('../img/shape/6.png');
+          background-size: contain;
+          background-position: center center;
+          border-radius: 50%;
+          background-repeat: no-repeat;
+          content: "";
+          left: 50%;
+          height: calc(100% + 37px);
+          position: absolute;
+          top: 50%;
+          width: calc(100% + 37px);
+          transform: translate(-50%, -50%);
+        }
+      }
+      img {
+        border-radius: 50%;
+        @media #{$lg-device} {
+          width: 240px;
+        }
+        @media #{$md-device} {
+          width: 200px;
+        }
+      }
+    }
+  }
+}
+
+.testi-slider-content {
+  .section-title {
+    margin-bottom: 56px;
+    @media #{$xs-device} {
+      margin-bottom: 26px;
+    }
+  }
+  .testimonial-item {
+    padding-right: 70px;
+    @media #{$md-device} {
+      padding-right: 0;
+    }
+  }
+  .testimonial-top {
+    .swiper-btn-wrap {
+      display: flex;
+      margin-top: 28px;
+      .swiper-btn {
+        &-prev,
+        &-next {
+          color: $theme-color2;
+          font-size: 20px;
+          font-weight: $font-weight-medium;
+          line-height: 1;
+          text-transform: capitalize;
+          @include transition(all .3s ease-out);
+          i {
+            color: $theme-color;
+            line-height: 1;
+            position: relative;
+            top: 1px;
+            @include transition(all .3s ease-out);
+          }
+          &:hover {
+            color: $theme-color;
+            i {
+              color: $theme-color2;
+            }
+          }
+        }
+
+        &-prev {
+          margin-right: 20px;
+          i {
+            margin-right: 11px;
+          }
+
+          &.swiper-button-disabled {
+            display: none;
+          }
+        }
+        &-next {
+          i {
+            margin-left: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+.testi-slider-thumb {
+  position: relative;
+  padding-left: 13px;
+  padding-bottom: 94px;
+  height: 100%;
+  width: 100%;
+  @media #{$sm-device} {
+    max-width: 430px;
+    margin: 0 auto;
+  }
+  @media #{$xxs-device} {
+    margin: 0;
+    padding: 0;
+  }
+  .testi-thumb-shape {
+    position: absolute;
+    bottom: -10px;
+    right: 3px;
+    @media #{$md-device} {
+      bottom: 0;
+      width: 110px;
+    }
+    @media #{$xxs-device} {
+      display: none;
+    }
+  }
+  .testi-thumb-shape2 {
+    position: absolute;
+    top: -52px;
+    right: 40px;
+    @media #{$md-device} {
+      top: 0;
+      width: 110px;
+    }
+    @media #{$xxs-device} {
+      display: none;
+    }
+  }
+  .testi-thumb-shape3 {
+    border: 1px solid $theme-color2;
+    border-radius: 50%;
+    bottom: 37px;
+    opacity: 0.42;
+    height: 38px;
+    left: -85px;
+    position: absolute;
+    width: 38px;
+    z-index: -1;
+    @media #{$sm-device} {
+      left: 0;
+    }
+    @media #{$xxs-device} {
+      display: none;
+    }
+  }
+  .testi-thumb-shape4 {
+    border-radius: 50%;
+    background-color: $theme-color2;
+    position: absolute;
+    width: 50px;
+    height: 51px;
+    right: 74px;
+    top: 221px;
+    @media #{$md-device} {
+      width: 40px;
+      height: 40px;
+      right: 34px;
+      top: 231px;
+    }
+    @media #{$xxs-device} {
+      display: none;
+    }
+  }
+  .testi-thumb-shape5 {
+    top: 35px;
+    border-radius: 50%;
+    background-color: $theme-color;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: 52%;
+    @media #{$xxs-device} {
+      display: none;
+    }
+  }
+  .testimonial-thumbs {
+    &.swiper-container {
+      padding-top: 123px;
+      overflow: inherit;
+      margin-left: 27px;
+      @media #{$xxs-device} {
+        padding-top: 65px;
+        padding-bottom: 20px;
+      }
+    }
+  }
+}

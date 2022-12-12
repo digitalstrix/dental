@@ -48,7 +48,7 @@ class CommonController extends Controller
     }
     public function usersDetails()
     {
-        $details = User::all();
+        $details = User::where('user_type','user')->get();
         return view('admin.users', compact('details'));
     }
     public function providersDetails()

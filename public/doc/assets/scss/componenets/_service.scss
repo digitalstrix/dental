@@ -1,0 +1,470 @@
+/*
+-----------------------------------------------------------------------
+  Service CSS
+-----------------------------------------------------------------------
+*/
+
+.service-area {
+  &.service-default-area {
+    .container {
+      padding-bottom: 51px;
+      padding-top: 90px;
+      @media #{$lg-device} {
+        padding-bottom: 26px;
+      }
+    }
+  }
+  &.service-inner-area {
+    .container {
+      padding-top: 90px;
+      padding-bottom: 56px;
+      @media #{$lg-device} {
+        padding-bottom: 35px;
+      }
+    }
+  }
+}
+
+.service-details-area {
+  .container {
+    @media #{$md-device} {
+      padding-bottom: 59px;
+    }
+  }
+}
+
+.service-box {
+  .inner-content {
+    margin-bottom: 68px;
+    padding-right: 2px;
+    @media #{$lg-device} {
+      margin-bottom: 48px;
+    }
+    .icon {
+      display: inline-block;
+      margin-bottom: 35px;
+      @media #{$lg-device} {
+        margin-bottom: 28px;
+        width: 60px;
+      }
+    }
+    .content {
+      .title {
+        font-size: 28px;
+        font-weight: $font-weight-semi-bold;
+        line-height: 1;
+        margin-bottom: 27px;
+        @media #{$lg-device} {
+          font-size: 26px;
+          margin-bottom: 20px;
+        }
+        a {
+          color: $theme-color2;
+          &:hover {
+            color: $theme-color;
+          }
+        }
+      }
+      p {
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 21px;
+        @media #{$lg-device} {
+          font-size: 18px;
+          margin-bottom: 14px;
+        }
+        @media #{$sm-device} {
+          font-size: 15px;
+        }
+      }
+      .service-btn {
+        color: $theme-color;
+        font-size: 20px;
+        font-weight: $font-weight-medium;
+        position: relative;
+        &:after {
+          content: '\';
+          font-family:'FontAwesome';
+          line-height: 1;
+          margin-left: 13px;
+          position: relative;
+          top: 1px;
+        }
+        &:hover {
+          color: $theme-color2;
+        }
+      }
+    }
+    &:hover {
+      .icon {
+        -webkit-animation: times 1.3s cubic-bezier(0.36, 0.07, 0.57, 0.99) infinite;
+        animation: times 1.3s cubic-bezier(0.36, 0.07, 0.57, 0.99) infinite;
+      }
+    }
+  }
+  &.service-box1 {}
+  &.service-box2 {
+    padding-left: 13px;
+    @media #{$lg-device} {
+      padding-left: 0;
+    }
+  }
+  &.service-box3 {
+    padding-left: 26px;
+    @media #{$lg-device} {
+      padding-left: 0;
+    }
+  }
+  &.service-box4 {}
+  &.service-box5 {
+    padding-left: 13px;
+    @media #{$lg-device} {
+      padding-left: 0;
+    }
+  }
+  &.service-box6 {
+    padding-left: 26px;
+    @media #{$lg-device} {
+      padding-left: 0;
+    }
+  }
+}
+
+.service-list-area {
+  &.service-list-default-area {
+    .container {
+      padding-top: 155px;
+      @media #{$lg-device} {
+        padding-top: 90px;
+      }
+    }
+  }
+  &.service-list-about-area {
+    .container {
+      padding-bottom: 125px;
+      padding-top: 189px;
+      @media #{$lg-device} {
+        padding-bottom: 90px;
+        padding-top: 90px;
+      }
+    }
+  }
+}
+
+.service-list-item {
+  display: flex;
+  .icon-box {
+    position: relative;
+    &:before {
+      background-color: #f9f9ff;
+      border-radius: 50%;
+      content: "";
+      height: 57px;
+      left: -23px;
+      position: absolute;
+      top: -17px;
+      width: 57px;
+      z-index: -1;
+    }
+    img {}
+  }
+  .content {
+    margin-left: 30px;
+    @media #{$lg-device} {
+      margin-left: 12px;
+    }
+    .price-number {
+      color: $theme-color2;
+      font-size: 36px;
+      font-weight: $font-weight-extra-bold;
+      line-height: 1;
+      margin-bottom: 18px;
+      @media #{$lg-device} {
+        font-size: 32px;
+        margin-bottom: 12px;
+      }
+    }
+    .title {
+      color: $black-333;
+      font-size: 20px;
+      font-family: $font-current-theme1;
+      font-weight: $font-weight-medium;
+      line-height: 1;
+      margin-bottom: 0;
+      @media #{$lg-device} {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.service-list-content-wrap {
+  display: flex;
+  justify-content: space-between;
+  @media #{$sm-device} {
+    flex-wrap: wrap;
+  }
+
+  .grid-item {
+    @media #{$sm-device} {
+      margin-bottom: 40px;
+      width: 50%;
+    }
+    @media #{$xxs-device} {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    &:nth-child(1) {
+      padding-left: 24px;
+      @media #{$lg-device} {
+        padding-left: 0;
+      }
+    }
+    &:nth-child(2) {
+      padding-left: 27px;
+      position: relative;
+      @media #{$lg-device} {
+        padding-left: 0;
+      }
+      &:before,
+      &:after {
+        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%233F4199FF' stroke-width='4' stroke-dasharray='1%2c 11' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        @media #{$lg-device} {
+          display: none;
+        }
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        height: 95px;
+        opacity: 0.32;
+        width: 1px;
+        bottom: 0;
+        right: calc(50% + 239px);
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        height: 95px;
+        opacity: 0.32;
+        width: 1px;
+        bottom: 0;
+        left: calc(50% + 226px);
+      }
+    }
+    &:nth-child(3) {
+      left: 5px;
+      position: relative;
+      @media #{$lg-device} {
+        left: 0;
+      }
+      @media #{$sm-device} {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.service-details-item {
+  margin-right: 39px;
+  @media #{$lg-device} {
+    margin-right: 0;
+  }
+  @media #{$md-device} {
+    margin-bottom: 40px;
+  }
+  .inner-content {
+    .thumb {
+      overflow: hidden;
+      position: relative;
+      img {
+        width: 100%;
+        @include transition(all 1s ease-out);
+      }
+      &:hover {
+        img {
+          @include scale(1.1);
+        }
+      }
+    }
+    .content {
+      padding: 49px 0 53px;
+      .title {
+        color: $theme-color2;
+        font-size: 52px;
+        font-weight: $font-weight-extra-bold;
+        margin-bottom: 35px;
+        @media #{$lg-device} {
+          font-size: 38px;
+          margin-bottom: 22px;
+        }
+        @media #{$sm-device} {
+          font-size: 28px;
+          margin-bottom: 16px;
+        }
+      }
+      p {
+        color: $black-333;
+        line-height: 1.8;
+        margin-bottom: 24px;
+      }
+      .work-process-content-wrap {
+        margin-top: 41px;
+        .work-process-content {
+          .work-process-list {
+            max-width: 341px;
+            margin-bottom: 33px;
+            position: relative;
+            padding-left: 55px;
+            @media #{$lg-device} {
+              margin-bottom: 24px;
+              padding-left: 45px;
+            }
+            .icon {
+              span {
+                display: inline-block;
+                left: 0;
+                line-height: 1;
+                position: absolute;
+                top: 7px;
+                &:before {
+                  background-color: $theme-color;
+                  display: inline-block;
+                  border-radius: 50%;
+                  content: "";
+                  height: 23px;
+                  left: 0;
+                  position: relative;
+                  top: 0;
+                  width: 23px;
+                }
+                &:after {
+                  background-color: $theme-color2;
+                  display: inline-block;
+                  border-radius: 50%;
+                  content: "";
+                  height: 23px;
+                  width: 23px;
+                  left: 4px;
+                  top: 4px;
+                  position: absolute;
+                  z-index: -1;
+                }
+              }
+            }
+            p {
+              color: $black-333;
+              font-size: 20px;
+              line-height: 1.6;
+              @media #{$lg-device} {
+                font-size: 17px;
+              }
+            }
+          }
+        }
+        .work-process-thumb {
+          margin-top: 11px;
+          padding-top: 15px;
+          position: relative;
+          padding-right: 13px;
+          text-align: right;
+          @media #{$sm-device} {
+            margin-bottom: 40px;
+          }
+          &:before {
+            background-color: $theme-color;
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 35px;
+            height: 57px;
+            z-index: -1;
+          }
+          img {
+            @media #{$md-device} {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .benifits-content-wrap {
+        margin-top: 47px;
+        margin-bottom: 36px;
+        .thumb {
+          width: 100%;
+        }
+      }
+    }
+    .service-pagination-nav {
+      align-items: center;
+      background-size: cover;
+      background-position: center top;
+      display: flex;
+      justify-content: space-between;
+      padding: 25px 30px;
+      position: relative;
+      z-index: 1;
+      @media #{$xs-device} {
+        display: block;
+        text-align: center;
+      }
+      &:before {
+        background-color: $white;
+        content: "";
+        left: 0;
+        height: 100%;
+        opacity: .84;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+      }
+      .nav-item {
+        &.preview {
+          a {
+            i {
+              margin-right: 11px;
+            }
+          }
+        }
+        &.next {
+          @media #{$xs-device} {
+            margin-top: 20px;
+          }
+          a {
+            i {
+              margin-left: 11px;
+            }
+          }
+        }
+        a {
+          color: $theme-color2;
+          display: block;
+          font-size: 22px;
+          font-family: $font-current-theme2;
+          font-weight: $font-weight-semi-bold;
+          line-height: 1;
+          i {
+            background-color: $theme-color2;
+            border-radius: 50%;
+            color: $white;
+            display: inline-block;
+            font-size: 22px;
+            line-height: 29px;
+            height: 29px;
+            text-align: center;
+            width: 29px;
+            @include transition(all .3s ease-out);
+          }
+          &:hover {
+            i {
+              background-color: $theme-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

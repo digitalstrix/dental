@@ -43,6 +43,9 @@
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Clinic Name</th>
+                                                        <th>Mobile</th>
+                                                        <th>Email</th>
+                                                        <th>Address</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -51,6 +54,9 @@
                                                         <tr>
                                                             <td>{{ $value['id'] }}</td>
                                                             <th scope="col">{{ $value['name'] }}</th>
+                                                            <td>{{ $value['mobile'] }}</td>
+                                                            <td>{{ $value['email'] }}</td>
+                                                            <td>{{ $value['address'] }}</td>
                                                             <td><a  href="{{url('admin/clinic/delete/'. $value['id'] )}}">Delete</a></td>
                                                         </tr>
                                                     @endforeach

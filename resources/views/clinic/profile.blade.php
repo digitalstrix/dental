@@ -38,9 +38,9 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Profile Image</label>
-                                        <a href="{{asset($user->profile)}}">{{asset($user->profile)}}</a><br>
+                                        {{-- <a href="{{asset($user->profile)}}">{{asset($user->profile)}}</a><br> --}}
                                         <input  type="file" id="simpleinput" class="form-control"
-                                            value="" name="profile">
+                                            value="" name="image">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="simpleinput">Password</label>

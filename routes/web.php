@@ -25,6 +25,12 @@ use App\Http\Controllers\User\CommonController;
 
 
 Route::get('/', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::get('/ourproviders', 'App\Http\Controllers\AuthController@providers')->name('providers_frontend');
+Route::get('/ourclinics', 'App\Http\Controllers\AuthController@clinics')->name('clinics_frontend');
+Route::get('/contact', 'App\Http\Controllers\AuthController@contact')->name('contact_frontend');
+Route::post('/contactsave', 'App\Http\Controllers\AuthController@contactSave')->name('contact_save_frontend');
+Route::get('/provider/{id}/{name}', 'App\Http\Controllers\AuthController@providePage')->name('providePage');
+Route::get('/clinics/{id}/{name}', 'App\Http\Controllers\AuthController@clinicPage')->name('clinicPage');
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Users Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
 
