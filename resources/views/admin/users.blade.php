@@ -42,7 +42,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Service Name</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Mobile</th>
+                                                        <th>Address</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -51,6 +54,9 @@
                                                         <tr>
                                                             <td>{{ $value['id'] }}</td>
                                                             <th scope="col">{{ $value['name'] }}</th>
+                                                            <td>{{ $value['email'] }}</td>
+                                                            <td>{{ $value['mobile'] }}</td>
+                                                            <td>{{ $value['address'] }}</td>
                                                             <td><a  href="{{url('admin/user/delete/'. $value['id'] )}}">Delete</a></td>
                                                         </tr>
                                                     @endforeach

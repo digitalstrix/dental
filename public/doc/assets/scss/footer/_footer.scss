@@ -1,0 +1,193 @@
+/*
+-----------------------------------------------------------------------
+  Footer CSS
+-----------------------------------------------------------------------
+*/
+
+.footer-area {
+  .footer-main {
+    background-color: $theme-color2;
+    padding: 143px 0 74px;
+    @media #{$lg-device} {
+      padding: 90px 0 40px;
+    }
+    p {
+      color: #e2e2e2;
+      font-size: 20px;
+      line-height: 1.6;
+      @media #{$lg-device} {
+        font-size: 17px;
+      }
+    }
+
+    .about-widget-wrap {
+      margin-top: -35px;
+      @media #{$lg-device} {
+        margin-top: -22px;
+      }
+    }
+
+    .widget-menu {
+      padding-left: 61px;
+      @media #{$md-device} {
+        padding-left: 0;
+      }
+    }
+
+    .widget-menu2 {
+      padding-left: 73px;
+      @media #{$md-device} {
+        padding-left: 0;
+      }
+    }
+
+    .widget-contact {
+      padding-left: 84px;
+      @media #{$md-device} {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .about-widget-wrap {
+    .widget-logo-area {
+      margin-bottom: 32px;
+      @media #{$lg-device} {
+        margin-bottom: 22px;
+      }
+    }
+    .desc {
+      max-width: 274px;
+      margin-bottom: 38px;
+      @media #{$lg-device} {
+        max-width: 274px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .social-icons {
+    a {
+      background-color: $theme-color2;
+      border: 1px solid $white;
+      border-radius: 50%;
+      color: $white;
+      display: inline-block;
+      font-size: 22px;
+      line-height: 46px;
+      height: 46px;
+      width: 46px;
+      text-align: center;
+      @include transition(all .3s ease-out);
+      @media #{$lg-device} {
+        font-size: 16px;
+        line-height: 36px;
+        height: 36px;
+        width: 36px;
+      }
+      + {
+        a {
+          margin-left: 18px;
+        }
+      }
+      i {
+        @include transition(all .3s ease-out);
+      }
+      &:hover {
+        background-color: $theme-color;
+        border-color: $theme-color;
+        color: $white;
+      }
+    }
+  }
+
+  .widget-item {
+    margin-bottom: 30px;
+    @media #{$sm-device} {
+      padding-right: 15px;
+    }
+    .widget-title {
+      color: $white;
+      font-size: 28px;
+      font-weight: $font-weight-semi-bold;
+      margin-bottom: 29px;
+      @media #{$lg-device} {
+        font-size: 23px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .widget-menu-wrap {
+    .nav-menu {
+      margin-bottom: 0;
+      li {
+        color: #e2e2e2;
+        font-size: 20px;
+        font-weight: $font-weight-light;
+        line-height: 1.6;
+        @media #{$lg-device} {
+          font-size: 17px;
+        }
+        + {
+          li {
+            margin-top: 9px;
+          }
+        }
+        a {
+          color: #e2e2e2;
+          &:hover {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  .widget-contact-wrap {
+    ul {
+      margin-bottom: 0;
+      li {
+        color: #e2e2e2;
+        font-weight: $font-weight-light;
+        font-size: 20px;
+        line-height: 1.6;
+        @media #{$lg-device} {
+          font-size: 17px;
+        }
+        + {
+          li {
+            margin-top: 14px;
+          }
+        }
+        a {
+          color: #e2e2e2;
+          &:hover {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    background-color: $theme-color3;
+    padding: 18px 0 19px;
+    text-align: center;
+    .copyright {
+      color: #9c9c9c;
+      font-size: 14px;
+      font-weight: $font-weight-normal;
+      letter-spacing: 1px;
+      a {
+        color: #9c9c9c;
+        &:hover {
+          color: $white;
+        }
+      }
+      i {
+        color: $theme-color;
+      }
+    }
+  }
+}

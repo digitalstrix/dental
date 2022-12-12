@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use  App\Models\Provider;
 use App\Models\ProviderReview;
+use App\Models\Service;
 
 class CommonController extends Controller
 {
@@ -55,7 +56,7 @@ class CommonController extends Controller
         $user->url = $request->url;
         if($request->hasFile('image')){
            $file = $request->file('image')->store('public/img/provider/profile');
-           $user->profile = $file;
+           $user->image = $file;
        }
         if($request->hasFile('banner')){
            $file = $request->file('banner')->store('public/img/provider/banner');
@@ -128,7 +129,9 @@ class CommonController extends Controller
         * sin(radians(clinics.latitude))) AS distance")
         )->whereNotNull('latitude')->whereNotNull('longitude')
             ->get();
+        // dd($clinic);
             $visit = ProviderVisit::where('providers_id', $userid)->get();
+            // dd($visit);
             foreach($visit as $visit){
                 $temp = ModelsClinic::select(
                     "*"
@@ -139,7 +142,7 @@ class CommonController extends Controller
                 * sin(radians(clinics.latitude))) AS distance")
                 )->whereNotNull('latitude')->whereNotNull('longitude')->where('id',$visit->clinic_id)->orderBy('distance')
                     ->get();    
-            // dd($temp[0]['id']);
+            // dd($temp);
             $details[] = array(
                 'id' => $temp[0]['id'],
                 'name' => $temp[0]['name'],

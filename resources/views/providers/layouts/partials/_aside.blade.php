@@ -27,9 +27,13 @@
             </li>
         </ul>
         <p class="text-muted nav-heading mt-4 mb-1">
-            <span>User Controls</span>
+            <span>Providers Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
+            <a href="{{route('providePage',[session('userid'),session('name')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Your Website</span>
+            </a>
             <a href="{{route('provider_edit')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>

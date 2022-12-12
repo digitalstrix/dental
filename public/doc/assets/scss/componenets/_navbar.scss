@@ -1,0 +1,329 @@
+/*
+-----------------------------------------------------------------------
+	Main Navigation CSS
+-----------------------------------------------------------------------
+*/
+
+.main-menu {
+  & > li {
+    margin-right: 14px;
+    padding: 3px 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    & > a {
+      color: $black;
+      display: block;
+      font-size: 14px;
+      font-weight: $font-weight-medium;
+      line-height: 30px;
+      text-transform: uppercase;
+      padding: 7px 25px;
+      position: relative;
+    }
+
+    &:hover, &.active {
+      & > a {
+        color: $theme-color;
+        &:before {
+          color: $theme-color;
+        }
+      }
+    }
+  }
+}
+
+// Sub Menu Or Dropdown Menu
+.has-submenu {
+  padding-right: 10px;
+  position: relative;
+
+  // Menu Item Arrows
+  & > a {
+    position: relative;
+
+    &:before {
+      content: '\f107';
+      color: $theme-color;
+      font-size: 14px;
+      line-height: 30px;
+      font-family: 'FontAwesome';
+      position: absolute;
+      right: 11px;
+      top: 7px;
+    }
+  }
+
+  // After Hover Sub Menu
+  &:hover {
+    & > .submenu-nav {
+      margin-top: 0;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: visible;
+    }
+  }
+
+  // Sub Menu Style
+  .submenu-nav {
+    background-color: $black-111;
+    border: none;
+    border-bottom: none;
+    padding: 15px 0 15px;
+    position: absolute;
+    left: -25px;
+    top: 100%;
+    opacity: 0;
+    min-width: 250px;
+    pointer-events: none;
+    margin-top: 30px;
+    @include transition(all .3s ease-out);
+    visibility: hidden;
+    z-index: 9999;
+
+    @media #{$lg-device} {
+      min-width: 210px;
+      left: 0;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      height: 56px;
+      width: 100%;
+      left: 0;
+      bottom: 100%;
+    }
+
+    & > li {
+      padding: 10px 25px;
+
+      a {
+        color: #aaa;
+        display: block;
+        font-weight: $font-weight-normal;
+        font-size: 14px;
+        letter-spacing: inherit;
+        text-transform: capitalize;
+        &:hover {
+          color: $white;
+        }
+      }
+
+      &:hover {
+        & > a {
+          color: $white;
+        }
+        &:after {
+          color: $white !important;
+        }
+      }
+
+      &.has-submenu {
+        position: relative;
+
+
+        a {
+          &:before{
+            display: none;
+          }
+        }
+
+        &:hover {
+          & > .submenu-nav {
+            transform: none;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: visible;
+          }
+        }
+
+        // Menu Item Arrows
+        &:after {
+          content: '\f105';
+          color: $body-color;
+          font-size: 15px;
+          line-height: 1;
+          font-family: 'FontAwesome';
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          @include translate(0%, -57%);
+        }
+
+        // Sub Sub Menu Style
+        .submenu-nav {
+          left: 100%;
+          top: 0;
+        }
+      }
+    }
+
+    // Mega Menu Style
+    &-mega {
+      display: flex;
+      padding: 40px 50px;
+      width: 100%;
+
+      @media #{$lg-device} {
+        width: 830px;
+      }
+
+      .mega-menu-item {
+        padding: 0;
+        flex-basis: 25%;
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+
+      &.colunm {
+        &-two {
+          .mega-menu-item {
+            flex-basis: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  &.full-width {
+    position: static;
+  }
+}
+
+/* Responsive Mobile Menu */
+.res-mobile-menu {
+  margin: 0;
+
+  .slicknav {
+    &_btn {
+      display: none;
+    }
+
+    &_menu {
+      background-color: transparent;
+      padding: 0;
+    }
+
+    &_nav {
+      display: block !important;
+      padding: 60px 40px 50px;
+      margin: 0;
+
+      li {
+        &:last-child {}
+
+        a {
+          margin: 0;
+          background-color: transparent;
+          line-height: 1;
+          font-size: 20px;
+          font-weight: 400;
+          padding: 17px 0;
+          letter-spacing: 0.4px;
+          color: #fff;
+          opacity: 1;
+          position: relative;
+
+          .slicknav_arrow {
+            font-size: 12px;
+            right: 0;
+            position: absolute;
+            top: 50%;
+            margin: 0;
+            transform: translate(0%, -50%);
+          }
+
+          a {
+            
+          }
+
+          &:hover {
+            color: inherit;
+            background-color: transparent;
+          }
+        }
+
+        img {
+          display: none;
+        }
+
+        div {
+          display: none;
+        }
+
+        ul {
+          margin: 0;
+          padding-left: 0;
+
+          li {
+            a {
+              color: $white;
+              font-size: 15px;
+              line-height: 1;
+              padding: 12px 0;
+              padding-left: 15px;
+            }
+
+            &.slicknav_parent {
+              a {
+                color: $white;
+              }
+            }
+
+            ul {
+              li {
+                a {
+                  font-size: 14px;
+                  padding-left: 40px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .slicknav_parent {
+        .slicknav_item {
+          a {
+            padding-left: 0;
+          }
+        }
+      }
+
+      .slicknav_open {
+        a {
+        & > a {
+            color: $theme-color;
+          }
+        }
+        & > .slicknav_item {
+          position: relative;
+
+          .slicknav_arrow {
+            color: $theme-color;
+            background-color: transparent;
+          }
+        }
+        & > ul {
+          & > li {
+            & > a {
+              & > a {}
+            }
+            &.slicknav_open {
+              & > a {
+                & > a {
+                  color: $theme-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,355 @@
+/*
+-----------------------------------------------------------------------
+  Form CSS
+-----------------------------------------------------------------------
+*/
+
+.appointment-form-wrap {
+  .appointment-form {
+    padding: 86px 120px 82px;
+    @media #{$lg-device} {
+      padding: 86px 40px 82px;
+    }
+    @media #{$sm-device} {
+      padding: 76px 25px 65px;
+    }
+    .section-title {
+      margin-bottom: 62px;
+      @media #{$lg-device} {
+        margin-bottom: 46px;
+      }
+      .title {
+        max-width: 493px;
+        margin: 0 auto;
+      }
+    }
+    .form-group {
+      margin-bottom: 35px;
+      @media #{$lg-device} {
+        margin-bottom: 25px;
+      }
+      .form-control {
+        background-color: #f9f9ff;
+        box-shadow: 0px 6px 9px 0px rgb(0 0 0 / 10%);
+        border: none;
+        border-radius: 0 6px 6px 6px;
+        background-clip: inherit;
+        color: $theme-color2;
+        font-size: 20px;
+        font-weight: 400;
+        height: 64px;
+        margin-bottom: 30px;
+        padding: 10px 20px;
+        position: relative;
+        @include transition(all .2s ease-out);
+        @media #{$lg-device} {
+          font-size: 16px;
+          height: 55px;
+          margin-bottom: 0;
+        }
+        @include placeholder {
+          color: $theme-color2;
+        }
+        &.form-select {
+          background-image: url('../img/icons/angle-down.png');
+          background-size: inherit;
+          background-position: center right 20px;
+          cursor: pointer;
+          padding: 10px 16px;
+        }
+        &.form-date {
+          background-image: url('../img/icons/date.png');
+          background-size: inherit;
+          background-position: center right 18px;
+          background-repeat: no-repeat;
+          cursor: pointer;
+        }
+        &.form-time {
+          background-image: url('../img/icons/time.png');
+          background-size: inherit;
+          background-position: center right 18px;
+          background-repeat: no-repeat;
+          cursor: pointer;
+        }
+      }
+      .btn-theme {
+        border: none;
+        background-color: transparent;
+        color: $theme-color;
+        font-size: 22px;
+        font-weight: $font-weight-semi-bold;
+        font-family: $font-current-theme2;
+        line-height: 1.45;
+        margin: 31px 0 0 0;
+        padding: 0;
+        position: relative;
+        @include transition(all .4s ease-out);
+        &:before {
+          background-color: $theme-color;
+          bottom: 2px;
+          content: "";
+          left: 0;
+          opacity: .8;
+          height: 1px;
+          position: absolute;
+          width: 100%;
+          @include transition(all 2s ease-out);
+        }
+        &:after {
+          background-color: $theme-color2;
+          bottom: 2px;
+          content: "";
+          left: auto;
+          right: 0;
+          opacity: .8;
+          height: 1px;
+          position: absolute;
+          width: 0;
+          @include transition(all 2s ease-out);
+        }
+        &:hover {
+          color: $theme-color2;
+          &:before {
+            left: auto;
+            right: 0;
+            width: 0;
+          }
+          &:after {
+            left: 0;
+            right: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.contact-page-wrapper {
+  .contact-form {
+    .form-group {
+      margin-bottom: 25px;
+      @media #{$xxs-device} {
+        margin-bottom: 18px;
+      }
+      .form-control {
+        border: 1px solid #8b8b8b;
+        background-color: $white;
+        border-radius: 0;
+        box-shadow: none;
+        color: $black-333;
+        font-size: 14px;
+        letter-spacing: .50px;
+        padding: 5px 18px 5px;
+        height: 50px;
+        @include transition(all .4s ease-out);
+        @include placeholder {
+          color: $black-333;
+        }
+        &:active,
+        &:focus {
+          border-color: $theme-color;
+        }
+      }
+      textarea {
+        &.form-control {
+          height: 200px;
+          padding-top: 26px;
+          @media #{$xxs-device} {
+            height: 140px;
+            padding-top: 14px;
+          }
+        }
+      }
+      .btn-theme {
+        border: none;
+        background-color: transparent;
+        color: $theme-color;
+        font-size: 16px;
+        font-weight: $font-weight-semi-bold;
+        font-family: $font-current-theme2;
+        line-height: 1;
+        margin: 22px 0 0 0;
+        padding: 0;
+        text-decoration: underline;
+        @include transition(all .4s ease-out);
+        &:hover {
+          color: $theme-color2;
+        }
+      }
+    }
+  }
+}
+
+.login-form-content {
+  max-width: 570px;
+    margin: 0 auto;
+    
+  .form-group {
+    margin-bottom: 25px;
+
+    label {
+      color: $black-333;
+      font-size: 14px;
+      margin-bottom: 10px;
+
+      .required {
+        color: #f00;
+      }
+    }
+
+    .form-control {
+      box-shadow: none;
+      border-radius: 0;
+      border: 1px solid #e8e8e8;
+      height: 60px;
+      padding: 0 20px;
+      font-size: 14px;
+
+      &:active,
+      &:focus {
+        border-color: $theme-color;
+      }
+    }
+
+    .btn-login {
+      background-color: $theme-color2;
+      border-color: $theme-color2;
+      color: $white;
+      font-size: 14px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-weight: 700;
+      text-align: center;
+      display: block;
+      width: 100%;
+      height: 60px;
+      line-height: 64px;
+      @include transition(all .3s ease-out);
+
+      &:hover {
+        background-color: $theme-color;
+        border-color: $theme-color;
+      }
+    }
+  }
+  .account-info-group {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    @media #{$xxs-device} {
+      display: block;
+    }
+  }
+  .rememberme-account {
+    float: left;
+    @media #{$xxs-device} {
+      float: none;
+    }
+    .form-check {
+      line-height: 1;
+      margin-bottom: 0;
+      padding: 0;
+      .form-check-input {
+        cursor: pointer;
+        width: 18px;
+        margin: 0;
+        height: 18px;
+        border-radius: 0;
+        border: 2px solid #e6e6e6;
+        box-shadow: none;
+        outline: none;
+        &:checked {
+          &~ {
+            .form-check-label {
+              border-color: $theme-color;
+              color: $theme-color;
+            }
+          }
+          &[type=checkbox] {
+            background-color: $theme-color;
+          }
+        }
+      }
+      .form-check-label {
+        color: #8c8c8c;
+        font-size: 15px;
+        margin-bottom: 0;
+        cursor: pointer;
+        font-weight: 500;
+        letter-spacing: 0.6px;
+        position: relative;
+        top: -1px;
+        padding-left: 8px;
+        &:hover {
+          color: $theme-color;
+        }
+      }
+    }
+  }
+  .lost-password {
+    color: #8c8c8c;
+    font-size: 15px;
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    &:hover {
+      color: $theme-color;
+    }
+  }
+}
+
+.register-form-content {
+  max-width: 570px;
+    margin: 0 auto;
+    
+  .form-group {
+    margin-bottom: 25px;
+
+    label {
+      color: $black-333;
+      font-size: 14px;
+      margin-bottom: 10px;
+
+      .required {
+        color: #f00;
+      }
+    }
+
+    .form-control {
+      box-shadow: none;
+      border-radius: 0;
+      border: 1px solid #e8e8e8;
+      height: 60px;
+      padding: 0 20px;
+      font-size: 14px;
+
+      &:active,
+      &:focus {
+        border-color: $theme-color;
+      }
+    }
+
+    .btn-register {
+      background-color: $theme-color2;
+      border-color: $theme-color2;
+      color: $white;
+      font-size: 14px;
+      text-transform: uppercase;
+      border-radius: 0;
+      font-weight: 700;
+      text-align: center;
+      display: block;
+      width: 100%;
+      height: 60px;
+      line-height: 64px;
+      @include transition(all .3s ease-out);
+
+      &:hover {
+        background-color: $theme-color;
+        border-color: $theme-color;
+      }
+    }
+  }
+}

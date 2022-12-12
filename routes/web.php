@@ -25,6 +25,15 @@ use App\Http\Controllers\User\CommonController;
 
 
 Route::get('/', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::get('/ourproviders', 'App\Http\Controllers\AuthController@providers')->name('providers_frontend');
+Route::get('/ourclinics', 'App\Http\Controllers\AuthController@clinics')->name('clinics_frontend');
+Route::get('/contact', 'App\Http\Controllers\AuthController@contact')->name('contact_frontend');
+Route::post('/contactsave', 'App\Http\Controllers\AuthController@contactSave')->name('contact_save_frontend');
+Route::get('/provider/{id}/{name}', 'App\Http\Controllers\AuthController@providePage')->name('providePage');
+Route::get('/clinics/{id}/{name}', 'App\Http\Controllers\AuthController@clinicPage')->name('clinicPage');
+Route::get('/jobs', 'App\Http\Controllers\AuthController@jobs')->name('frontend_job');
+Route::get('/applyjobs/{id}', 'App\Http\Controllers\AuthController@applyJob')->name('frontend_apply_job');
+Route::post('/applyJobSave', 'App\Http\Controllers\AuthController@applyJobSave')->name('applyJobSave');
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Users Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
 
@@ -144,9 +153,7 @@ Route::middleware('AdminGuard')->prefix('admin')->group(function () {
 Route::post('api/fetch-pslots', [CommonController::class, 'fetchProviderSlots']);
 Route::post('api/fetch-cslots', [CommonController::class, 'fetchClinicSlots']);
 
-
-
 Route::get('/logout', function () {
     session()->flush();
-    return view('users.login');
+    return redirect(route('dashboard'));
 })->name('logout');

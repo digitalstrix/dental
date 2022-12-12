@@ -1,0 +1,124 @@
+/*
+-----------------------------------------------------------------------
+  Brand Logo CSS
+-----------------------------------------------------------------------
+*/
+
+.brand-logo-area {
+  &.brand-logo-default-area {
+    .container {
+      padding-bottom: 170px;
+      @media #{$lg-device} {
+        padding-bottom: 90px;
+      }
+    }
+  }
+  &.brand-logo-about-area {
+    .container {
+      padding-top: 140px;
+      padding-bottom: 140px;
+      @media #{$lg-device} {
+        padding-top: 90px;
+        padding-bottom: 90px;
+      }
+    }
+  }
+  &.brand-logo-team-area {
+    .container {
+      padding-bottom: 101px;
+      padding-top: 95px;
+      @media #{$lg-device} {
+        padding-bottom: 35px;
+        padding-top: 57px;
+      }
+      @media #{$sm-device} {
+        padding-bottom: 88px;
+      }
+    }
+  }
+  &.brand-logo-service-area {
+    .container {
+      padding-top: 0;
+      padding-bottom: 130px;
+      @media #{$lg-device} {
+        padding-bottom: 89px;
+      }
+    }
+  }
+  &.brand-logo-team-inner-area {
+    .container {
+      @media #{$sm-device} {
+        padding-bottom: 30px;
+      }
+    }
+    .brand-logo2-content {
+      margin-top: 40px;
+    }
+  }
+}
+
+.brand-logo-content {
+  .brand-logo-item {
+    text-align: center;
+  }
+  .brand-logo-slider-container {
+    .swiper-wrapper {
+    }
+  }
+}
+
+.brand-logo2-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 35px;
+  padding-top: 36px;
+  @media #{$lg-device} {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+  .brand-logo-item {
+    margin-bottom: 61px;
+  }
+  .grid-item {
+    width: 33.3333%;
+    @media #{$lg-device} {
+      padding: 0 5px;
+    }
+  }
+}
+
+.brand-logo-wrap {
+  .info-content {
+    padding-right: 60px;
+    @media #{$lg-device} {
+      padding-right: 0;
+    }
+    .section-title {
+      margin-bottom: 37px;
+    }
+  }
+}
+
+.brand-logo-style2 {
+  .brand-logo2-content {
+    padding-left: 0;
+    padding-right: 35px;
+    padding-top: 37px;
+    @media #{$lg-device} {
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 0;
+    }
+  }
+  .info-content {
+    padding-left: 60px;
+    @media #{$lg-device} {
+      padding-left: 0;
+    }
+    .section-title {
+      margin-bottom: 37px;
+    }
+  }
+}

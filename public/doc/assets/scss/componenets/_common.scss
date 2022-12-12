@@ -1,0 +1,551 @@
+/*
+-----------------------------------------------------------------------
+  Common CSS
+-----------------------------------------------------------------------
+*/
+
+/*-------- Background Style Css --------*/
+.bg-img {
+  background: no-repeat center center;
+  background-size: cover;
+
+  &-tr {
+    background: no-repeat top right;
+  }
+
+  &-tl {
+    background: no-repeat top left;
+  }
+
+  &-br {
+    background: no-repeat bottom right;
+  }
+
+  &-bl {
+    background: no-repeat bottom left;
+  }
+
+  &-nr {
+    background: no-repeat center center;
+    background-size: contain;
+  }
+
+  &-rc {
+    background: no-repeat;
+    background-size: contain;
+  }
+}
+
+.parallax {
+  background-size: cover;
+  background-repeat: no-repeat
+}
+
+/*-------- Container Style Css --------*/
+.wrapper {
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @media #{$lg-device} {
+    max-width: none;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+  & > [class*=col-] {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+/*-------- Gutter Style Css --------*/
+.no-gutter {
+  margin-right: 0;
+  margin-left: 0;
+  .col,
+  [class*=col-] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.row-gutter-23 {
+  margin-right:  -11.5px;
+  margin-left:  -11.5px;
+  .col,
+  [class*=col-] {
+    padding-left: 11.5px;
+    padding-right: 11.5px;
+  }
+}
+
+.row-gutter-30 {
+  margin-right: -15px;
+  margin-left: -15px;
+  .col,
+  [class*=col-] {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/*-------- Spacing Style Css --------*/
+.container,
+.container-fluid {
+  padding-bottom: 125px;
+  padding-top: 125px;
+  @media #{$lg-device} {
+    padding-bottom: 90px;
+    padding-top: 90px;
+  }
+}
+
+/*-------- Button Style Css --------*/
+.th-btn-link {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: $font-weight-bold;
+  font-family: $font-current-theme2;
+  line-height: 1;
+  position: relative;
+  &:before {
+    background-color: $theme-color;
+    bottom: -2px;
+    content: "";
+    left: 0;
+    opacity: .8;
+    height: 1.5px;
+    position: absolute;
+    width: 100%;
+    @include transition(all 1s ease-out);
+  }
+  &:after {
+    background-color: $theme-color2;
+    bottom: -2px;
+    content: "";
+    left: auto;
+    right: 0;
+    opacity: .8;
+    height: 1.5px;
+    position: absolute;
+    width: 0;
+    @include transition(all 1s ease-out);
+  }
+  &:hover {
+    color: $theme-color2;
+    &:before {
+      left: auto;
+      right: 0;
+      width: 0;
+    }
+    &:after {
+      left: 0;
+      right: auto;
+      width: 100%;
+    }
+  }
+}
+
+/*-------- Z Index Style Css --------*/
+.z-index-1 {
+  z-index: 1;
+}
+
+/*-------- Fancybox Style Css --------*/
+.fancybox-slide {
+  cursor: url('../img/icons/cancel-white.png'), auto;
+}
+
+/*-------- Page Header Style Css --------*/
+.page-header-area {
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  &:before {
+    background-color: $theme-color2;
+    content: "";
+    left: 0;
+    opacity: 0.94;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.page-header-content {
+  padding: 126px 0 126px;
+  position: relative;
+  z-index: 1;
+  @media #{$lg-device} {
+    padding: 106px 0 106px;
+  }
+  .sub-title {
+    color: $white;
+    font-size: 22px;
+    font-weight: $font-weight-medium;
+    letter-spacing: 4.5px;
+    margin-bottom: 28px;
+    @media #{$lg-device} {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+  }
+  .title {
+    color: $white;
+    font-size: 78px;
+    font-weight: $font-weight-extra-bold;
+    letter-spacing: 0;
+    line-height: 1;
+    @media #{$lg-device} {
+      font-size: 65px;
+    }
+    @media #{$md-device} {
+      font-size: 55px;
+    }
+    @media #{$sm-device} {
+      font-size: 45px;
+    }
+    @media #{$xs-device} {
+      font-size: 35px;
+    }
+    + {
+      .breadcrumb-area {
+        margin-top: 34px;
+        @media #{$lg-device} {
+          margin-top: 26px;
+        }
+        @media #{$sm-device} {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+
+.page-header-layer-style {
+  left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  @media #{$md-device} {
+    display: none;
+  }
+  .layer-style {
+    position: absolute;
+    right: 150px;
+    top: 96px;
+  }
+  .layer-style2 {
+    bottom: 71px;
+    left: 87px;
+    position: absolute;
+  }
+  .layer-style3 {
+    bottom: 88px;
+    position: absolute;
+    right: calc(50% - 523px);
+    @media #{$lg-device} {
+      right: calc(50% - 440px);
+    }
+  }
+  .layer-style4 {
+    left: calc(50% - 29%);
+    position: absolute;
+    top: 87px;
+  }
+}
+
+.breadcrumb-area {
+  margin-bottom: 0;
+
+  .breadcrumb {
+    background-color: transparent;
+    display: block;
+    flex-wrap: unset;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 0;
+
+    li {
+      color: #d3d3d3;
+      display: inline-block;
+      font-size: 22px;
+      font-weight: $font-weight-normal;
+      letter-spacing: 1px;
+      line-height: 1;
+      position: relative;
+      @media #{$lg-device} {
+        font-size: 17px;
+      }
+
+      a {
+        color: #d3d3d3;
+
+        &:hover {
+          color: $theme-color;
+        }
+      }
+    }
+
+    .breadcrumb-sep {
+      vertical-align: 0;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+}
+
+/*-------- Pagination Style Css --------*/
+.pagination-content-wrap {
+  margin-top: 18px;
+  .pagination-nav {
+    .pagination {
+      align-items: center;
+      margin: 0;
+
+      li {
+        color: $theme-color2;
+        display: flex;
+        font-size: 28px;
+        font-weight: $font-weight-semi-bold;
+        font-family: $font-current-theme2;
+        line-height: 1;
+
+        a {
+          color: $theme-color2;
+          line-height: 1;
+
+          &.icon {
+            background-color: $theme-color2;
+            border-radius: 50%;
+            color: $white;
+            display: inline-block;
+            font-size: 22px;
+            height: 29px;
+            line-height: 25px;
+            margin-top: 2px;
+            position: relative;
+            top: 1px;
+            text-align: center;
+            width: 29px;
+            &:hover {
+              background-color: $theme-color;
+              color: $white;
+            }
+          }
+
+          &.disabled {
+            cursor: not-allowed;
+          }
+
+          &.active {
+            color: $theme-color;
+          }
+
+          &.prev {
+            margin-right: 28px;
+          }
+
+          &.next {
+            margin-left: 28px;
+          }
+
+          &:hover {
+            color: $theme-color;
+          }
+        }
+
+        &.pagination-sep {
+          margin: 0 6px;
+        }
+
+        .dots {}
+
+        &:last-child {}
+      }
+    }
+  }
+}
+
+/*-------- Margin & Padding Custom Style Css --------*/
+.m--0 {
+  margin: 0 !important;
+}
+.mb--0 {
+  margin-bottom: 0 !important;
+}
+.ml--0 {
+  margin-left: 0 !important;
+}
+.mr--0 {
+  margin-right: 0 !important;
+}
+.mt--0 {
+  margin-top: 0 !important;
+}
+
+@media #{$md-device} {
+  .mb-md-40 {
+    margin-bottom: 40px !important;
+  }
+}
+
+.p--0 {
+  padding: 0 !important;
+}
+.pb--0 {
+  padding-bottom: 0 !important;
+}
+.pl--0 {
+  padding-left: 0 !important;
+}
+.pr--0 {
+  padding-right: 0 !important;
+}
+.pt--0 {
+  padding-top: 0 !important;
+}
+
+/*-------- Jquery Ui Style Css --------*/
+.ui-widget {
+  font-size: 14px;
+}
+.ui-timepicker-wrapper {
+  font-size: 15px;
+}
+
+/*-------- Preloader Style Css --------*/
+.preloader-deactive {
+  .preloader-wrap {
+    display: none;
+  }
+}
+
+.preloader-wrap {
+  background-color: $white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 99999;
+  overflow: hidden;
+
+  .preloader {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-left: -32px;
+    margin-top: -50px;
+    .dot {
+      height: 100%;
+      width: 100%;
+      display: block;
+      box-shadow: 0 0 20px 0 rgba($black,.15);
+      -webkit-box-shadow: 0 0 20px 0 rgba($black,.15);
+      -webkit-animation: la-rotateplane 1.2s infinite ease-in-out;
+      animation: la-rotateplane 1.2s infinite ease-in-out;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      background-color: $theme-color;
+    }
+  }
+}
+
+@-webkit-keyframes la-rotateplane {
+  0% {
+      -webkit-transform: perspective(120px)
+  }
+
+  50% {
+      -webkit-transform: perspective(120px) rotateY(180deg)
+  }
+
+  100% {
+      -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg)
+  }
+}
+
+@keyframes la-rotateplane {
+  0% {
+      transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  }
+
+  50% {
+      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  }
+
+  100% {
+      transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
+  }
+}
+
+/*-------- Scroll To Top Style Css --------*/
+.scroll-to-top {
+  box-shadow: 0 0 8px 1px rgb(0 0 0 / 20%);
+  bottom: -60px;
+  background-color: #C4C4C4;
+  color: $white;
+  position: fixed;
+  right: 3%;
+  display: block;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  text-align: center;
+  font-size: 20px;
+  line-height: 38px;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  @include transition (all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1));
+  @include rotate(45);
+  z-index: 999;
+
+  span {
+    @include rotate(-45);
+  }
+
+  &:hover {
+    background-color: $theme-color;
+  }
+
+  &.show {
+    visibility: visible;
+    opacity: .5;
+    bottom: 70px;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+
+.fixed {
+  position: fixed;
+  display: block;
+  right: 0;
+  top: 150px;
+  padding-right: 230px !important;
+}

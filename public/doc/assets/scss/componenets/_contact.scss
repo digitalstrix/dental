@@ -1,0 +1,214 @@
+/*
+-----------------------------------------------------------------------
+    Contact CSS
+-----------------------------------------------------------------------
+*/
+
+.appointment-area {
+  &.appointment-default-area {
+    .container {
+      padding-top: 130px;
+      @media #{$lg-device} {
+        padding-top: 95px;
+        padding-bottom: 30px;
+      }
+    }
+  }
+}
+
+.contact-area {
+  &.contact-inner-area {
+    .container {
+      padding-bottom: 135px;
+      @media #{$lg-device} {
+        padding-bottom: 90px;
+      }
+    }
+  }
+}
+
+.contact-page-wrapper {
+  .section-title {
+    margin-bottom: 38px;
+    .title {
+      margin-bottom: 39px;
+    }
+  }
+  .contact-form-wrap {
+    padding-right: 66px;
+    @media #{$lg-device} {
+      padding-right: 0;
+    }
+  }
+}
+
+.contact-info-wrap {
+  margin-top: 38px;
+  padding: 58px 48px 74px 19px;
+  position: relative;
+  @media #{$md-device} {
+    padding: 0;
+  }
+  &:before {
+    background-color: #f9f9ff;
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: -13px;
+    top: 0;
+    width: 292px;
+    @media #{$md-device} {
+      display: none;
+    }
+  }
+  .contact-info {
+    background-size: cover;
+    position: relative;
+    padding: 70px 81px 74px;
+    @media #{$lg-device} {
+      padding: 50px 40px 44px;
+    }
+    @media #{$md-device} {
+      padding: 50px 40px 12px;
+    }
+    &:after {
+      background-color: rgba($theme-color2, .94);
+      content: "";
+      left: 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      @include transition(all .4s ease-out);
+    }
+    .info-item {
+      margin-bottom: 37px;
+      position: relative;
+      z-index: 1;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .info {
+        .title {
+          color: $white;
+          font-size: 28px;
+          font-weight: $font-weight-extra-bold;
+          margin-bottom: 20px;
+          @media #{$xs-device} {
+            font-size: 24px;
+          }
+        }
+        p {
+          color: $white;
+          font-weight: $font-weight-normal;
+          font-size: 20px;
+          line-height: 1.5;
+          @media #{$xs-device} {
+            font-size: 18px;
+          }
+          a {
+            color: $white;
+            display: block;
+            &:hover {
+              color: $theme-color;
+            }
+          }
+        }
+      }
+    }
+    .shape-one {
+      background-color: $theme-color;
+      height: 70px;
+      left: -26px;
+      position: absolute;
+      top: -34px;
+      width: 60px;
+      z-index: -1;
+      @media #{$md-device} {
+        display: none;
+      }
+    }
+    .shape-two {
+      background-color: $theme-color2;
+      height: 32px;
+      position: absolute;
+      width: 32px;
+      z-index: -1;
+      bottom: -60px;
+      right: calc(50% - 8px);
+      transform: translate(-50%, 0%);
+      @media #{$md-device} {
+        display: none;
+      }
+    }
+    &:hover {
+      &:after {
+        background-color: rgba($theme-color2, .98);
+      }
+    }
+  }
+}
+
+.appointment-form-wrap {
+  height: 100%;
+  margin-right: -9px;
+  position: relative;
+  @media #{$md-device} {
+    margin-right: 0;
+  }
+  .column-left {
+    position: relative;
+    z-index: 1;
+    &:before {
+      background-color: #f9f9ff;
+      content: "";
+      left: 0;
+      height: 100%;
+      opacity: 0.94;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: -1;
+    }
+  }
+  .column-right {
+    height: 100%;
+    position: absolute;
+    right: -100%;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    @media #{$md-device} {
+      position: relative;
+      height: 500px;
+      right: 0;
+    }
+    .thumb {
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+  }
+}
+
+.account-area {
+  .container {
+    padding-top: 115px;
+    @media #{$lg-device} {
+      padding-top: 90px;
+    }
+  }
+  .section-title {
+    border-bottom: 1px solid #e8e8e8;
+    max-width: 570px;
+    margin: 0 auto 40px;
+    padding-bottom: 14px;
+    .title {
+      font-size: 44px;
+      margin-bottom: 0;
+      @media #{$sm-device} {
+        font-size: 30px;
+      }
+    }
+  }
+}
