@@ -349,24 +349,5 @@ public function calendarMeeting(Request $request)
         $details1 = $request->meetingid;
         return view('users.clinicreview',compact('details','details1'));
     }
-    public function clinicReviewSave(Request $request){
-        $user = $request->validate(
-            [
-               "rating" => "required",
-               "review" => "required",
-               "meetingid" => "required",
-               "clinicid" => "required",
-               "userid" => "required"
-            ]
-         );
-        $review = new ClinicReview();
-        $review->rating = $request->rating;
-        $review->user_id = $request->userid;
-        $review->clinic_id = $request->clinicid;
-        $review->meeting_id = $request->meetingid;
-        $review->review = $request->review;
-        $review->save();
-        toast('Review Saved Sucsessfully','success')->autoClose(3000);
-            return redirect(route('completedMeetings'));
-    }
+   
 }

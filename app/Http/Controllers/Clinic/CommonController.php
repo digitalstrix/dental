@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Clinic;
 
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Clinic;
+use App\Models\Meeting;
 use App\Models\Service;
 use App\Models\ClinicFile;
 use App\Models\ClinicSlot;
 use App\Models\ClinicVisit;
+use App\Models\ClinicReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -19,9 +22,14 @@ class CommonController extends Controller
 {
     public function dashboard()
     {
+        $umeetings = Meeting::where('clinic_id', session('userid'))->where('is_completed', '0')->get()->count();
+        $cmeetings = Meeting::where('clinic_id', session('userid'))->where('is_completed', '1')->get()->count();
+        $previews = ClinicReview::where('clinic_id', session('userid'))->get()->count();
+        $areviews = ClinicReview::where('clinic_id', session('userid'))->pluck('rating')->avg();
+        $psent = ClinicFile::where('clinic_id', session('userid'))->get()->count();
         $userid = session('userid');
-        $data = Clinic::find($userid);
-        return view('clinic.dashboard');
+        $data = User::find($userid);
+        return view('clinic.dashboard',compact('umeetings','cmeetings','previews','areviews','psent'));
     }
     public function userProfile()
     {
@@ -53,7 +61,7 @@ class CommonController extends Controller
 
 
 
-            // edit details
+    // edit details
 
 
 
@@ -165,8 +173,9 @@ class CommonController extends Controller
         $visit = ClinicVisit::where('id', $request->id)->delete();
         toast('Sucess Delete.', 'success')->autoClose(3000);
         return redirect(route('clinicMap'));
-    } 
-    public function addServiceSave(Request $request){
+    }
+    public function addServiceSave(Request $request)
+    {
         $service = new Service();
         $service->clinic_id = $request->userid;
         $service->service = $request->service;
@@ -174,8 +183,85 @@ class CommonController extends Controller
         toast('Sucess Saved.', 'success')->autoClose(3000);
         return redirect(route('addService'));
     }
-    public function addService(){
-        $details = Service::where('clinic_id',session('userid'))->get();
-        return view('clinic.addservice',compact('details'));
+    public function addService()
+    {
+        $details = Service::where('clinic_id', session('userid'))->get();
+        return view('clinic.addservice', compact('details'));
+    }
+    public function myMeetings()
+    {
+        $user = ModelsClinic::find(session('userid'));
+        $meeting = Meeting::where('clinic_id', $user->id)->get();
+        $details = array();
+        foreach ($meeting as $meet) {
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id', $meet->clinic_id)->first();
+            $clinictime = ClinicSlot::where('id', $meet->clinic_slot_id)->first();
+            $details[] = array(
+                "username" => $provider->name,
+                "user_id" => $provider->name,
+                "clinic" => $clinic->name,
+                "_provider" => $meet->doctor_confirm,
+                "_clinic" => $meet->clinic_confirm,
+                "clinic_latitude" => $clinic->latitude,
+                "clinic_longitude" => $clinic->longitude,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id,
+                "meeting_link" => $meet->meeting_link,
+                "slot_id" => $meet->providers_slot_id,
+                "clinic_time" => $clinictime->start,
+                "is_completed" => $meet->is_completed,
+                "is_assistance" => $meet->is_assistance
+            );
+        }
+        return view('clinic.mymeetings', compact('details'));
+    }
+
+    public function myMeetingConfirmation(Request $request)
+    {
+        $meet = Meeting::where('id', $request->id)->first();
+        $meet->clinic_confirm = '1';
+        $meet->save();
+        toast('Meeting Confirmed From Your Side', 'success')->autoClose(3000);
+        return redirect(route('clinic_myMeetings'));
+    }
+
+
+    public function myReview()
+    {
+        $review = ClinicReview::where('clinic_id', session('userid'))->get();
+        $details = array();
+        foreach ($review as $review) {
+            $user = User::where('id', $review->user_id)->first();
+            $meet = Meeting::where('id', $review->meeting_id)->first();
+            $details[] = array(
+                "username" => $user->name,
+                "reason" => $meet->reason,
+                "review" => $review->review,
+                "rating" => $review->rating,
+            );
+        }
+        return view('clinic.reviews', compact('details'));
+    }
+    public function haveAssistance(Request $request)
+    {
+        $meet = Meeting::where('id', $request->id)->first();
+        $meet->is_assistance = '0';
+        $meet->save();
+        toast('You Opt, You have Assistance in your Clinic.', 'success')->autoClose(3000);
+        return redirect(route('clinic_myMeetings'));
+    }
+    public function needAssistance(Request $request)
+    {
+        $meet = Meeting::where('id', $request->id)->first();
+        $meet->is_assistance = '1';
+        $meet->save();
+        toast('Job is Posted Successfully', 'success')->autoClose(3000);
+        $job = new Job;
+        $job->clinic_id = $meet['clinic_id'];
+        $job->meeting_id = $meet['id'];
+        $job->clinic_slot_id = $meet['clinic_slot_id'];
+        $job->save();
+        return redirect(route('clinic_myMeetings'));
     }
 }

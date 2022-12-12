@@ -6,20 +6,12 @@
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="{{route('clinic_dashboard')}}">
-                <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
-                    xml:space="preserve">
-                    <g>
-                        <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
-                        <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />
-                        <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
-                    </g>
-                </svg>
+                <img style="width: 170px; height: 50px;" src="https://i0.wp.com/dentavibe.com/wp-content/uploads/2022/07/Horizontal-Logo-DentaVIBE.png" alt="" srcset="">
             </a>
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item dropdown">
-                <a href="" aria-expanded="false" class="dropdown-toggle nav-link">
+                <a href="{{route('clinic_dashboard')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Dashboard</span><span class="sr-only"></span>
                 </a>
@@ -30,7 +22,7 @@
             <span>Clinic Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
-            <a href="{{route('clinicPage',[session(userid),session('name')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('clinicPage',[session('userid'),session('name')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Your Website</span>
             </a>
@@ -53,6 +45,14 @@
             <a href="{{route('addService')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add Services</span>
+            </a>
+            <a href="{{route('clinic_myMeetings')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">My Meetings</span>
+            </a>
+            <a href="{{route('clinic_reviews')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Clinic Review</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>

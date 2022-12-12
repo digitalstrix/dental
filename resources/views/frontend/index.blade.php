@@ -217,7 +217,7 @@
         </div>
     </div>
     <!-- Offer End -->
-    
+
     <!-- Testimonial Start -->
     <div class="container-fluid bg-primary bg-testimonial py-5 my-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -253,7 +253,7 @@
                     <div class="section-title bg-light rounded h-100 p-5">
                         <h5 class="position-relative d-inline-block text-primary text-uppercase">Our Dentist</h5>
                         <h1 class="display-6 mb-4">Meet Our Certified & Experienced Dentist</h1>
-                        <a href="appointment.html" class="btn btn-primary py-3 px-5">Appointment</a>
+                        <a href="{{route('provider_login')}}" class="btn btn-primary py-3 px-5">Doctor Login</a>
                     </div>
                 </div>
                 @if (!empty($doctor))
@@ -268,7 +268,9 @@
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                     <div class="team-item">
                         <div class="position-relative rounded-top" style="z-index: 1;">
-                            <img style="height: 300px !important; width: 100px" class="img-fluid rounded-top w-100 " src="{{$link}}" alt="">
+                            <a href="{{route('providePage',[$item['id'],$item['name']])}}" target="_blank" rel="noopener noreferrer">
+                            <img style="height: 300px !important; width: 100px" class="img-fluid rounded-top w-100 " src="{{url($link)}}" alt="">
+                            </a>
                             <div class="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-twitter fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square m-1" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
