@@ -47,7 +47,7 @@ class CommonController extends Controller
         $user->latitude = $request->latitude;
         if ($request->hasFile('image')) {
             $file = $request->file('image')->store('public/img/provider/profile');
-            $user->profile  = $file;
+            $user->image  = $file;
         }
         $result = $user->save();
         toast('User Updated Successfully', 'success')->autoClose(3000);
