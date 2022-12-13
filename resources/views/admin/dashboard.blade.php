@@ -33,70 +33,65 @@
                                 <div class="row align-items-center">
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Users
+                                            <p class="small text-uppercase text-muted mb-0">Total Upcoming Appointments
                                             </p>
-                                            <span class="h2 mb-0">909</span>
+                                            <span class="h2 mb-0">{{$umeetings}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Shops
+                                            <p class="small text-uppercase text-muted mb-0">Total Completed Meetings
                                             </p>
-                                            <span class="h2 mb-0">809</span>
+                                            <span class="h2 mb-0">{{$cmeetings}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Posted Work
+                                            <p class="small text-uppercase text-muted mb-0">Total Provider Reviews
                                             </p>
-                                            <span class="h2 mb-0">807</span>
+                                            <span class="h2 mb-0">{{$ptreviews}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Posted Jobs
+                                            <p class="small text-uppercase text-muted mb-0">Total Clinic Review
                                             </p>
-                                            <span class="h2 mb-0">605</span>
+                                            <span class="h2 mb-0">{{$ctreviews}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Applied Jobs
+                                            <p class="small text-uppercase text-muted mb-0">Query Recieved 
                                             </p>
-                                            <span class="h2 mb-0">405</span>
+                                            <span class="h2 mb-0">{{$qrecieve}}</span>
                                             <p class="small mb-0">
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="p-4">
-                                            <p class="small text-uppercase text-muted mb-0">Total Active Offers
+                                            <p class="small text-uppercase text-muted mb-0">Jobs Posted 
                                             </p>
-                                            <span class="h2 mb-0">606</span>
+                                            <span class="h2 mb-0">{{$jobs}}</span>
                                             <p class="small mb-0">
-
                                             </p>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
                         <!-- .col-md-8 -->
                     </div> <!-- end section -->
-                </div> <!-- .card-body -->
-            </div> <!-- .card -->
-            <!-- / .row -->
-            <div class="row">
-                <!-- Recent orders -->
-            </div> <!-- end section -->
+                </div> <!-- end section -->
         </div>
     </div> <!-- .row -->
 </div> <!-- .container-fluid -->   

@@ -7,15 +7,27 @@ use App\Models\Clinic;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ClinicReview;
+use App\Models\Job;
+use App\Models\Meeting;
+use App\Models\ProviderReview;
+use App\Models\Querie;
 use Illuminate\Support\Facades\Hash;
 
 class CommonController extends Controller
 {
     public function dashboard()
     {
+        
+        $umeetings = Meeting::where('is_completed', '0')->get()->count();
+        $cmeetings = Meeting::where('is_completed', '1')->get()->count();
+        $ctreviews = ClinicReview::all()->count();
+        $ptreviews = ProviderReview::all()->count();
+        $qrecieve = Querie::all()->count();
+        $jobs = Job::all()->count();
         $userid = session('userid');
         $data = User::find($userid);
-        return view('admin.dashboard');
+        return view('admin.dashboard',compact('umeetings','cmeetings','ctreviews','ptreviews','qrecieve','jobs'));
     }
     public function userProfile()
     {
@@ -81,5 +93,9 @@ class CommonController extends Controller
         Clinic::findorfail($id)->delete();
         $details = Clinic::all();
         return view('admin.clinics', compact('details'))->with('success', 'Clinic Deleted Sucessfully');
+    }
+    public function queries(){
+        $queries = Querie::all();
+        return view('admin.messages',compact('queries'));
     }
 }

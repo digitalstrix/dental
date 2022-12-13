@@ -11,9 +11,7 @@
                         <a href="{{ route('clinic_dashboard') }}">
                             <button type="button" class="btn btn-primary">View Dashboard</button>
                         </a>
-
-
-                        <!-- Users -->
+                          <!-- Users -->
                         @if (!empty($details))
 
                             <div class="card shadow eq-card">
@@ -31,10 +29,10 @@
                                                 <th>Reason</th>
                                                 <th>User Name</th>
                                                 <th>Your Slot Id</th>
-
                                                 <th>Clinic Time</th>
                                                 <th>Clinic Con.</th>
                                                 <th>Doctor Con.</th>
+                                                <th>Assistance</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -63,9 +61,11 @@
                                                     @endphp
                                                        @php
                                                        if ($value['is_assistance'] == 1) {
-                                                           echo "<td style='color:green'>Confirmed</td>";
-                                                       } else {
-                                                           echo "<td style='color:red'>Awaiting</td>";
+                                                           echo "<td style='color:black'>Job Posted</td>";
+                                                       } elseif($value['is_assistance'] == 0) {
+                                                           echo "<td style='color:black'>Have Assistance</td>";
+                                                       }else{
+                                                        echo "<td>Take Action</td>";
                                                        }
                                                    @endphp
                                                     <td>
