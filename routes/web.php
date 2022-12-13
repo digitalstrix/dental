@@ -124,6 +124,7 @@ Route::middleware('ClinicGuard')->prefix('clinic')->controller('App\Http\Control
     Route::get('/myreviews','App\Http\Controllers\Clinic\CommonController@myReview')->name('clinic_reviews');
     Route::get('/haveAssistance/{id}','App\Http\Controllers\Clinic\CommonController@haveAssistance')->name('clinic_haveAssistance');
     Route::get('/needAssistance/{id}','App\Http\Controllers\Clinic\CommonController@needAssistance')->name('clinic_needAssistance');
+    Route::get('/jobs/{id}','App\Http\Controllers\Clinic\CommonController@jobs')->name('clinic_jobs');
 
 });
 

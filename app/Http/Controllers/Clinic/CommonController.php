@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Clinic;
 use App\Models\Meeting;
 use App\Models\Service;
+use App\Models\Provider;
 use App\Models\ClinicFile;
 use App\Models\ClinicSlot;
 use App\Models\ClinicVisit;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Clinic as ModelsClinic;
 use App\Models\Provider as ModelsProvider;
 
@@ -196,6 +198,7 @@ class CommonController extends Controller
                 "username" => $provider->name,
                 "user_id" => $provider->name,
                 "clinic" => $clinic->name,
+                "clinic_id" => $clinic->id,
                 "_provider" => $meet->doctor_confirm,
                 "_clinic" => $meet->clinic_confirm,
                 "clinic_latitude" => $clinic->latitude,
@@ -258,5 +261,35 @@ class CommonController extends Controller
         $job->clinic_slot_id = $meet['clinic_slot_id'];
         $job->save();
         return redirect(route('clinic_myMeetings'));
+    }
+    public function jobs($id)
+    {
+        $clinic = Meeting::findorfail($id)->get('clinic_id');
+        $jobs = Job::where('clinic_id', $clinic_id)->get();
+        $details = array();
+        foreach ($jobs as $job) {
+            $provider_id = Meeting::where('clinic_id', '=', $job->clinic_id)->get('provider_id');
+            $provider = Provider::where('id', $provider_id)->first();
+            $clinictime = ClinicSlot::where('id', $job->clinic_slot_id)->first();
+            $details[] = array(
+                "clinc_id" => $provider->clinc_id,
+                "provider_id" => $provider->id,
+                "provider_name" => $provider->name,
+                "clinic" => $clinic->name,
+                "clinic_id" => $clinic->id,
+                "_provider" => $meet->doctor_confirm,
+                "_clinic" => $meet->clinic_confirm,
+                "clinic_latitude" => $clinic->latitude,
+                "clinic_longitude" => $clinic->longitude,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id,
+                "meeting_link" => $meet->meeting_link,
+                "slot_id" => $meet->providers_slot_id,
+                "clinic_time" => $clinictime->start,
+                "is_completed" => $meet->is_completed,
+                "is_assistance" => $meet->is_assistance
+            );
+        }
+        return view('clinic.jobs', compact('all_jobs'));
     }
 }

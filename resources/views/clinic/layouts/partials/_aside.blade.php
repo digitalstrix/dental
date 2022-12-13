@@ -30,7 +30,7 @@
             <span>Clinic Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
-            <a href="{{route('clinicPage',[session(userid),session('name')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('clinicPage',[session('userid'),session('name')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Your Website</span>
             </a>
@@ -61,6 +61,10 @@
             <a href="{{route('clinic_reviews')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Clinic Review</span>
+            </a>
+            <a href="{{route('clinic_jobs',[session('userid')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Clinic Jobs</span>
             </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
