@@ -349,5 +349,9 @@ public function calendarMeeting(Request $request)
         $details1 = $request->meetingid;
         return view('users.clinicreview',compact('details','details1'));
     }
+
+    public function userschat(){
+        return view("users.userschat");
+    }
    
 }

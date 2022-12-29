@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Clinic;
 use App\Models\Meeting;
 use App\Models\Service;
-use App\Models\Provider;
 use App\Models\ClinicFile;
 use App\Models\ClinicSlot;
 use App\Models\ClinicVisit;
@@ -33,7 +32,7 @@ class CommonController extends Controller
         $psent = ClinicFile::where('clinic_id', session('userid'))->get()->count();
         $userid = session('userid');
         $data = User::find($userid);
-        return view('clinic.dashboard',compact('umeetings','cmeetings','previews','areviews','psent'));
+        return view('clinic.dashboard', compact('umeetings', 'cmeetings', 'previews', 'areviews', 'psent'));
     }
     public function userProfile()
     {
@@ -269,53 +268,21 @@ class CommonController extends Controller
         $job->save();
         return redirect(route('clinic_myMeetings'));
     }
-<<<<<<< HEAD
-    public function jobs($id)
+    public function appliedJobs()
     {
-        $clinic = Meeting::findorfail($id)->get('clinic_id');
-        $jobs = Job::where('clinic_id', $clinic_id)->get();
-        $details = array();
-        foreach ($jobs as $job) {
-            $provider_id = Meeting::where('clinic_id', '=', $job->clinic_id)->get('provider_id');
-            $provider = Provider::where('id', $provider_id)->first();
-            $clinictime = ClinicSlot::where('id', $job->clinic_slot_id)->first();
-            $details[] = array(
-                "clinc_id" => $provider->clinc_id,
-                "provider_id" => $provider->id,
-                "provider_name" => $provider->name,
-                "clinic" => $clinic->name,
-                "clinic_id" => $clinic->id,
-                "_provider" => $meet->doctor_confirm,
-                "_clinic" => $meet->clinic_confirm,
-                "clinic_latitude" => $clinic->latitude,
-                "clinic_longitude" => $clinic->longitude,
-                "reason" => $meet->reason,
-                "meet_id" => $meet->id,
-                "meeting_link" => $meet->meeting_link,
-                "slot_id" => $meet->providers_slot_id,
-                "clinic_time" => $clinictime->start,
-                "is_completed" => $meet->is_completed,
-                "is_assistance" => $meet->is_assistance
-            );
-        }
-        return view('clinic.jobs', compact('all_jobs'));
-    }
-}
-=======
-    public function appliedJobs(){
         $clinic = session('userid');
         $jobs = Job::where('clinic_id', $clinic)->get();
-        foreach ($jobs as $job){
+        foreach ($jobs as $job) {
             // dd($job);
-            if(Applyjob::where('job_id',$job->id)->first()){
-                $applied = Applyjob::where('job_id',$job->id)->get();
-                foreach($applied as $data){
+            if (Applyjob::where('job_id', $job->id)->first()) {
+                $applied = Applyjob::where('job_id', $job->id)->get();
+                foreach ($applied as $data) {
                     // dd($data);
-                    $time = ClinicSlot::where('id',$job->clinic_slot_id)->first();
-                    $meeting = Meeting::where('id',$job->meeting_id)->first();
-                    $d_name = Provider::where('id',$meeting->providers_id)->first();
+                    $time = ClinicSlot::where('id', $job->clinic_slot_id)->first();
+                    $meeting = Meeting::where('id', $job->meeting_id)->first();
+                    $d_name = Provider::where('id', $meeting->providers_id)->first();
                     $details[] = array(
-                        "name"=> $data->name,
+                        "name" => $data->name,
                         "email" => $data->email,
                         "mobile" => $data->mobile,
                         "job_id" => $data->job_id,
@@ -327,33 +294,63 @@ class CommonController extends Controller
                         "applied_id" => $data->id,
                     );
                 }
-            }else{
+            } else {
                 $details = array();
             }
         }
         return view('clinic.myjobs', compact('details'));
     }
-    public function endjob(Request $request){
+    public function endjob(Request $request)
+    {
         $temp = Job::find($request->id);
-        if($temp->is_ended==1){
+        if ($temp->is_ended == 1) {
             $temp->is_ended = 0;
-        }elseif($temp->is_ended==0){
+        } elseif ($temp->is_ended == 0) {
             $temp->is_ended = 1;
         }
         $temp->save();
         toast('Status Saved.', 'success')->autoClose(3000);
         return redirect(route('appliedJobs'));
     }
-    public function hirecandidate(Request $request){
+    public function hirecandidate(Request $request)
+    {
         $temp = Applyjob::find($request->id);
-        if($temp->is_selected==1){
+        if ($temp->is_selected == 1) {
             $temp->is_selected = 0;
-        }elseif($temp->is_selected==0){
+        } elseif ($temp->is_selected == 0) {
             $temp->is_selected = 1;
         }
         $temp->save();
         toast('Status Saved.', 'success')->autoClose(3000);
         return redirect(route('appliedJobs'));
     }
+    public function post_api(Request $request)
+    {
+        $service = new Service;
+        $service->service = $request->service;
+        $service->clinic_id = $request->clinic_id;
+        $result = $service->save();
+        if ($result) {
+            return ["Result" => "Data is saved successfully!"];
+        } else {
+            return ["Result" => "Data is not saved!"];
+        }
+    }
+    public function put_api(Request $request)
+    {
+        $service = Service::findorfail($request->id);
+        $service->service = $request->service;
+        $service->clinic_id = $request->clinic_id;
+        $result = $service->save();
+        if ($result) {
+            return ["Result" => "Data is updated successfully!"];
+        } else {
+            return ["Result" => "Data is not updated!"];
+        }
+    }
+    public function search_api($name)
+    {
+        $result = Service::where("service",$name)->get();
+        return $result;
+    }
 }
->>>>>>> 737d18722cca48540d38ceb678cc12ab22aac711
