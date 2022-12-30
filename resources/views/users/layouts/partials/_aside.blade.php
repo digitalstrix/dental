@@ -50,6 +50,10 @@
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Completed Meets</span>
             </a>
+            <a href="{{route('userschat')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Chat</span>
+            </a>
             <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Logout</span>

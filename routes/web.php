@@ -64,6 +64,9 @@ Route::controller('App\Http\Controllers\User\AuthController'::class)->prefix('us
         Route::post('providerReviewSave', [CommonController::class, 'providerReviewSave'])->name('providerReviewSave');
         Route::get('clinicReview/{id}/{meetingid}', [CommonController::class, 'clinicReview'])->name('clinicReview');
         Route::post('clinicReviewSave', [CommonController::class, 'clinicReviewSave'])->name('clinicReviewSave');
+        Route::get('/chat', [CommonController::class, 'userschat'])->name('userschat');
+        Route::post('/chat', [CommonController::class, 'userschatSave'])->name('userschat');
+
     }); 
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Providers Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -124,13 +127,9 @@ Route::middleware('ClinicGuard')->prefix('clinic')->controller('App\Http\Control
     Route::get('/myreviews','App\Http\Controllers\Clinic\CommonController@myReview')->name('clinic_reviews');
     Route::get('/haveAssistance/{id}','App\Http\Controllers\Clinic\CommonController@haveAssistance')->name('clinic_haveAssistance');
     Route::get('/needAssistance/{id}','App\Http\Controllers\Clinic\CommonController@needAssistance')->name('clinic_needAssistance');
-<<<<<<< HEAD
-    Route::get('/jobs/{id}','App\Http\Controllers\Clinic\CommonController@jobs')->name('clinic_jobs');
-=======
     Route::get('/appliedJobs', 'App\Http\Controllers\Clinic\CommonController@appliedJobs')->name('appliedJobs');
     Route::get('/endjob/{id}', 'App\Http\Controllers\Clinic\CommonController@endjob')->name('endjob');
     Route::get('/hirecandidate/{id}', 'App\Http\Controllers\Clinic\CommonController@hirecandidate')->name('hirecandidate');
->>>>>>> 737d18722cca48540d38ceb678cc12ab22aac711
 
 });
 
@@ -154,8 +153,6 @@ Route::middleware('AdminGuard')->prefix('admin')->group(function () {
     Route::get('/provider/delete/{id}', 'App\Http\Controllers\Admin\CommonController@deleteProvider')->name('delete_provider');
     Route::get('/clinic/delete/{id}', 'App\Http\Controllers\Admin\CommonController@deleteClinic')->name('delete_clinic');
     Route::get('/queries', 'App\Http\Controllers\Admin\CommonController@queries')->name('queries');
-    
-
 });
 
 // [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[----Logout---]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
