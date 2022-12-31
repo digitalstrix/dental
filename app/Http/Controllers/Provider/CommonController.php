@@ -13,7 +13,9 @@ use App\Models\Provider as ModelsProvider;
 use App\Models\Providersfile;
 use App\Models\ProvidersSlot;
 use App\Models\ProviderVisit;
+
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
