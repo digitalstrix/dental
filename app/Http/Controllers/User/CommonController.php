@@ -12,7 +12,7 @@ use App\Models\Member;
 use App\Models\Message;
 use App\Models\Provider as ModelsProvider;
 use App\Models\ProviderReview;
-use App\Models\ProvidersFile;
+use App\Models\Providersfile;
 use App\Models\Providersfile as ModelsProvidersfile;
 use App\Models\ProvidersSlot;
 use App\Models\ProviderVisit;
@@ -33,7 +33,7 @@ class CommonController extends Controller
         $cmeetings = Meeting::where('user_id', session('userid'))->where('is_completed', '1')->get()->count();
         $dreviews = ProviderReview::where('user_id', session('userid'))->get()->count();
         $creviews = ClinicReview::where('user_id', session('userid'))->get()->count();
-        $psent = ProvidersFile::where('user_id', session('userid'))->get()->count();
+        $psent = Providersfile::where('user_id', session('userid'))->get()->count();
         $csent = ClinicFile::where('user_id', session('userid'))->get()->count();
         $userid = session('userid');
         $data = User::find($userid);
@@ -171,6 +171,10 @@ public function clinicFileDelete(Request $request){
 }
 public function scheduleMeet(){
         $user = User::find(session('userid'));
+        if(empty($user->latitude)||empty($user->longitude)){
+            toast('Please Select Address First.','error')->autoClose(3000);
+        return redirect(route('user_edit'));
+        }
         $providers_with_slot = ProvidersSlot::distinct()->get('providers_id');
         $details = array();
         foreach($providers_with_slot as $temp){
@@ -419,5 +423,9 @@ public function calendarMeeting(Request $request)
         $message->meeting_at = $request->meeting_id;
         $message->save();
         return redirect(route('userschat',$request->meeting_id));
+    }
+    public function jitsi(Request $request){
+        $meet = $request->meet;
+        return view('users.jitsi',compact('meet'));
     }
 }

@@ -29,7 +29,7 @@ class CommonController extends Controller
         $cmeetings = Meeting::where('providers_id', session('userid'))->where('is_completed', '1')->get()->count();
         $previews = ProviderReview::where('providers_id', session('userid'))->get()->count();
         $areviews = ProviderReview::where('providers_id', session('userid'))->pluck('rating')->avg();
-        $psent = ProvidersFile::where('provider_id', session('userid'))->get()->count();
+        $psent = Providersfile::where('provider_id', session('userid'))->get()->count();
         $userid = session('userid');
         $data = User::find($userid);
         return view('providers.dashboard',compact('umeetings','cmeetings','previews','areviews','psent'));
@@ -73,6 +73,11 @@ class CommonController extends Controller
         return view('providers.calendar')->with('info', 'Users Meetings');
     }
     public function providersSlot(){
+        $user = ModelsProvider::where('id',Session('userid'))->first();
+        if (empty($user->latitude) || empty($user->longitude)) {
+            toast('Please Fill the Address First','error')->autoClose(3000);
+            return redirect(route('provider_edit'));
+        }
         $details = ProvidersSlot::where('providers_id',session('userid'))->get();
         return view('providers.providerslots',compact('details'))->with('info','Meetings Slots');
     }
@@ -90,7 +95,6 @@ class CommonController extends Controller
         $slot->end = $request->end;
         $slot->is_reserved = 0;
         $slot->save();
-        toast('Slot Saved Successfully','success')->autoClose(3000);
         $details = ProvidersSlot::where('providers_id',session('userid'))->get();
         return view('providers.providerslots',compact('details'))->with('info','Meetings Slots');
     }
@@ -119,6 +123,11 @@ class CommonController extends Controller
 }
     public function providersMap()
     {
+        $user = ModelsProvider::where('id',Session('userid'))->first();
+        if (empty($user->latitude) || empty($user->longitude)) {
+            toast('Please Fill the Address First','error')->autoClose(3000);
+            return redirect(route('provider_edit'));
+        }
         $userid = session('userid');
         $details = [];
         $user = ModelsProvider::find($userid);
@@ -338,5 +347,8 @@ if (!AssignChat::where('provider_id', $request->provider_id)->where('meeting_id'
 return redirect(route('provider_chats'));
 
 }
-
+public function jitsi(Request $request){
+    $meet = $request->meet;
+    return view('providers.jitsi',compact('meet'));
+}
 }

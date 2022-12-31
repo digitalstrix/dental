@@ -67,6 +67,7 @@ Route::controller('App\Http\Controllers\User\AuthController'::class)->prefix('us
         Route::post('clinicReviewSave', [CommonController::class, 'clinicReviewSave'])->name('clinicReviewSave');
         Route::get('userschat/{id}', [CommonController::class, 'userschat'])->name('userschat');
         Route::get('chats', [CommonController::class, 'chats'])->name('chats');
+        Route::get('jitsi/{meet}', [CommonController::class, 'jitsi'])->name('jitsi');
         Route::post('sendMessage', [CommonController::class, 'sendMessage'])->name('sendMessage');
     }); 
 
@@ -101,6 +102,7 @@ Route::middleware('ProviderGuard')->prefix('providers')->controller('App\Http\Co
     Route::get('chats', [ProviderCommonController::class, 'chats'])->name('provider_chats');
     Route::post('sendMessage', [ProviderCommonController::class, 'sendMessage'])->name('provider_sendMessage');
     Route::post('addChatProvider', [ProviderCommonController::class, 'assignChat'])->name('addChatProvider');
+    Route::get('jitsi/{meet}', [ProviderCommonController::class, 'jitsi'])->name('jitsi');
 });
 
 

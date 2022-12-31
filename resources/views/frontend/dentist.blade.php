@@ -39,7 +39,7 @@
             <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                 <div class="team-item">
                     <div class="position-relative rounded-top" style="z-index: 1;">
-                        <a href="{{route('providePage',[$item['id'],$item['name']])}}" target="_blank" rel="noopener noreferrer">
+                        <a href="{{route('providePage',[$item['id'],str_replace(' ', '-',$item['name'])])}}" target="_blank" rel="noopener noreferrer">
                         <img style="height: 300px !important; width: 100px" class="img-fluid rounded-top w-100 " src="{{url($link)}}" alt="">
                     </a>
                         <div class="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">

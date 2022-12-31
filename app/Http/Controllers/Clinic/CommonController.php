@@ -77,6 +77,11 @@ class CommonController extends Controller
     }
     public function clinicSlot()
     {
+        $user = ModelsClinic::where('id',Session('userid'))->first();
+        if (empty($user->latitude) || empty($user->longitude)) {
+            toast('Please Fill the Address First','error')->autoClose(3000);
+            return redirect(route('clinic_edit'));
+        }
         $details = ClinicSlot::where('clinic_id', session('userid'))->get();
         return view('clinic.cliniclots', compact('details'))->with('info', 'Meetings Slots');
     }
@@ -89,6 +94,7 @@ class CommonController extends Controller
                 "end" => "required",
             ]
         );
+       
         $slot = new ClinicSlot();
         $slot->clinic_id = $request->userid;
         $slot->start = $request->start;
@@ -107,6 +113,7 @@ class CommonController extends Controller
     }
     public function clinicFile()
     {
+
         $userid = session('userid');
         $details = [];
         $temp1 = ModelsClinic::find($userid);
@@ -125,6 +132,11 @@ class CommonController extends Controller
     }
     public function clinicMap()
     {
+        $user = ModelsClinic::where('id',Session('userid'))->first();
+        if (empty($user->latitude) || empty($user->longitude)) {
+            toast('Please Fill the Address First','error')->autoClose(3000);
+            return redirect(route('clinic_edit'));
+        }
         $userid = session('userid');
         $details = [];
         $user = ModelsClinic::find($userid);
@@ -276,6 +288,7 @@ class CommonController extends Controller
     {
         $clinic = session('userid');
         $jobs = Job::where('clinic_id', $clinic)->get();
+        $details = array();
         foreach ($jobs as $job) {
             // dd($job);
             if (Applyjob::where('job_id', $job->id)->first()) {
@@ -298,8 +311,6 @@ class CommonController extends Controller
                         "applied_id" => $data->id,
                     );
                 }
-            } else {
-                $details = array();
             }
         }
         return view('clinic.myjobs', compact('details'));
