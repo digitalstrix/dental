@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('users.layouts.master');
+@section('title','Dentavibe Chat | Dashboard');
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/chat.css') }}">
+@endsection
+@section('content')
+{{-- @php dd(request()->route()->parameters['id'])
+@endphp --}}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
-</head>
 <body>
     <section class="msger">
         <header class="msger-header">
             <div class="msger-header-title">
-                <i class="fas fa-comment-alt"></i>Chat System
+                <i class="fas fa-comment-alt"></i>Dentavibe Chat 
             </div>
             <div class="msger-header-options">
                 <span><i class="fas fa-cog"></i></span>
@@ -26,39 +25,65 @@
 
                 <div class="msg-bubble">
                     <div class="msg-info">
-                        <div class="msg-info-name"> {{ session('name') }}</div>
-                        {{-- <div class="msg-info-time"> {{ Carbon::now()}}</div> --}}
+                        <div class="msg-info-name">Dentavibe Admin</div>
+                        
                     </div>
 
                     <div class="msg-text">
-                        Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+                        Hi {{ session('name') }} , welcome to Dentavibe! Go ahead and send messages to your scheduled Meet Doctors and Clinic. 😄
                     </div>
                 </div>
             </div>
-
+<?php
+    if(!empty($messages)){
+        foreach ($messages as $key => $value) {
+   ?>
+   <?php
+   if($value['user_id']==Session('userid')&&$value['type']=='user'){ 
+   ?>
             <div class="msg right-msg">
                 <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
                 </div>
-
                 <div class="msg-bubble">
                     <div class="msg-info">
-                        <div class="msg-info-name">Sajad</div>
-                        <div class="msg-info-time">12:46</div>
+                        <div class="msg-info-name">{{$value['name']}}</div>
+                        <div class="msg-info-time">{{$value['time']}}</div>
                     </div>
-
                     <div class="msg-text">
-                        You can change your name in JS section!
+                        {{$value['message']}}
                     </div>
                 </div>
             </div>
+            <?php
+           }else{
+            ?>
+           <div class="msg left-msg">
+            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)">
+            </div>
+            <div class="msg-bubble">
+                <div class="msg-info">
+                    <div class="msg-info-name">{{$value['name']}} - {{$value['type']}}</div>
+                    <div class="msg-info-time">{{$value['time']}}</div>
+                </div>
+                <div class="msg-text">
+                    {{$value['message']}}
+                </div>
+            </div>
+        </div>
+            <?php } ?>
+            <?php
+        }
+    }
+?>
         </main>
 
-        <form class="msger-inputarea">
-            <input type="text" class="msger-input" placeholder="Enter your message...">
+        <form class="msger-inputarea" method="POST" action="{{route('sendMessage')}}">
+            @csrf
+            <input hidden name="meeting_id" value="{{request()->route()->parameters['id']}}">
+            <input type="text" name="message" class="msger-input" placeholder="Enter your message...">
             <button type="submit" class="msger-send-btn">Send</button>
         </form>
     </section>
+    @endsection
     <script src="{{ asset('js/chat.js') }}"></script>
-</body>
 
-</html>

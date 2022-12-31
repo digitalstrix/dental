@@ -8,6 +8,8 @@ use App\Models\ClinicFile;
 use App\Models\ClinicReview;
 use App\Models\ClinicSlot;
 use App\Models\Meeting;
+use App\Models\Member;
+use App\Models\Message;
 use App\Models\Provider as ModelsProvider;
 use App\Models\ProviderReview;
 use App\Models\ProvidersFile;
@@ -193,6 +195,7 @@ public function scheduleMeet(){
 public function fetchProviderSlots(Request $request)
     {
         $user = User::find(session('userid'));
+    
         $data['pslots'] = ProvidersSlot::where("providers_id",$request->provider)->where("is_reserved",'0')->get(["id", "start", "end"]);
         $providervisits = ProviderVisit::where('providers_id', $request->provider)->get();
         $data['clinics'] = array();
@@ -245,6 +248,24 @@ public function scheduleMeetSave(Request $request){
         $pslot = ClinicSlot::where('id',$request->clinic_slot)->first();
         $pslot->is_reserved = 1;
         $pslot->save();
+        $member = new Member();
+        $member->user_id = session('userid');
+        $member->type = 'user';
+        $member->meeting_at = $meet->id;
+        $member->save();
+
+        $member = new Member();
+        $member->user_id = $request->provider;
+        $member->type = 'provider';
+        $member->meeting_at = $meet->id;
+        $member->save();
+
+        $member = new Member();
+        $member->user_id = $request->clinic;
+        $member->type = 'clinic';
+        $member->meeting_at = $meet->id;
+        $member->save();
+        
         toast('Meeting Saved Awaiting Confirmation','success')->autoClose(3000);
         return redirect(route('schedulemeet'));
 }
@@ -350,8 +371,53 @@ public function calendarMeeting(Request $request)
         return view('users.clinicreview',compact('details','details1'));
     }
 
-    public function userschat(){
-        return view("users.userschat");
+    public function userschat(Request $request){
+        $chats = Message::where('meeting_at', $request->id)->get();
+        $messages = [];
+        foreach($chats as $chat){
+            $member = Member::where('id', $chat->member_id)->first();
+            if($member->type=='user'){
+                $user = User::where('id', $member->user_id)->first();
+            }
+            if($member->type=='provider'){
+                $user = ModelsProvider::where('id', $member->user_id)->first();
+            }
+            if($member->type=='clinic'){
+                $user = ModelsClinic::where('id', $member->user_id)->first();
+            }
+            $messages[] = array(
+                    "message" => $chat->message,
+                    "type" => $member->type,
+                    "user_id" => $member->user_id,
+                    "time" => $chat->created_at,
+                    "name" => $user->name,
+            );
+        }
+        return view("users.userschat",compact('messages'));
     }
-   
+    public function chats(){
+        $user = User::find(session('userid'));
+        $meeting = Meeting::where('user_id', $user->id)->where('is_completed', '0')->get();
+        $details = array();
+        foreach ($meeting as $meet){
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id',$meet->clinic_id)->first();
+            $details[] = array(
+                "provider" => $provider->name,
+                "clinic" => $clinic->name,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id,
+            );
+        }
+        return view('users.chats',compact('details'));
+    }
+    public function sendMessage(Request $request){
+        $member = Member::where('user_id',Session('userid'))->where('type','user')->where('meeting_at',$request->meeting_id)->first();
+        $message = new Message();
+        $message->member_id = $member->id;
+        $message->message = $request->message;
+        $message->meeting_at = $request->meeting_id;
+        $message->save();
+        return redirect(route('userschat',$request->meeting_id));
+    }
 }

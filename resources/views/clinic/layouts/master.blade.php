@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
+    <link rel="stylesheet" href="{{asset('css/fullcalendar.css')}}">
     <link rel="stylesheet" href="{{ asset('css/uppy.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.steps.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css') }}">
@@ -27,6 +28,7 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ asset('css/app-light.css') }}" id="lightTheme">
     <link rel="stylesheet" href="{{ asset('css/app-dark.css') }}" id="darkTheme" disabled>
+    @yield('css')
 
 </head>
 

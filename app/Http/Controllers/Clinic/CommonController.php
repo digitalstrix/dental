@@ -16,9 +16,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Applyjob;
+use App\Models\AssignChat;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Clinic as ModelsClinic;
+use App\Models\Member;
+use App\Models\Message;
 use App\Models\Provider as ModelsProvider;
 
 class CommonController extends Controller
@@ -197,12 +200,13 @@ class CommonController extends Controller
         $meeting = Meeting::where('clinic_id', $user->id)->get();
         $details = array();
         foreach ($meeting as $meet) {
+            $patient = User::where('id',$meet->user_id)->first();
             $provider = ModelsProvider::where('id', $meet->providers_id)->first();
             $clinic = ModelsClinic::where('id', $meet->clinic_id)->first();
             $clinictime = ClinicSlot::where('id', $meet->clinic_slot_id)->first();
             $details[] = array(
-                "username" => $provider->name,
-                "user_id" => $provider->name,
+                "username" => $patient->name,
+                "user_id" => $patient->id,
                 "clinic" => $clinic->name,
                 "clinic_id" => $clinic->id,
                 "_provider" => $meet->doctor_confirm,
@@ -353,4 +357,56 @@ class CommonController extends Controller
         $result = Service::where("service",$name)->get();
         return $result;
     }
+    public function userschat(Request $request){
+        $chats = Message::where('meeting_at', $request->id)->get();
+        $messages = [];
+        foreach($chats as $chat){
+            $member = Member::where('id', $chat->member_id)->first();
+            if($member->type=='user'){
+                $user = User::where('id', $member->user_id)->first();
+            }
+            if($member->type=='provider'){
+                $user = ModelsProvider::where('id', $member->user_id)->first();
+            }
+            if($member->type=='clinic'){
+                $user = ModelsClinic::where('id', $member->user_id)->first();
+            }
+            $messages[] = array(
+                    "message" => $chat->message,
+                    "type" => $member->type,
+                    "user_id" => $member->user_id,
+                    "time" => $chat->created_at,
+                    "name" => $user->name,
+            );
+        }
+        return view("clinic.userschat",compact('messages'));
+    }
+    public function chats(){
+        $user = ModelsClinic::find(session('userid'));
+        $meeting = Meeting::where('clinic_id', $user->id)->get();
+        $details = array();
+        foreach ($meeting as $meet) {
+            $patient = User::where('id',$meet->user_id)->first();
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id', $meet->clinic_id)->first();
+            $clinictime = ClinicSlot::where('id', $meet->clinic_slot_id)->first();
+            $details[] = array(
+                "name" => $patient->name,
+                "provider" => $provider->name,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id,
+            );
+        }
+        return view('clinic.chats',compact('details'));
+    }
+    public function sendMessage(Request $request){
+        $member = Member::where('user_id',Session('userid'))->where('type','clinic')->where('meeting_at',$request->meeting_id)->first();
+        $message = new Message();
+        $message->member_id = $member->id;
+        $message->message = $request->message;
+        $message->meeting_at = $request->meeting_id;
+        $message->save();
+        return redirect(route('clinic_userschat',$request->meeting_id));
+    }
+    
 }

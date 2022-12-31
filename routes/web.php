@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Clinic\CommonController as ClinicCommonController;
 use App\Http\Controllers\Provider\CommonController as ProviderCommonController;
 use App\Http\Controllers\User\CommonController;
 
@@ -64,7 +65,9 @@ Route::controller('App\Http\Controllers\User\AuthController'::class)->prefix('us
         Route::post('providerReviewSave', [CommonController::class, 'providerReviewSave'])->name('providerReviewSave');
         Route::get('clinicReview/{id}/{meetingid}', [CommonController::class, 'clinicReview'])->name('clinicReview');
         Route::post('clinicReviewSave', [CommonController::class, 'clinicReviewSave'])->name('clinicReviewSave');
-        Route::get('userschat', [CommonController::class, 'userschat'])->name('userschat');
+        Route::get('userschat/{id}', [CommonController::class, 'userschat'])->name('userschat');
+        Route::get('chats', [CommonController::class, 'chats'])->name('chats');
+        Route::post('sendMessage', [CommonController::class, 'sendMessage'])->name('sendMessage');
     }); 
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Providers Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -94,6 +97,10 @@ Route::middleware('ProviderGuard')->prefix('providers')->controller('App\Http\Co
     Route::get('/myMeetingLink/{id}','App\Http\Controllers\Provider\CommonController@myMeetingLink')->name('myMeetingLink');
     Route::get('api/calendarMeeting', [ProviderCommonController::class, 'calendarMeeting']);
     Route::get('/myreviews', [ProviderCommonController::class, 'myReview'])->name('myReview');
+    Route::get('userschat/{id}', [ProviderCommonController::class, 'userschat'])->name('provider_userschat');
+    Route::get('chats', [ProviderCommonController::class, 'chats'])->name('provider_chats');
+    Route::post('sendMessage', [ProviderCommonController::class, 'sendMessage'])->name('provider_sendMessage');
+    Route::post('addChatProvider', [ProviderCommonController::class, 'assignChat'])->name('addChatProvider');
 });
 
 
@@ -128,6 +135,9 @@ Route::middleware('ClinicGuard')->prefix('clinic')->controller('App\Http\Control
     Route::get('/appliedJobs', 'App\Http\Controllers\Clinic\CommonController@appliedJobs')->name('appliedJobs');
     Route::get('/endjob/{id}', 'App\Http\Controllers\Clinic\CommonController@endjob')->name('endjob');
     Route::get('/hirecandidate/{id}', 'App\Http\Controllers\Clinic\CommonController@hirecandidate')->name('hirecandidate');
+    Route::get('userschat/{id}', [ClinicCommonController::class, 'userschat'])->name('clinic_userschat');
+    Route::get('chats', [ClinicCommonController::class, 'chats'])->name('clinic_chats');
+    Route::post('sendMessage', [ClinicCommonController::class, 'sendMessage'])->name('clinic_sendMessage');
    });
 
 // [[[[[[[[[[[[[[[[[[[[[[[----Admin Routes---]]]]]]]]]]]]]]]]]]]]]]]]]]

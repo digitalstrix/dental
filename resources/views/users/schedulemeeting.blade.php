@@ -1,5 +1,5 @@
 @extends('users.layouts.master');
-@section('title','Schedule   Meet | Dashboard');
+@section('title','Schedule Meet | Dashboard');
 @section('content');
 {{-- {{dd($details)}} --}}
 <body class="vertical  light  ">
