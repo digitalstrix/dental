@@ -25,20 +25,22 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{{asset('css/app-light.css')}}" id="lightTheme">
     <link rel="stylesheet" href="{{asset('css/app-dark.css')}}" id="darkTheme" disabled>
+    @yield('css')
+    
     
   </head>
   <body>
     
     <body class="vertical  light  ">
         <div class="wrapper">
-    @include('users.layouts.partials._nav');
-    @include('users.layouts.partials._aside');
-    @yield('content');
-    @include('users.layouts.shortcuts');
-    @include('users.layouts.partials._footer');
+    @include('users.layouts.partials._nav')
+    @include('users.layouts.partials._aside')
+    @yield('content')
+    @include('users.layouts.shortcuts')
+    @include('users.layouts.partials._footer')
     
   </body>
-  @yield('scripts');
+  @yield('scripts')
   @include('sweetalert::alert')
   @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 </html>

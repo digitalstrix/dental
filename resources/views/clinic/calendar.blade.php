@@ -1,5 +1,5 @@
 @extends('clinic.layouts.master');
-@section('title','Clinic Dashboard');
+@section('title','Events Dashboard');
 @section('content');
 <main role="main" class="main-content">
     <div class="container-fluid">
@@ -133,7 +133,7 @@
           },
           weekNumbers: true,
           eventLimit: true, // allow "more" link when too many events
-          events: 'https://fullcalendar.io/demo-events.json'
+          events: 'api/calendarMeeting'
         });
         calendar.render();
       });

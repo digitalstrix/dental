@@ -11,7 +11,7 @@
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item dropdown">
-                <a href="{{route('admin_dashboard')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <a href="{{route('admin_dashboard')}}" aria-expanded="false" class=" nav-link">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Dashboard</span><span class="sr-only"></span>
                 </a>
@@ -22,31 +22,31 @@
             <span>User Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
-            <a href="{{route('admin_edit')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('admin_edit')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>
             </a>
-            <a href="adduser.php" aria-expanded="false" class="dropdown-toggle nav-link">
+            {{-- <a href="adduser.php" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add User</span>
-            </a>
-            <a href="{{route('users_details')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            </a> --}}
+            <a href="{{route('users_details')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Users Detail</span>
             </a>
-            <a href="{{route('providers_details')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('providers_details')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Providers Detail</span>
             </a>
-            <a href="{{route('clinics_details')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('clinics_details')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Clinic Detail</span>
             </a>
-            <a href="{{route('queries')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('queries')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Messages</span>
             </a>
-            <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('logout')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Logout</span>
             </a>

@@ -17,8 +17,8 @@
                         <input name="email" type="email" id="inputEmail" class="form-control form-control-lg"
                             placeholder="Email address" required="" autofocus="">
                     </div>
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible show"> {{ session('error') }}
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible show"> {{session('error')}}
                         </div>
                     @endif
                     <div class="form-group">
@@ -32,7 +32,7 @@
                     </div>
                     <button class="btn btn-lg btn-primary btn-block" name="login" type="submit">Login</button>
                     <br>
-                    <a href="{{ route('clinic_register') }}">
+                    <a href="{{route('clinic_register')}}">
                         <p class="mt-5 mb-3 text-muted">Register</p>
                     </a><br>
                     <p class="mt-5 mb-3 text-muted">Strix Digital © 2020</p>

@@ -8,6 +8,7 @@
                 <div class="row align-items-center mb-2">
                     <div class="col">
                         <h2 class="h5 page-title">Welcome {{session('name')}} !</h2>
+                        {{-- <a href="{{route('userschat')}}"><h2 class="h5 page-title">Let's Chat</h2></a> --}}
                     </div>
                     <div class="col-auto">
                         <form class="form-inline">

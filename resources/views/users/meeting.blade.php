@@ -154,7 +154,6 @@
                             $("#clinics").append('<option value="' + value
                                 .id + '">' + value.name +  ' - '+ value.distance +' Kms</option>');
                         });
-                        
                     }
                 });
             });

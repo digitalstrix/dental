@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Clinic;
 use App\Models\Meeting;
 use App\Models\Service;
-use App\Models\Provider;
 use App\Models\ClinicFile;
 use App\Models\ClinicSlot;
 use App\Models\ClinicVisit;
@@ -16,9 +15,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Applyjob;
+use App\Models\AssignChat;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Clinic as ModelsClinic;
+use App\Models\Member;
+use App\Models\Message;
 use App\Models\Provider as ModelsProvider;
 
 class CommonController extends Controller
@@ -32,7 +34,7 @@ class CommonController extends Controller
         $psent = ClinicFile::where('clinic_id', session('userid'))->get()->count();
         $userid = session('userid');
         $data = User::find($userid);
-        return view('clinic.dashboard',compact('umeetings','cmeetings','previews','areviews','psent'));
+        return view('clinic.dashboard', compact('umeetings', 'cmeetings', 'previews', 'areviews', 'psent'));
     }
     public function userProfile()
     {
@@ -74,6 +76,11 @@ class CommonController extends Controller
     }
     public function clinicSlot()
     {
+        $user = ModelsClinic::where('id',Session('userid'))->first();
+        if (empty($user->latitude) || empty($user->longitude)) {
+            toast('Please Fill the Address First','error')->autoClose(3000);
+            return redirect(route('clinic_edit'));
+        }
         $details = ClinicSlot::where('clinic_id', session('userid'))->get();
         return view('clinic.cliniclots', compact('details'))->with('info', 'Meetings Slots');
     }
@@ -86,6 +93,7 @@ class CommonController extends Controller
                 "end" => "required",
             ]
         );
+       
         $slot = new ClinicSlot();
         $slot->clinic_id = $request->userid;
         $slot->start = $request->start;
@@ -104,6 +112,7 @@ class CommonController extends Controller
     }
     public function clinicFile()
     {
+
         $userid = session('userid');
         $details = [];
         $temp1 = ModelsClinic::find($userid);
@@ -122,6 +131,11 @@ class CommonController extends Controller
     }
     public function clinicMap()
     {
+        $user = ModelsClinic::where('id',Session('userid'))->first();
+        if (empty($user->latitude) || empty($user->longitude)) {
+            toast('Please Fill the Address First','error')->autoClose(3000);
+            return redirect(route('clinic_edit'));
+        }
         $userid = session('userid');
         $details = [];
         $user = ModelsClinic::find($userid);
@@ -197,12 +211,13 @@ class CommonController extends Controller
         $meeting = Meeting::where('clinic_id', $user->id)->get();
         $details = array();
         foreach ($meeting as $meet) {
+            $patient = User::where('id',$meet->user_id)->first();
             $provider = ModelsProvider::where('id', $meet->providers_id)->first();
             $clinic = ModelsClinic::where('id', $meet->clinic_id)->first();
             $clinictime = ClinicSlot::where('id', $meet->clinic_slot_id)->first();
             $details[] = array(
-                "username" => $provider->name,
-                "user_id" => $provider->name,
+                "username" => $patient->name,
+                "user_id" => $patient->id,
                 "clinic" => $clinic->name,
                 "clinic_id" => $clinic->id,
                 "_provider" => $meet->doctor_confirm,
@@ -268,20 +283,22 @@ class CommonController extends Controller
         $job->save();
         return redirect(route('clinic_myMeetings'));
     }
-    public function appliedJobs(){
+    public function appliedJobs()
+    {
         $clinic = session('userid');
         $jobs = Job::where('clinic_id', $clinic)->get();
-        foreach ($jobs as $job){
+        $details = array();
+        foreach ($jobs as $job) {
             // dd($job);
-            if(Applyjob::where('job_id',$job->id)->first()){
-                $applied = Applyjob::where('job_id',$job->id)->get();
-                foreach($applied as $data){
+            if (Applyjob::where('job_id', $job->id)->first()) {
+                $applied = Applyjob::where('job_id', $job->id)->get();
+                foreach ($applied as $data) {
                     // dd($data);
-                    $time = ClinicSlot::where('id',$job->clinic_slot_id)->first();
-                    $meeting = Meeting::where('id',$job->meeting_id)->first();
-                    $d_name = Provider::where('id',$meeting->providers_id)->first();
+                    $time = ClinicSlot::where('id', $job->clinic_slot_id)->first();
+                    $meeting = Meeting::where('id', $job->meeting_id)->first();
+                    $d_name = Provider::where('id', $meeting->providers_id)->first();
                     $details[] = array(
-                        "name"=> $data->name,
+                        "name" => $data->name,
                         "email" => $data->email,
                         "mobile" => $data->mobile,
                         "job_id" => $data->job_id,
@@ -293,32 +310,113 @@ class CommonController extends Controller
                         "applied_id" => $data->id,
                     );
                 }
-            }else{
-                $details = array();
             }
         }
         return view('clinic.myjobs', compact('details'));
     }
-    public function endjob(Request $request){
+    public function endjob(Request $request)
+    {
         $temp = Job::find($request->id);
-        if($temp->is_ended==1){
+        if ($temp->is_ended == 1) {
             $temp->is_ended = 0;
-        }elseif($temp->is_ended==0){
+        } elseif ($temp->is_ended == 0) {
             $temp->is_ended = 1;
         }
         $temp->save();
         toast('Status Saved.', 'success')->autoClose(3000);
         return redirect(route('appliedJobs'));
     }
-    public function hirecandidate(Request $request){
+    public function hirecandidate(Request $request)
+    {
         $temp = Applyjob::find($request->id);
-        if($temp->is_selected==1){
+        if ($temp->is_selected == 1) {
             $temp->is_selected = 0;
-        }elseif($temp->is_selected==0){
+        } elseif ($temp->is_selected == 0) {
             $temp->is_selected = 1;
         }
         $temp->save();
         toast('Status Saved.', 'success')->autoClose(3000);
         return redirect(route('appliedJobs'));
     }
+    public function post_api(Request $request)
+    {
+        $service = new Service;
+        $service->service = $request->service;
+        $service->clinic_id = $request->clinic_id;
+        $result = $service->save();
+        if ($result) {
+            return ["Result" => "Data is saved successfully!"];
+        } else {
+            return ["Result" => "Data is not saved!"];
+        }
+    }
+    public function put_api(Request $request)
+    {
+        $service = Service::findorfail($request->id);
+        $service->service = $request->service;
+        $service->clinic_id = $request->clinic_id;
+        $result = $service->save();
+        if ($result) {
+            return ["Result" => "Data is updated successfully!"];
+        } else {
+            return ["Result" => "Data is not updated!"];
+        }
+    }
+    public function search_api($name)
+    {
+        $result = Service::where("service",$name)->get();
+        return $result;
+    }
+    public function userschat(Request $request){
+        $chats = Message::where('meeting_at', $request->id)->get();
+        $messages = [];
+        foreach($chats as $chat){
+            $member = Member::where('id', $chat->member_id)->first();
+            if($member->type=='user'){
+                $user = User::where('id', $member->user_id)->first();
+            }
+            if($member->type=='provider'){
+                $user = ModelsProvider::where('id', $member->user_id)->first();
+            }
+            if($member->type=='clinic'){
+                $user = ModelsClinic::where('id', $member->user_id)->first();
+            }
+            $messages[] = array(
+                    "message" => $chat->message,
+                    "type" => $member->type,
+                    "user_id" => $member->user_id,
+                    "time" => $chat->created_at,
+                    "name" => $user->name,
+            );
+        }
+        return view("clinic.userschat",compact('messages'));
+    }
+    public function chats(){
+        $user = ModelsClinic::find(session('userid'));
+        $meeting = Meeting::where('clinic_id', $user->id)->get();
+        $details = array();
+        foreach ($meeting as $meet) {
+            $patient = User::where('id',$meet->user_id)->first();
+            $provider = ModelsProvider::where('id', $meet->providers_id)->first();
+            $clinic = ModelsClinic::where('id', $meet->clinic_id)->first();
+            $clinictime = ClinicSlot::where('id', $meet->clinic_slot_id)->first();
+            $details[] = array(
+                "name" => $patient->name,
+                "provider" => $provider->name,
+                "reason" => $meet->reason,
+                "meet_id" => $meet->id,
+            );
+        }
+        return view('clinic.chats',compact('details'));
+    }
+    public function sendMessage(Request $request){
+        $member = Member::where('user_id',Session('userid'))->where('type','clinic')->where('meeting_at',$request->meeting_id)->first();
+        $message = new Message();
+        $message->member_id = $member->id;
+        $message->message = $request->message;
+        $message->meeting_at = $request->meeting_id;
+        $message->save();
+        return redirect(route('clinic_userschat',$request->meeting_id));
+    }
+    
 }

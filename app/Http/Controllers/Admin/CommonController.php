@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Clinic;
-use App\Models\Provider;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\ClinicReview;
-use App\Models\Job;
-use App\Models\Meeting;
-use App\Models\ProviderReview;
 use App\Models\Querie;
+use App\Models\Meeting;
+use App\Models\Service;
+use App\Models\Provider;
+use App\Models\ClinicReview;
+use Illuminate\Http\Request;
+use App\Http\Middleware\Admin;
+use App\Models\ProviderReview;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class CommonController extends Controller
@@ -51,8 +53,8 @@ class CommonController extends Controller
         if (isset($request->latitude))
             $user->latitude = $request->latitude;
         if ($request->hasFile('image')) {
-            $file = $request->file('image')->store('public/img/provider/profile');
-            $user->profile  = $file;
+            $file = $request->file('image')->store('public/img/admin/profile');
+            $user->profile = $file;
         }
         $result = $user->save();
         toast('Admin Details Updated Successfully', 'success')->autoClose(3000);
@@ -60,7 +62,7 @@ class CommonController extends Controller
     }
     public function usersDetails()
     {
-        $details = User::all();
+        $details = User::where('user_type','user')->get();
         return view('admin.users', compact('details'));
     }
     public function providersDetails()
@@ -98,4 +100,5 @@ class CommonController extends Controller
         $queries = Querie::all();
         return view('admin.messages',compact('queries'));
     }
+   
 }

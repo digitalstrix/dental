@@ -11,7 +11,7 @@
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item dropdown">
-                <a href="{{route('providers_dashboard')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+                <a href="{{route('providers_dashboard')}}" aria-expanded="false" class=" nav-link">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Dashboard</span><span class="sr-only"></span>
                 </a>
@@ -22,39 +22,43 @@
             <span>Providers Controls</span>
         </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
-            <a href="{{route('providePage',[session('userid'),session('name')])}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('providePage',[session('userid'),str_replace(' ', '-',session('name'))])}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Your Website</span>
             </a>
-            <a href="{{route('provider_edit')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_edit')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Edit Profile</span>
             </a>
-            <a href="{{route('myMeetings')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('myMeetings')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">My Meetings</span>
             </a>
-            <a href="{{route('provider_calendar')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_calendar')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Calendar</span>
             </a>
-            <a href="{{route('provider_usersfile')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_usersfile')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">User Files</span>
             </a>
-            <a href="{{route('provider_slots')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_slots')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add Slots</span>
             </a>
-            <a href="{{route('providersMap')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('providersMap')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Add Visit</span>
             </a>
-            <a href="{{route('myReview')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('myReview')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">My Reviews</span>
             </a>
-            <a href="{{route('logout')}}" aria-expanded="false" class="dropdown-toggle nav-link">
+            <a href="{{route('provider_chats')}}" aria-expanded="false" class=" nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">Chats</span>
+            </a>
+            <a href="{{route('logout')}}" aria-expanded="false" class=" nav-link">
                 <i class="fe fe-box fe-16"></i>
                 <span class="ml-3 item-text">Logout</span>
             </a>

@@ -1,5 +1,5 @@
 @extends('users.layouts.master');
-@section('title','Schedule   Meet | Dashboard');
+@section('title','Schedule Meet | Dashboard');
 @section('content');
 {{-- {{dd($details)}} --}}
 <body class="vertical  light  ">
@@ -67,7 +67,7 @@
                                                 <?php
                                                     if($value['meeting_link']!=null){
                                                 ?>
-                                                <a class="dropdown-item" href="{{$value['meeting_link']}}">Join Meet</a>
+                                                <a class="dropdown-item" href="{{route('jitsi',substr($value['meeting_link'],20))}}">Join Meet</a>
                                                 <?php
                                                     }
                                                 ?>
